@@ -1,7 +1,7 @@
 import React from "react";
 
-class MintNFT extends React.Component{
-    constructor(props) {
+class MintNFT extends React.Component<any,any>{
+    constructor(props: any) {
         super(props);
         this.state = {
             image: '',
@@ -13,15 +13,15 @@ class MintNFT extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
       }
     
-      handleChangeName(event) {
+      handleChangeName(event:any) {
         this.setState({n: event.target.n});
       }
 
-      handleChangeDescription(event) {
+      handleChangeDescription(event:any) {
         this.setState({description: event.target.description});
       }
     
-      handleSubmit(event) {
+      handleSubmit(event:any) {
         alert('A name was submitted: ' + this.state.value);
         event.preventDefault();
         const postBody = {

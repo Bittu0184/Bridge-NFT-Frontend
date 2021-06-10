@@ -1,7 +1,7 @@
 import React from "react";
 
-class ShowNFTs extends React.Component{
-    constructor(props) {
+class ShowNFTs extends React.Component<any,any>{
+    constructor(props:any) {
         super(props);
         this.state = {
             error: null,
@@ -40,7 +40,7 @@ class ShowNFTs extends React.Component{
             return (
               <div>
                 <ul>
-                {metadata.map((data,index) => (
+                {metadata.map((data:any,index:any) => (
                     <li key={index}>
                         <h3>{data.name}</h3>
                         <img src={`https://ipfs.io/ipfs/${data.image}`} alt={data.name} ></img>

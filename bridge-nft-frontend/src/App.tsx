@@ -3,6 +3,7 @@ import './App.css';
 import ShowToken from './ShowToken';
 import MintNFT from './MintNFT';
 import ShowNFTs from './ShowNFTs';
+import AddWallets from './AddWallet';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <MintNFT/> 
       <ShowToken />
       <ShowNFTs />
+      <AddWallets />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 
-class ShowToken extends React.Component{
-    constructor(props) {
+class ShowToken extends React.Component<any,any>{
+    constructor(props:any) {
         super(props);
         this.state = {
             error: null,
@@ -40,7 +40,7 @@ class ShowToken extends React.Component{
             return (
               <div>
                 <ul>
-                {tokens.map(token => (
+                {tokens.map( (token:any) => (
                     <li key={token.Id}>
                     <img src={`https://ipfs.io/ipfs/${token.token}`} alt={token.token} ></img>
                     </li>
