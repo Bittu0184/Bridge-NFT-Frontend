@@ -15,7 +15,7 @@ class AddWallets extends React.Component<any,any>{
     this.connectWallets = this.connectWallets.bind(this);
   }
 
-  async connectWallets(){
+  async connectWallets(){     
     const providerOptions = {
       mewconnect: {
         package: MewConnect, // required
@@ -35,13 +35,14 @@ class AddWallets extends React.Component<any,any>{
     const provider = await web3Modal.connect();
     
     const web3 = new Web3(provider);
-  
     const accounts = await web3.eth.getAccounts();
     const bal = await web3.eth.getBalance(accounts[0]); 
     this.setState({
       account: accounts,
       balance: bal
     }) 
+    
+    //web3.eth.Contract.call 
    
     provider.on("accountsChanged", async (accounts: string[]) => {
       const bal = await web3.eth.getBalance(accounts[0]);
@@ -62,7 +63,6 @@ class AddWallets extends React.Component<any,any>{
         <h2>Account Address: {this.state.account}</h2>
         <h3>Account Balance: {this.state.balance}</h3>
       </div>
-
     )}
 }
 export default AddWallets;
