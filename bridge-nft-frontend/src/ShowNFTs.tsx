@@ -1,4 +1,6 @@
 import React from "react";
+import { Card, CardDeck } from 'react-bootstrap';
+import './ShowNFTs.css';
 
 class ShowNFTs extends React.Component<any,any>{
     constructor(props:any) {
@@ -39,15 +41,22 @@ class ShowNFTs extends React.Component<any,any>{
         } else {
             return (
               <div>
-                <ul>
+                <CardDeck className="CustomCardDeck">
                 {metadata.map((data:any,index:any) => (
-                    <li key={index}>
-                        <h3>{data.name}</h3>
-                        <img src={`https://ipfs.io/ipfs/${data.image}`} alt={data.name} ></img>
-                        <p>{data.description}</p>
-                    </li>
+                  <Card className="CustomCard" key={index} border="dark">
+                    <Card.Img className="CustomCardImg" variant="top" src={`https://ipfs.io/ipfs/${data.ipfsID}`} alt={data.name} />
+                    <Card.Body className="CustomCardBody">
+                      <Card.Title>{data.name}</Card.Title>
+                      <Card.Text>
+                        {data.description}
+                      </Card.Text>
+                    </Card.Body>
+                    <Card.Footer>
+                      <small className="text-muted">Creator/Owner: X</small>
+                    </Card.Footer>
+                  </Card>
                 ))}
-                </ul>
+                </CardDeck>
               </div>
             );
         }

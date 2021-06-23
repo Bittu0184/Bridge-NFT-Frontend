@@ -1,0 +1,40 @@
+.CustomCardDeck{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 70%;
+    margin: auto;
+    justify-content: space-evenly;
+}
+
+.CustomCard{
+    padding: 2%;
+    flex-grow: 1;
+    flex-basis: 30%;
+    margin-top: 20px;
+    display: flex; 
+    min-height: 400px;
+    max-width: 280px;
+}
+
+.CustomCardImg{
+    max-width: 100%;
+}
+
+.CustomCardBody{
+    margin-top: auto;
+}
+
+@media (max-width: 920px) {
+    .CustomCard {
+      flex: 1 21%;
+    }
+  }
+
+
+
+@media (max-width: 600px) {
+    .CustomCard {
+      flex: 1 46%;
+    }
+  }
+  

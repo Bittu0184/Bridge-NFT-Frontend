@@ -3,10 +3,9 @@ import { Navbar, Nav, NavbarBrand } from 'react-bootstrap';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    NavLink
+    Route
   } from "react-router-dom";
-import AddWallets from "./AddWallet";
+//import AddWallets from "./AddWallet";
 import ShowNFTs from "./ShowNFTs";
 import MintNFT from "./MintNFT";
 import Web3 from "web3";
@@ -69,17 +68,13 @@ class CustomNavbar extends React.Component<any,any>{
             <Router>
                 <div>
                     <Navbar bg="light" variant="light" sticky="top"> 
-                    <NavbarBrand>Navbar</NavbarBrand>
+                    <NavbarBrand>Granth Innovates!</NavbarBrand>
                         <Nav className="mr-auto">
-                            <NavLink to="/home">Home</NavLink>
-                            <NavLink to="/explore">Explore</NavLink>
-                            <NavLink to="/drop">Drop</NavLink>
+                            <Nav.Link href="/explore">Explore</Nav.Link>
+                            <Nav.Link href="/drop">Drop</Nav.Link>
                         </Nav>
                     </Navbar>
                     <Switch>
-                        <Route path="/home">
-                            <AddWallets />
-                        </Route>
                         <Route path="/explore">
                             <ShowNFTs />
                         </Route>
