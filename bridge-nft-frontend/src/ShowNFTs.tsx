@@ -1,6 +1,8 @@
 import React from "react";
-import { Card, CardDeck } from 'react-bootstrap';
-import './ShowNFTs.css';
+//import { Card, CardDeck } from 'react-bootstrap';
+//import './ShowNFTs.css';
+import { Card, Icon, Image } from 'semantic-ui-react'
+//import InfiniteScroll from 'react-infinite-scroller';
 
 class ShowNFTs extends React.Component<any,any>{
     constructor(props:any) {
@@ -40,24 +42,27 @@ class ShowNFTs extends React.Component<any,any>{
             return <div>Loading...</div>;
         } else {
             return (
-              <div>
-                <CardDeck className="CustomCardDeck">
-                {metadata.map((data:any,index:any) => (
-                  <Card className="CustomCard" key={index} border="dark">
-                    <Card.Img className="CustomCardImg" variant="top" src={`https://ipfs.io/ipfs/${data.ipfsID}`} alt={data.name} />
-                    <Card.Body className="CustomCardBody">
-                      <Card.Title>{data.name}</Card.Title>
-                      <Card.Text>
-                        {data.description}
-                      </Card.Text>
-                    </Card.Body>
-                    <Card.Footer>
-                      <small className="text-muted">Creator/Owner: X</small>
-                    </Card.Footer>
-                  </Card>
-                ))}
-                </CardDeck>
-              </div>
+              <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
+                 {metadata.map((data:any,index:any) => (
+                <Card raised link>
+                    <Image size="medium" src={`https://ipfs.io/ipfs/${data.ipfsID}`} alt={data.name} wrapped ui={false} />
+                    <Card.Content>
+                      <Card.Header>{data.name}</Card.Header>
+                      <Card.Meta>Joined in 2016</Card.Meta>
+                      <Card.Description>
+                      {data.description}
+                      </Card.Description>
+                    </Card.Content>
+                    <Card.Content extra>
+                      <a>
+                        <Icon name='user' />
+                        10 Friends
+                      </a>
+                    </Card.Content>
+                </Card>
+                   ))}
+              </Card.Group>
+               
             );
         }
       }

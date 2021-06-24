@@ -1,8 +1,10 @@
-.App {
+.AppDiv {
   text-align: center;
   background-color: #f8f9fa;
 }
-
+.CustomCSSContainer{
+  background-color: #f8f9fa;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
