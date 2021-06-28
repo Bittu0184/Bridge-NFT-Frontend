@@ -22,13 +22,15 @@ export async function connectWallets(){
     const provider = await web3Modal.connect();
     
     const web3 = new Web3(provider);
-    const accounts = await web3.eth.getAccounts();
-    provider.on("accountsChanged", async (accounts: string[]) => {
+    //const accounts = await web3.eth.getAccounts();
+   // provider.on("accountsChanged", async (accounts: string[]) => {
         //const bal = await web3.eth.getBalance(accounts[0]);
-        return accounts[0];
-      });
+     //   return accounts[0];
+     // });
     //const bal = await web3.eth.getBalance(accounts[0]); 
-    return accounts[0];
+
+    return web3  ;
+    //return accounts[0];
     
     //web3.eth.Contract.call 
    

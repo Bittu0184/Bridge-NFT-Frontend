@@ -32,17 +32,17 @@ class AddWallets extends React.Component<any,any>{
       providerOptions // required
     });
     
+
     const provider = await web3Modal.connect();
     
     const web3 = new Web3(provider);
+    
     const accounts = await web3.eth.getAccounts();
     const bal = await web3.eth.getBalance(accounts[0]); 
     this.setState({
       account: accounts,
       balance: bal
-    }) 
-    
-    //web3.eth.Contract.call 
+    }); 
    
     provider.on("accountsChanged", async (accounts: string[]) => {
       const bal = await web3.eth.getBalance(accounts[0]);

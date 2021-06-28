@@ -87,10 +87,8 @@ class CustomNavbar extends React.Component<any,any>{
                             <MintNFT addressToMint={this.state.address}/>
                         </Route>
                     </Switch>
-                </div>
-                
+                </div>                
             </Router>
-           
         );
     }
 }
