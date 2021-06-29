@@ -28,9 +28,9 @@ class MintNFT extends React.Component<any,any>{
       async componentDidMount(){
         const web3 = await connectWallets();
         
-        const accounts = web3.eth.getAccounts().then((acc) => alert('Address acccount: ' + acc));
+        const accounts = web3.eth.getAccounts().then((acc) => alert('Address acccount: ' + acc[0]));
         //alert('Address acccount: ' + accounts);
-        this.setState({address: accounts});
+        this.setState({address: accounts[0]});
         this.setState({showUserForm: true});
       }
     
@@ -81,14 +81,14 @@ class MintNFT extends React.Component<any,any>{
         web3.eth.getCoinbase().then((coin) => {
           web3.eth.defaultAccount = coin
         });
-        web3.eth.getAccounts().then((acc) => {
-          instance.methods.approve("0x56a5372Dd84f2F1D4cF6B43c4c1FF59427dc0A69",4).send({from: "0x4FBD492820852D4210270CB254Ebf7d2e010Ae0f"})
+      //  web3.eth.getAccounts().then((acc) => {
+          instance.methods.approve("0xE29824d23619204146e675Dc93b35e616D748da2",4).send({from: this.state.address})
             .then((tx) => {
               alert('tx hash : ' + tx);
               
             })
             .catch((err) => {alert('error: ' + err)});
-        });
+        //});
       }
       
       async transferNFT(e){
@@ -101,11 +101,15 @@ class MintNFT extends React.Component<any,any>{
            web3.eth.defaultAccount = coin
          });*/
         //web3.utils.toChecksumAddress("0x56a5372Dd84f2F1D4cF6B43c4c1FF59427dc0A69")
-        web3.eth.defaultAccount = "0x56a5372Dd84f2F1D4cF6B43c4c1FF59427dc0A69";
-        instance.methods.safeTransferFrom("0x56a5372Dd84f2F1D4cF6B43c4c1FF59427dc0A69","0xb42C73351E636C2A2193773Bf9647E2331773294",4).send({from: "0xb42C73351E636C2A2193773Bf9647E2331773294"})
-                .then((tx) => {alert('tx hash for transfer: ' + tx)})
-                .catch((err) => {alert('error: ' + err)});
+        web3.eth.getAccounts().then((acc) => {
+          web3.eth.defaultAccount = "0x56a5372Dd84f2F1D4cF6B43c4c1FF59427dc0A69";
+          instance.methods.safeTransferFrom("0xE29824d23619204146e675Dc93b35e616D748da2",acc[0],4).send({from: "0xE29824d23619204146e675Dc93b35e616D748da2"})
+                  .then((tx) => {alert('tx hash for transfer: ' + tx)})
+                  .catch((err) => {alert('error: ' + err)});
+
+          })
       }
+
       render() {
         return (
           <div>
@@ -113,9 +117,9 @@ class MintNFT extends React.Component<any,any>{
               <Form size="large" id="formToMintNFT">
                 <Form.Field>
                   <label>NFT Title</label>
-                  <input name="n" placeholder='Cryptokitties' />
+                  <input name="n" value={this.state.n} onChange={this.handleChangeName} placeholder='Cryptokitties' />
                 </Form.Field>
-                <Form.Field name="description" label='NFT Description' control='textarea' rows='4' />
+                <Form.Field name="description" value={this.state.description} onChange={this.handleChangeDescription} label='NFT Description' control='textarea' rows='4' />
                 <Form.Field>
                   <label>Upload file image or gif</label>
                   <input type='file' name="fileToUpload"/>

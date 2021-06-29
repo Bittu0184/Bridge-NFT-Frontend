@@ -21,6 +21,26 @@ export async function connectWallets(){
     
     const provider = await web3Modal.connect();
     
+    // Subscribe to accounts change
+    provider.on("accountsChanged", (accounts: string[]) => {
+      console.log(accounts);
+    });
+
+    // Subscribe to chainId change
+    provider.on("chainChanged", (chainId: number) => {
+      console.log(chainId);
+    });
+
+    // Subscribe to provider connection
+    provider.on("connect", (info: { chainId: number }) => {
+      console.log(info);
+    });
+
+    // Subscribe to provider disconnection
+    provider.on("disconnect", (error: { code: number; message: string }) => {
+      console.log(error);
+    });
+
     const web3 = new Web3(provider);
     //const accounts = await web3.eth.getAccounts();
    // provider.on("accountsChanged", async (accounts: string[]) => {
