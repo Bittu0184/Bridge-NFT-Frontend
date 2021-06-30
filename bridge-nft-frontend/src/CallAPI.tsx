@@ -15,4 +15,5 @@ export async function fetchAPI(uri:string,data:string) {
             console.error('Error:', error);
             return error;
           });
+    return null;
 };

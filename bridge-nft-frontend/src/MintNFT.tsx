@@ -26,12 +26,13 @@ class MintNFT extends React.Component<any,any>{
       }
 
       async componentDidMount(){
-        const web3 = await connectWallets();
-        
-        const accounts = web3.eth.getAccounts().then((acc) => alert('Address acccount: ' + acc[0]));
-        //alert('Address acccount: ' + accounts);
-        this.setState({address: accounts[0]});
-        this.setState({showUserForm: true});
+       // const web3 = await connectWallets();
+        await connectWallets().then((web3) => {
+          const accounts = web3.eth.getAccounts().then((acc) => alert('Address acccount: ' + acc[0]));
+          //alert('Address acccount: ' + accounts);
+          this.setState({address: accounts[0]});
+          this.setState({showUserForm: true});
+        }).catch((err) => {alert("err while connecting "+ err)}); 
       }
     
       handleChangeName(event:any) {

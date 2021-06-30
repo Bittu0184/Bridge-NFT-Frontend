@@ -8,68 +8,22 @@ import {
 //import {Button} from 'semantic-ui-react';
 //import AddWallets from "./AddWallet";
 import ShowNFTs from "./ShowNFTs";
-import MintNFT from "./MintNFT";
+//import MintNFT from "./MintNFT";
 //import Web3 from "web3";
 //import Web3Modal from "web3modal";
 //import MewConnect from "@myetherwallet/mewconnect-web-client";
 import './CustomNavbar.css';
+import AccountPage from "./AccountPage";
+import UploadAndMintHandler from "./UploadAndMintHandler";
 
 
 class CustomNavbar extends React.Component<any,any>{
-    constructor(props:any) {
-        super(props);
-        this.state = {
-            address: "",
-        };
-        //this.connectWallets = this.connectWallets.bind(this);
-    }
-
-    
-/*
-    async connectWallets(){     
-      const providerOptions = {
-        mewconnect: {
-          package: MewConnect, // required
-          options: {
-            infuraId: "https://rinkeby.infura.io/v3/5a13ceea0a5a49d5962dfaaeb104a62c" // required
-          }
-        }
-      };
-      
-      
-      const web3Modal = new Web3Modal({
-        network: "rinkbey", // optional
-        cacheProvider: true, // optional
-        providerOptions // required
-      });
-      
-      const provider = await web3Modal.connect();
-      
-      const web3 = new Web3(provider);
-      const accounts = await web3.eth.getAccounts();
-      //const bal = await web3.eth.getBalance(accounts[0]); 
-      this.setState({
-          address: accounts
-      }) 
-      
-      //web3.eth.Contract.call 
-     
-      provider.on("accountsChanged", async (accounts: string[]) => {
-        //const bal = await web3.eth.getBalance(accounts[0]);
-        this.setState({
-          address: accounts
-        });
-      });
-      //console.log("Accounts: ", accounts[0]);
-    }
-    */
-
     render() {
         return(
             <Router>
-                <div className="Header">
+                <div >
                     <Navbar collapseOnSelect  bg="light" variant="light" sticky="top"> 
-                        <Navbar.Brand>Granth Innovates!</Navbar.Brand>
+                        <Navbar.Brand>Unfold Innovates!!</Navbar.Brand>
                         <Navbar.Collapse id="responsive-navbar-nav">
                           <Nav className="mr-auto">
                               <Nav.Link href="/explore">Explore</Nav.Link>
@@ -81,10 +35,13 @@ class CustomNavbar extends React.Component<any,any>{
                     </Navbar>
                     <Switch>
                         <Route path="/explore">
-                            <ShowNFTs />
+                          <ShowNFTs />
                         </Route>
                         <Route path="/drop">
-                            <MintNFT addressToMint={this.state.address}/>
+                          <AccountPage />
+                        </Route>
+                        <Route path="/mintnft">
+                          <UploadAndMintHandler address={"0xb42C73351E636C2A2193773Bf9647E2331773294"} />  
                         </Route>
                     </Switch>
                 </div>                
