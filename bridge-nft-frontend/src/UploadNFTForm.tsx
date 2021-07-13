@@ -1,32 +1,14 @@
 import React from "react";
-import { Button, Checkbox, Container, Dimmer, Form } from "semantic-ui-react";
-import { fetchAPI } from "./CallAPI";
+import { Button, Checkbox, Container, Form } from "semantic-ui-react";
 import axios from 'axios';
 import CustomSteps from "./CustomSteps";
 
 class UploadNFTForm extends React.Component<any,any> {
     constructor(props: any) {
         super(props);
-        /*this.state = {
-            image: '',
-            n: '',
-            description: '',
-            ipfsHash: '',
-            address: this.props.address,
-            completed: false
-        };*/
-       // this.handleChangeName = this.handleChangeName.bind(this);
-       // this.handleChangeDescription = this.handleChangeDescription.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-/*
-    handleChangeName(event:any) {
-        this.setState({n: event.target.n});
-    }
-    handleChangeDescription(event:any) {
-        this.setState({description: event.target.description});
-    }*/
     async handleSubmit(event:any) {
         event.preventDefault();
         alert('A name was submitted: ' + this.props.values.n);
@@ -40,28 +22,13 @@ class UploadNFTForm extends React.Component<any,any> {
                 alert("Success: " + response + "Address: " + this.props.values.address);
                 alert("Hash Generated: " + response.data['IpfsHash']);
                 this.props.updateIPFSHash(response.data['IpfsHash']);
-               // this.props.updateCompleted(1);
-                //this.setState({ipfsHash: response.data['IpfsHash']});
-                //this.setState({completed:true});
             })
             .catch(error => {
                 alert("Errorr: " + error + " Address: " + this.props.values.address);
             });
             this.props.nextStep()
-      }
-/*
-    async handleMint(e){
-        alert("Uploading this: " + this.state.ipfsHash + "To  Address: " + this.state.address);
-        e.preventDefault();
-        const postBody = {
-          address: this.state.address,
-          datatomint: this.state.ipfsHash
-        };
-        const strPost = JSON.stringify(postBody);
-        alert(strPost)
-        alert(await fetchAPI('http://localhost:8282/mint_nft',strPost))
     }
-*/
+    
     render(){
         const { values } = this.props;
         return(

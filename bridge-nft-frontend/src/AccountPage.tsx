@@ -1,10 +1,8 @@
 import React from "react";
 import { Card } from "semantic-ui-react";
-//import { fetchAPI } from "./CallAPI";
 import CustomCard from "./Card";
 import { connectWallets } from './ConnectWallet';
-import './MintNFT';
-import MintNFTPopUp from "./UploadNFTForm";
+import './MintNFT.css';
 
 
 class AccountPage extends React.Component<any,any> {

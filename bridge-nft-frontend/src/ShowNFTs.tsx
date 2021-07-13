@@ -20,6 +20,7 @@ class ShowNFTs extends React.Component<any,any>{
                 isLoaded: true,
                 metadata: result.metadata
               });
+              console.log(this.state.metadata);
             },(error) => {
               this.setState({
                 isLoaded: true,

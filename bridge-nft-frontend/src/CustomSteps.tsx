@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon, Step } from "semantic-ui-react";
+import { Step } from "semantic-ui-react";
 
 
 class CustomSteps extends React.Component<any,any> {
@@ -18,7 +18,7 @@ class CustomSteps extends React.Component<any,any> {
                 <Step
                     active={active === 'Upload Art'}
                     completed={completed === 1}
-                    icon='truck'
+                    icon='upload'
                     link
                     onClick={this.handleClick}
                     title='Upload Art'
@@ -36,7 +36,7 @@ class CustomSteps extends React.Component<any,any> {
                 <Step
                     active={active === 'Put For Sale'}
                     completed={completed === 3}
-                    icon='credit card'
+                    icon='money bill alternate outline'
                     link
                     onClick={this.handleClick}
                     title='Put For Sale'

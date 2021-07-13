@@ -5,38 +5,32 @@ import {
     Switch,
     Route
   } from "react-router-dom";
-import ShowNFTs from "./ShowNFTs";
+//import ShowNFTs from "./ShowNFTs";
 import './CustomNavbar.css';
 import AccountPage from "./AccountPage";
 import UploadAndMintHandler from "./UploadAndMintHandler";
-//import Home from "./Home";
 import HomePage from "./HomePage";
 
-class CustomNavbar extends React.Component<any,any>{
+
+class Home extends React.Component<any,any>{
     render() {
         return(
             <Router>
                 <div >
                     <Navbar id="navbar-custom-css" collapseOnSelect  bg="light" variant="light" sticky="top"> 
-                        <Navbar.Brand>Unfold Innovates!!</Navbar.Brand>
+                        <Navbar.Brand>Unfold</Navbar.Brand>
                         <Navbar.Collapse id="responsive-navbar-nav">
                           <Nav>
-                              <Nav.Link href="/home">Home</Nav.Link>
-                          </Nav>
-                          <Nav className="mr-auto">
                               <Nav.Link href="/explore">Explore</Nav.Link>
                           </Nav>
                           <Nav>
-                              <Nav.Link href="/drop">Connect and Create Your own NFT!!</Nav.Link>
+                              <Nav.Link href="/drop">Connect</Nav.Link>
                           </Nav>
                         </Navbar.Collapse>
                     </Navbar>
                     <Switch>
-                        <Route path="/home">
-                          <HomePage/>
-                        </Route>
                         <Route path="/explore">
-                          <ShowNFTs />
+                          <HomePage />
                         </Route>
                         <Route path="/drop">
                           <AccountPage />
@@ -51,4 +45,4 @@ class CustomNavbar extends React.Component<any,any>{
     }
 }
 
-export default CustomNavbar;
+export default Home;

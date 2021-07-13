@@ -1,5 +1,8 @@
 .mintNFTContainer{
     padding-top: 100px;
     padding-bottom: 100px;
-    background: black;
+    background-image: url('Assets/nft-concept-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 25px;
 }
