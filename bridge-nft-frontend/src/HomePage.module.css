@@ -1,0 +1,10 @@
+.cardCustom{
+    margin-top: 100px;
+    padding-top: 100px;
+}
+
+.ui.link.raised.Card.cardCustom{
+    margin-top: 100px !important;
+    padding-top: 100px !important;
+    padding-left: 100px;
+}

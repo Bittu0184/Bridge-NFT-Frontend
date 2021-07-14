@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import Web3 from "web3";
 import Web3Modal from "web3modal";
 import MewConnect from "@myetherwallet/mewconnect-web-client";
@@ -65,4 +65,5 @@ class AddWallets extends React.Component<any,any>{
       </div>
     )}
 }
-export default AddWallets;
+export default AddWallets;*/
+export {};

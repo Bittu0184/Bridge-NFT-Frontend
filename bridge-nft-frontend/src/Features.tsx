@@ -1,6 +1,7 @@
 import React from "react";
 import {  Grid } from "semantic-ui-react";
 import FeatureCard from "./FeatureCard";
+import styles from './HomePage.module.css';
 
 class Features extends React.Component<any,any> {
     render() {
@@ -12,19 +13,21 @@ class Features extends React.Component<any,any> {
             description:'Searching for a place to get essecnce of traditional india and it\'s arts? You can purchase customised arts directly from local artisans.'
         }
         return (
-            <Grid container columns={4}>
-                <Grid.Column>
-                    <FeatureCard data={data1} />
-                </Grid.Column>
-                <Grid.Column>
-                    <FeatureCard data={data1} />
-                </Grid.Column>
-                <Grid.Column>
-                    <FeatureCard data={data1} />
-                </Grid.Column>
-                <Grid.Column>
-                    <FeatureCard data={data1} />
-                </Grid.Column>
+            <Grid centered columns={2} className={styles.customGridCSS}>
+                <Grid.Row>
+                    <Grid.Column>
+                        <FeatureCard data={data1} />
+                    </Grid.Column>
+                    <Grid.Column>
+                        <FeatureCard data={data1} />
+                    </Grid.Column>
+                    <Grid.Column>
+                        <FeatureCard data={data1} />
+                    </Grid.Column>
+                    <Grid.Column>
+                        <FeatureCard data={data1} />
+                    </Grid.Column>
+                </Grid.Row>
             </Grid>
         )
     }

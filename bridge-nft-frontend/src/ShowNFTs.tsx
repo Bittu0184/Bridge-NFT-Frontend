@@ -1,6 +1,10 @@
 import React from "react";
 import CustomCard from "./Card";
 //import InfiniteScroll from 'react-infinite-scroller';
+import {withRouter} from "react-router";
+import ResponsiveContainer from "./ResponsiveContainer";
+//import { createMedia } from "@artsy/fresnel";
+
 
 class ShowNFTs extends React.Component<any,any>{
     constructor(props:any) {
@@ -39,10 +43,12 @@ class ShowNFTs extends React.Component<any,any>{
             return <div>Loading...</div>;
         } else {
             return (
-              <CustomCard metadata={this.state.metadata}/>
+              <ResponsiveContainer>
+                <CustomCard metadata={this.state.metadata}/>
+              </ResponsiveContainer>
             );
         }
       }
 }
 
-export default ShowNFTs;
+export default withRouter(ShowNFTs);

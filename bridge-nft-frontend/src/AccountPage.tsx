@@ -3,7 +3,7 @@ import { Card } from "semantic-ui-react";
 import CustomCard from "./Card";
 import { connectWallets } from './ConnectWallet';
 import './MintNFT.css';
-
+import ResponsiveContainer from "./ResponsiveContainer";
 
 class AccountPage extends React.Component<any,any> {
     constructor(props: any) {
@@ -65,7 +65,7 @@ class AccountPage extends React.Component<any,any> {
             return <div>Loading...</div>;
         } else {
             return (
-                <div>
+                <ResponsiveContainer>
                     <div className="mintNFTContainer">
                         <Card centered  raised link href="/mintnft">
                             <Card.Content>
@@ -78,7 +78,7 @@ class AccountPage extends React.Component<any,any> {
                         </Card>
                     </div>
                     <CustomCard metadata={this.state.metadata}/>
-                </div>
+                </ResponsiveContainer>
             ); 
         }
     }

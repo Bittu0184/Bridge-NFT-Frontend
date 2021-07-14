@@ -2,6 +2,7 @@ import React from "react";
 import UploadNFTForm from "./UploadNFTForm";
 import MintNFTForm from "./MintNFTForm";
 import SaleNFT from "./SaleNFT";
+import {withRouter} from 'react-router';
 
 class UploadAndMintHandler extends React.Component<any,any> {
     constructor(props: any) {
@@ -70,4 +71,4 @@ class UploadAndMintHandler extends React.Component<any,any> {
     }
 }
 
-export default UploadAndMintHandler;
+export default withRouter(UploadAndMintHandler);
