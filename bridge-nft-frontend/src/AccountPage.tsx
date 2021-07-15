@@ -1,7 +1,8 @@
 import React from "react";
-import { Card } from "semantic-ui-react";
+import { Card, Dimmer, Loader, Segment } from "semantic-ui-react";
 import CustomCard from "./Card";
 import { connectWallets } from './ConnectWallet';
+import Footer from "./Footer";
 import './MintNFT.css';
 import ResponsiveContainer from "./ResponsiveContainer";
 
@@ -62,7 +63,16 @@ class AccountPage extends React.Component<any,any> {
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div>Loading...</div>;
+            return (
+            <ResponsiveContainer>
+                <Segment style={{minHeight: 800}}>
+                  <Dimmer active>
+                    <Loader size='massive'/>
+                  </Dimmer>
+                </Segment>
+                <Footer/>
+            </ResponsiveContainer>
+            )
         } else {
             return (
                 <ResponsiveContainer>

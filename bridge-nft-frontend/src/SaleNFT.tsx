@@ -1,29 +1,27 @@
 import React from "react";
-import axios from 'axios';
 import CustomSteps from "./CustomSteps";
+import {Button, Container, Header, Segment} from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
+
 
 class SaleNFT extends React.Component<any,any> {
-
-    componentDidMount(){
-        axios.get("https://gateway.pinata.cloud/ipfs/" + this.props.values.ipfsHash)
-            .then((res) => res.data)
-            .then((data) => {
-                console.log("IPFS ID : " + data.ipfsID);
-                this.setState({imageIPFS: data.ipfsID});
-            })
-            .catch((err) => console.log(err));
-        console.log("Image URL" + this.state.imageIPFS);
-    }
-    
     render(){
         return(
-            <div>
-                <p>Coming Soon!!</p>
-                <CustomSteps 
-                    active="Put For Sale"
-                    completed="false"
-                />
-            </div>
+            <Segment style={{minHeight: 500}}>
+                <Container textAlign='center'>
+                    <Header as='h1'>This feature is Coming Soon!!</Header>
+                    <Header as='h4'>Your Block is getting added and verified. 
+                    <br /> You need to wait for 2 to 3 minutes to get your nft show up in your collection.</Header>
+                    <br />
+                    <Header as='h4'>If you want to put your nft on sale now you can upload this on any market place with your address.</Header>
+                    <Button size='huge' as={NavLink} to='/drop'>Go To My NFT Collection</Button>
+                    <CustomSteps 
+                        active="Put For Sale"
+                        completed="false"
+                    />
+                </Container>
+                
+            </Segment>
             
         )
     }

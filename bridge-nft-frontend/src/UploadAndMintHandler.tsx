@@ -3,6 +3,8 @@ import UploadNFTForm from "./UploadNFTForm";
 import MintNFTForm from "./MintNFTForm";
 import SaleNFT from "./SaleNFT";
 import {withRouter} from 'react-router';
+import ResponsiveContainer from "./ResponsiveContainer";
+import Footer from "./Footer";
 
 class UploadAndMintHandler extends React.Component<any,any> {
     constructor(props: any) {
@@ -16,6 +18,7 @@ class UploadAndMintHandler extends React.Component<any,any> {
             address: this.props.address,
             completed: 0
         };
+        alert('Addresss: ' + this.props.address);
         this.updateIPFSHash = this.updateIPFSHash.bind(this);
     }
 
@@ -47,26 +50,39 @@ class UploadAndMintHandler extends React.Component<any,any> {
         const values  = {image,n,description,ipfsHash,address,completed};
         switch(step) {
             case 1:
-                return  <UploadNFTForm
+                return  (
+                    <ResponsiveContainer>
+                        <UploadNFTForm
                         nextStep={this.nextStep}
                         handleChange = {this.handleChange}
                         values={values}
                         updateIPFSHash={this.updateIPFSHash}
                         />
+                        <Footer/>
+                    </ResponsiveContainer>
+                )
             case 2:
-                return  <MintNFTForm
+                return  (
+                    <ResponsiveContainer>
+                        <MintNFTForm
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
                         handleChange = {this.handleChange}
                         values={values}    
                         /> 
+                        <Footer/>
+                    </ResponsiveContainer>)
             case 3:
-                return <SaleNFT
+                return (
+                    <ResponsiveContainer>
+                        <SaleNFT
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}
                         values={values}
                        />
+                       <Footer/>
+                    </ResponsiveContainer>)
         }
     }
 }

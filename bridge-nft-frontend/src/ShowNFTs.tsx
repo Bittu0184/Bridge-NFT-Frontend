@@ -3,6 +3,8 @@ import CustomCard from "./Card";
 //import InfiniteScroll from 'react-infinite-scroller';
 import {withRouter} from "react-router";
 import ResponsiveContainer from "./ResponsiveContainer";
+import { Dimmer, Loader, Segment } from "semantic-ui-react";
+import Footer from "./Footer";
 //import { createMedia } from "@artsy/fresnel";
 
 
@@ -40,7 +42,16 @@ class ShowNFTs extends React.Component<any,any>{
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div>Loading...</div>;
+            return   (  
+              <ResponsiveContainer>
+                <Segment style={{minHeight: 800, marginTop: 50}}>
+                  <Dimmer active>
+                    <Loader size='massive'/>
+                  </Dimmer>
+                </Segment>
+                <Footer/>
+              </ResponsiveContainer>
+            )
         } else {
             return (
               <ResponsiveContainer>

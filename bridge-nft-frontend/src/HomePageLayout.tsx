@@ -1,7 +1,7 @@
 import { createMedia } from '@artsy/fresnel'
 import PropTypes from 'prop-types'
 import { NavLink, withRouter } from 'react-router-dom'
-import React, { Component } from 'react'
+import { Component } from 'react'
 import {
   Button,
   Container,
@@ -19,7 +19,7 @@ import {
 import buylocal from './Assets/buylocal.jpg';
 import buynft from './Assets/buynft.png';
 import uploadart from './Assets/uploadart.png';
-//import ResponsiveContainer from './ResponsiveContainer';
+import Footer from './Footer'
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
@@ -109,10 +109,10 @@ class DesktopContainer extends Component {
                 <Menu.Item as={NavLink} to='/explore'>Explore</Menu.Item>
                 <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
                 <Menu.Item position='right'>
-                  <Button as='a' inverted={!fixed}>
+                  <Button as={NavLink} to="/login" inverted={!fixed}>
                     Log in
                   </Button>
-                  <Button as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
+                  <Button as={NavLink} to="/signup" inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
                     Sign Up
                   </Button>
                 </Menu.Item>
@@ -162,8 +162,8 @@ class MobileContainer extends Component {
             </Menu.Item>
             <Menu.Item as={NavLink} to="/explore">Explore</Menu.Item>
             <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
-            <Menu.Item as='a'>Log in</Menu.Item>
-            <Menu.Item as='a'>Sign Up</Menu.Item>
+            <Menu.Item as={NavLink} to="/login">Log in</Menu.Item>
+            <Menu.Item aas={NavLink} to="/signup">Sign Up</Menu.Item>
           </Sidebar>
 
           <Sidebar.Pusher dimmed={sidebarOpened}>
@@ -179,10 +179,10 @@ class MobileContainer extends Component {
                     <Icon name='sidebar' />
                   </Menu.Item>
                   <Menu.Item position='right'>
-                    <Button as='a' inverted>
+                    <Button as={NavLink} to="/login" inverted>
                       Log in
                     </Button>
-                    <Button as='a' inverted style={{ marginLeft: '0.5em' }}>
+                    <Button as={NavLink} to="/signup" inverted style={{ marginLeft: '0.5em' }}>
                       Sign Up
                     </Button>
                   </Menu.Item>
@@ -224,6 +224,7 @@ const HomepageLayout = () => (
       <Grid container stackable verticalAlign='middle'>
         <Grid.Row >
             <Grid.Column width={7}>
+              <Container textAlign='center'>
                 <Header as='h3' style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
                 BUY ARTS FROM LOCAL ARTISANS
                 </Header>
@@ -231,26 +232,32 @@ const HomepageLayout = () => (
                 <p style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
                 We can give you access to wide range of Indian Traditional art from across the country. You can even customise and contact the artist directly.
                 </p>
+              </Container> 
             </Grid.Column>
-            <Grid.Column as={NavLink} to='/drop' floated='right' width={7}>
-                <Header as='h3' style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
+            <Grid.Column floated='right' width={7}>
+              <Container as={NavLink} to='/drop'  textAlign='center'>
+              <Header as='h3' style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
                 MINT YOUR DIGITAL ART AND PUT FOR SALE
                 </Header>
                 <Image bordered rounded size='large' src={buynft} centered />
                 <p style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
                 Are you confused about how to get your digital art up for sale? Contact us, we provide platform to mint i.e. store your art on blockchain so you can sell it or store it for eternity.</p>
-            </Grid.Column>
+              </Container>
+             </Grid.Column>
         </Grid.Row>
         <Grid.Row>
             <Grid.Column width={7}>
+                <Container textAlign='center'>
                 <Header as='h3' style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
                 PUT YOUR ARTWROK FOR SALE
                 </Header>
                 <Image bordered rounded size='large' src={uploadart} centered />
                 <p style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
                 You can put your traditional or digital artwork on sale. You get exciting benefits on other artworks when you put your art on sale. </p>
+                </Container>
             </Grid.Column>
             <Grid.Column floated='right' width={7}>
+                <Container textAlign='center'>
                 <Header as='h3' style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
                 CONNECTING ARTISTS AND ARCHITECTS
                 </Header>
@@ -258,46 +265,21 @@ const HomepageLayout = () => (
                 <p style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
                 Connecting local artists with architects to create new experiences for the customers/companies. 
                 </p>
+                </Container>
             </Grid.Column>
         </Grid.Row>
       </Grid>
     </Segment>
 
-    <Segment style={{ padding: '0em' }} vertical>
-      <Grid celled='internally' columns='equal' stackable>
-        <Grid.Row textAlign='center'>
-          <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
-            <Header as='h3' style={{ fontSize: '2em' }}>
-              "What a Company"
-            </Header>
-            <p style={{ fontSize: '1.33em' }}>That is what they all say about us</p>
-          </Grid.Column>
-          <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
-            <Header as='h3' style={{ fontSize: '2em' }}>
-              "I shouldn't have gone with their competitor."
-            </Header>
-            <p style={{ fontSize: '1.33em' }}>
-              <Image avatar src='/images/avatar/large/nan.jpg' />
-              <b>Nan</b> Chief Fun Officer Acme Toys
-            </p>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </Segment>
-
     <Segment style={{ padding: '8em 0em' }} vertical>
-      <Container text>
+      <Container textAlign='center' text>
         <Header as='h3' style={{ fontSize: '2em' }}>
-          Breaking The Grid, Grabs Your Attention
+        EMPOWERING ART AND ARTIST OF INDIA
         </Header>
         <p style={{ fontSize: '1.33em' }}>
-          Instead of focusing on content creation and hard work, we have learned how to master the
-          art of doing nothing by providing massive amounts of whitespace and generic content that
-          can seem massive, monolithic and worth your attention.
+        Our goal is to make sure to give local artists whether digital or traditional a platform to showcase their art.
+        We value your growth!
         </p>
-        <Button as='a' size='large'>
-          Read More
-        </Button>
 
         <Divider
           as='h4'
@@ -305,57 +287,21 @@ const HomepageLayout = () => (
           horizontal
           style={{ margin: '3em 0em', textTransform: 'uppercase' }}
         >
-          <a href='#'>Case Studies</a>
         </Divider>
 
         <Header as='h3' style={{ fontSize: '2em' }}>
-          Did We Tell You About Our Bananas?
+        100% PROTECTION
         </Header>
         <p style={{ fontSize: '1.33em' }}>
-          Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but
-          it's really true. It took years of gene splicing and combinatory DNA research, but our
-          bananas can really dance.
-        </p>
-        <Button as='a' size='large'>
-          I'm Still Quite Interested
+        Your digital art remains protected with our cutting edge blockchain technology. 
+        <br/>
+        Your traditional art is handled with utmost care.</p>
+        <Button as='a' size='massive'>
+          I'm Quite Interested. Subscribe!
         </Button>
       </Container>
     </Segment>
-
-    <Segment inverted vertical style={{ padding: '5em 0em' }}>
-      <Container>
-        <Grid divided inverted stackable>
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <Header inverted as='h4' content='About' />
-              <List link inverted>
-                <List.Item as='a'>Sitemap</List.Item>
-                <List.Item as='a'>Contact Us</List.Item>
-                <List.Item as='a'>Religious Ceremonies</List.Item>
-                <List.Item as='a'>Gazebo Plans</List.Item>
-              </List>
-            </Grid.Column>
-            <Grid.Column width={3}>
-              <Header inverted as='h4' content='Services' />
-              <List link inverted>
-                <List.Item as='a'>Banana Pre-Order</List.Item>
-                <List.Item as='a'>DNA FAQ</List.Item>
-                <List.Item as='a'>How To Access</List.Item>
-                <List.Item as='a'>Favorite X-Men</List.Item>
-              </List>
-            </Grid.Column>
-            <Grid.Column width={7}>
-              <Header as='h4' inverted>
-                Footer Header
-              </Header>
-              <p>
-                Extra space for a call to action inside the footer that could help re-engage users.
-              </p>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Container>
-    </Segment>
+    <Footer />
   </ResponsiveContainer>
 )
 

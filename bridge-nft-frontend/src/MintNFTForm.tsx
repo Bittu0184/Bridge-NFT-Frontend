@@ -1,6 +1,7 @@
 import React from "react";
-import { Button, Card, Container, Image } from "semantic-ui-react";
-import CustomCard from "./Card";
+import { Button, Card, Container, Header, Image, Segment } from "semantic-ui-react";
+import { fetchAPI } from "./CallAPI";
+//import CustomCard from "./Card";
 //import axios from 'axios';
 import CustomSteps from "./CustomSteps";
 
@@ -10,27 +11,13 @@ class MintNFTForm extends React.Component<any,any> {
         this.state = {
             error: null,
             isLoaded: false,
-            metadata: []
+           // metadata: []
         };
         this.handleMint = this.handleMint.bind(this);
       }
 
       componentDidMount() {
-        fetch("https://gateway.pinata.cloud/ipfs/"+ this.props.values.ipfsHash)
-          .then(res => res.json())
-          .then( (result) => {
-              this.setState({
-                isLoaded: true,
-                metadata: result.metadata
-              });
-              console.log(this.state.metadata);
-            },(error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
+        this.setState({isLoaded: true});
       }
 
 
@@ -43,7 +30,8 @@ class MintNFTForm extends React.Component<any,any> {
         };
         const strPost = JSON.stringify(postBody);
         alert(strPost)
-        //alert(await fetchAPI('http://localhost:8282/mint_nft',strPost))
+        alert(await fetchAPI('http://localhost:8282/mint_nft',strPost))
+        this.props.nextStep()
     }
 /*
     async componentDidMount(){
@@ -59,7 +47,7 @@ class MintNFTForm extends React.Component<any,any> {
 */
     render(){
         const {values} = this.props;
-        const {metadata} = this.state;
+        //const {metadata} = this.state;
         const { error, isLoaded } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
@@ -67,18 +55,19 @@ class MintNFTForm extends React.Component<any,any> {
             return <div>Loading...</div>;
         } else {
             return( 
-                <div>
-                    <CustomCard metadata={this.state.metadata}/>
-                    <Container text>
-                        <p>IPFS HASH: {values.ipfsHash}</p>
-                        <p>Address: {values.address}</p>
-                        <Button type='submit' onClick={this.handleMint}>Mint Above Art</Button>
+                <Segment style={{minHeight: 700}}>
+                    <Container  textAlign='center'>
+                        <Container text>
+                            <Header as='h3'>IPFS HASH: {values.ipfsHash}</Header>
+                            <Header as='h3'>Address: {values.address}</Header>
+                            <Button type='submit' size='huge' onClick={this.handleMint}>Mint Above Art</Button>
+                        </Container>
+                        <CustomSteps 
+                            active="Mint NFT"
+                            completed="false"
+                        />
                     </Container>
-                    <CustomSteps 
-                        active="Mint NFT"
-                        completed="false"
-                    />
-                </div>
+                </Segment>
             )
         }
     }

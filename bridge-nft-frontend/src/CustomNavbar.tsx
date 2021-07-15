@@ -1,16 +1,34 @@
 import React from "react";
 import {
     BrowserRouter as Router,
-    withRouter,
     Route
   } from "react-router-dom";
 import ShowNFTs from "./ShowNFTs";
-import './CustomNavbar.css';
 import AccountPage from "./AccountPage";
 import UploadAndMintHandler from "./UploadAndMintHandler";
 import HomepageLayout from "./HomePageLayout";
+import Contact from "./Contact";
+import { connectWallets } from "./ConnectWallet";
+import LoginForm from "./LoginForm";
 
 class CustomNavbar extends React.Component<any,any>{
+    constructor(props){
+      super(props);
+      this.state ={
+        address: ''
+      }
+    }
+
+    async componentDidMount(){
+      await connectWallets().then((web3) => {
+        web3.eth.getAccounts().then((acc) => {
+          this.setState({address: acc[0]});
+        })
+      }).catch((err) => {
+        alert(err);
+      });
+    }
+
     render() {
         return(
             <Router>
@@ -18,9 +36,9 @@ class CustomNavbar extends React.Component<any,any>{
               <Route path="/home" exact component={HomepageLayout}/>
               <Route path="/explore" exact component={ShowNFTs}/>
               <Route path="/drop" exact component={AccountPage}/>
-              <Route path="/mintnft" exact render={()=>{
-                <UploadAndMintHandler address={"0xb42C73351E636C2A2193773Bf9647E2331773294"} /> 
-              }}/>                            
+              <Route path="/mintnft" ><UploadAndMintHandler address={this.state.address}/></Route>   
+              <Route path="/contact" exact component={Contact}/>     
+              <Route path="/login" exact component={LoginForm}/>                 
             </Router>
         );
     }
