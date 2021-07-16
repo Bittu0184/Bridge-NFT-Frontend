@@ -24,6 +24,11 @@
     margin-top: auto;
 }
 
+.customContainer{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
 @media (max-width: 920px) {
     .CustomCard {
       flex: 1 21%;

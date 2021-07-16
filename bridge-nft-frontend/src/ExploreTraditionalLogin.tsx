@@ -1,15 +1,12 @@
-import React from "react";
-import CustomCard from "./Card";
-//import InfiniteScroll from 'react-infinite-scroller';
-import {withRouter} from "react-router";
-import ResponsiveContainer from "./ResponsiveContainer";
-import { Container, Dimmer, Loader, Segment } from "semantic-ui-react";
-import Footer from "./Footer";
-import './ShowNFTs.css';
-//import { createMedia } from "@artsy/fresnel";
-
-
-class ShowNFTs extends React.Component<any,any>{
+import {Component } from 'react'
+import {  Container, Dimmer, Loader, Segment } from 'semantic-ui-react'
+import { fetchAPI } from './CallAPI'
+import CustomCard from './Card'
+import CustomCardTraditionalArt from './CustomCardTraditionalArt'
+import Footer from './Footer'
+import ResponsiveContainer from './ResponsiveContainer'
+import './ShowNFTs.css'
+class ExploreTraditionalArt extends Component<any,any>{
     constructor(props:any) {
         super(props);
         this.state = {
@@ -36,12 +33,18 @@ class ShowNFTs extends React.Component<any,any>{
             }
           )
       }
-    
-    
-      render() {
+
+    render() {
         const { error, isLoaded } = this.state;
         if (error) {
-            return <div>Error: {error.message}</div>;
+            return (
+            <ResponsiveContainer>
+                <Segment style={{minHeight: 800, marginTop: 50}}>
+                  <div> OOPS!! Error: {error.message}</div>
+                </Segment>
+                <Footer/>
+              </ResponsiveContainer>
+            )
         } else if (!isLoaded) {
             return   (  
               <ResponsiveContainer>
@@ -56,14 +59,14 @@ class ShowNFTs extends React.Component<any,any>{
         } else {
             return (
               <ResponsiveContainer>
-                <Container className="customContainer">
-                <CustomCard metadata={this.state.metadata}/>
-                </Container>
+                  <Container className="customContainer">
+                  <CustomCardTraditionalArt metadata={this.state.metadata}/>
+                  </Container>
                 <Footer />
               </ResponsiveContainer>
             );
         }
-      }
+    }
 }
 
-export default withRouter(ShowNFTs);
+export default ExploreTraditionalArt

@@ -5,6 +5,7 @@ export async function fetchAPI(uri:string,data:string) {
               'Content-Type': 'application/json',
             },
             body: data,
+            credentials: "include",
           })
           .then(response => response.json())
           .then(data => {

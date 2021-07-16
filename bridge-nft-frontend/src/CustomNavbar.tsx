@@ -10,6 +10,8 @@ import HomepageLayout from "./HomePageLayout";
 import Contact from "./Contact";
 import { connectWallets } from "./ConnectWallet";
 import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
+import ExploreTraditionalArt from "./ExploreTraditionalLogin";
 
 class CustomNavbar extends React.Component<any,any>{
     constructor(props){
@@ -38,7 +40,9 @@ class CustomNavbar extends React.Component<any,any>{
               <Route path="/drop" exact component={AccountPage}/>
               <Route path="/mintnft" ><UploadAndMintHandler address={this.state.address}/></Route>   
               <Route path="/contact" exact component={Contact}/>     
-              <Route path="/login" exact component={LoginForm}/>                 
+              <Route path="/login" exact component={LoginForm}/> 
+              <Route path="/signup" exact component={SignupForm}/> 
+              <Route path="/exploretraditionalart" exact component={ExploreTraditionalArt}/>               
             </Router>
         );
     }

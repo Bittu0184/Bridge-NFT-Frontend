@@ -5,6 +5,7 @@ import { Component } from 'react'
 import {
   Button,
   Container,
+  Dropdown,
   Header,
   Icon,
   Menu,
@@ -97,7 +98,13 @@ class DesktopContainer extends Component {
                 <Menu.Item as={NavLink} to="/home">
                   Home
                 </Menu.Item>
-                <Menu.Item as={NavLink} to='/explore'>Explore</Menu.Item>
+                <Dropdown item text='Explore'>
+                  <Dropdown.Menu>
+                    <Dropdown.Item as={NavLink} to="/explore">Digital Art - NFT</Dropdown.Item>
+                    <Dropdown.Item as={NavLink} to="/exploretraditionalart">Traditional Art</Dropdown.Item>
+                    <Dropdown.Item>Artists</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
                 <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
                 <Menu.Item position='right'>
                   <Button as={NavLink} to="/login" inverted={!fixed}>
@@ -150,7 +157,9 @@ class MobileContainer extends Component {
             <Menu.Item as={NavLink} to="/home">
               Home
             </Menu.Item>
-            <Menu.Item as={NavLink} to="/explore">Explore</Menu.Item>
+            <Menu.Item as={NavLink} to="/explore">Digital Art - NFT</Menu.Item>
+            <Menu.Item as={NavLink} to="/exploretraditionalart">Traditional Art</Menu.Item>
+            <Menu.Item >Artists</Menu.Item>
             <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
             <Menu.Item as={NavLink} to="/login">Log in</Menu.Item>
             <Menu.Item as={NavLink} to="/signup">Sign Up</Menu.Item>
