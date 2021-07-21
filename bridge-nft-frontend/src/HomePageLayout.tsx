@@ -20,7 +20,8 @@ import {
 import buylocal from './Assets/buylocal.jpg';
 import buynft from './Assets/buynft.png';
 import uploadart from './Assets/uploadart.png';
-import Footer from './Footer'
+import Footer from './Footer';
+import LoginButton from './LoginButton'
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
@@ -70,7 +71,7 @@ HomepageHeading.propTypes = {
  * It can be more complicated, but you can create really flexible markup.
  */
 
-class DesktopContainer extends Component {
+class DesktopContainer extends Component{
   state = {
     fixed: false
   }
@@ -82,7 +83,8 @@ class DesktopContainer extends Component {
   render() {
     const { children } = this.props
     const { fixed } = this.state
-
+   // const { isLog } = this.props
+   // alert("From Home page layout " + isLog);
     return (
       <Media greaterThan='mobile'>
         <Visibility
@@ -116,13 +118,8 @@ class DesktopContainer extends Component {
                 </Dropdown>
                 <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
                 <Menu.Item position='right'>
-                  <Button as={NavLink} to="/login" inverted={!fixed}>
-                    Log in
-                  </Button>
-                  <Button as={NavLink} to="/signup" inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
-                    Sign Up
-                  </Button>
-                </Menu.Item>
+                  <LoginButton fix={fixed}/>
+                </Menu.Item> 
               </Container>
             </Menu>
             <HomepageHeading />
@@ -171,8 +168,7 @@ class MobileContainer extends Component {
             <Menu.Item as={NavLink} to="/exploretraditionalart">Traditional Art</Menu.Item>
             <Menu.Item >Artists</Menu.Item>
             <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
-            <Menu.Item as={NavLink} to="/login">Log in</Menu.Item>
-            <Menu.Item aas={NavLink} to="/signup">Sign Up</Menu.Item>
+            <Menu.Item > <LoginButton fix='false'/></Menu.Item>
           </Sidebar>
 
           <Sidebar.Pusher dimmed={sidebarOpened}>
@@ -188,12 +184,7 @@ class MobileContainer extends Component {
                     <Icon name='sidebar' />
                   </Menu.Item>
                   <Menu.Item position='right'>
-                    <Button as={NavLink} to="/login" inverted>
-                      Log in
-                    </Button>
-                    <Button as={NavLink} to="/signup" inverted style={{ marginLeft: '0.5em' }}>
-                      Sign Up
-                    </Button>
+                    <LoginButton inverted style={{ marginLeft: '0.5em' }} fix='false'/>
                   </Menu.Item>
                 </Menu>
               </Container>

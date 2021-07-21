@@ -13,6 +13,7 @@ import {
   Sidebar,
   Visibility,
 } from 'semantic-ui-react'
+import LoginButton from './LoginButton'
 
 
 const { MediaContextProvider, Media } = createMedia({
@@ -61,7 +62,7 @@ HomepageHeading.propTypes = {
  * Neither Semantic UI nor Semantic UI React offer a responsive navbar, however, it can be implemented easily.
  * It can be more complicated, but you can create really flexible markup.
  */
-class DesktopContainer extends Component {
+class DesktopContainer extends Component<any,any> {
   state = {
     fixed: false
   }
@@ -73,7 +74,7 @@ class DesktopContainer extends Component {
   render() {
     const { children } = this.props
     const { fixed } = this.state
-
+   // const { isLog } = this.props
     return (
       <Media greaterThan='mobile'>
         <Visibility
@@ -107,13 +108,8 @@ class DesktopContainer extends Component {
                 </Dropdown>
                 <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
                 <Menu.Item position='right'>
-                  <Button as={NavLink} to="/login" inverted={!fixed}>
-                    Log in
-                  </Button>
-                  <Button as={NavLink} to="/signup" inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
-                    Sign Up
-                  </Button>
-                </Menu.Item>
+                  <LoginButton fix={fixed}/>
+                </Menu.Item>  
               </Container>
             </Menu>
           </Segment>
@@ -161,8 +157,7 @@ class MobileContainer extends Component {
             <Menu.Item as={NavLink} to="/exploretraditionalart">Traditional Art</Menu.Item>
             <Menu.Item >Artists</Menu.Item>
             <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
-            <Menu.Item as={NavLink} to="/login">Log in</Menu.Item>
-            <Menu.Item as={NavLink} to="/signup">Sign Up</Menu.Item>
+            <Menu.Item><LoginButton fix='false'/></Menu.Item>
           </Sidebar>
 
           <Sidebar.Pusher dimmed={sidebarOpened}>
@@ -178,12 +173,7 @@ class MobileContainer extends Component {
                     <Icon name='sidebar' />
                   </Menu.Item>
                   <Menu.Item position='right'>
-                    <Button as={NavLink} to="/login" inverted>
-                      Log in
-                    </Button>
-                    <Button as={NavLink} to="/signup" inverted style={{ marginLeft: '0.5em' }}>
-                      Sign Up
-                    </Button>
+                    <LoginButton fix='false'/>
                   </Menu.Item>
                 </Menu>
               </Container>

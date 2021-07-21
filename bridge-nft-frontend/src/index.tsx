@@ -4,13 +4,20 @@ import './index.css';
 import App from './App';
 //import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
-import 'semantic-ui-css/semantic.min.css'
+import 'semantic-ui-css/semantic.min.css';
+import { Auth0Provider } from "@auth0/auth0-react";
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Auth0Provider
+    domain="dev-tvkm48gz.us.auth0.com"
+    clientId="TKBOnDcaYwiqALd9hhpcAnkNl0DU1pCc"
+    redirectUri="http://localhost:3000/exploretraditionalart"
+    audience="https://unfoldinnovates.com"
+    scope="read:current_user update:current_user_metadata"
+  >
     <App />
-  </React.StrictMode>,
+  </Auth0Provider>,
   document.getElementById('root')
 );
 

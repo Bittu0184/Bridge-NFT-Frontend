@@ -3,8 +3,10 @@ import { Button, Form, Grid, Header, Icon, Image, Message, Segment } from 'seman
 import Footer from './Footer';
 import ResponsiveContainer from './ResponsiveContainer';
 import logo from './Assets/logo.png';
-import { NavLink } from 'react-router-dom';
-import { fetchAPI } from './CallAPI';
+import { NavLink  } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
+
+//import { fetchAPI } from './CallAPI';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -20,8 +22,24 @@ class LoginForm extends Component {
     var object = {};
     postdata.forEach((value, key) => object[key] = value);
     var json = JSON.stringify(object);
-    alert("data " + json)
-    await fetchAPI("http://localhost:8282/login",json)
+    alert("data " + json);
+    await fetch("http://localhost:8282/login", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json,
+      credentials: "include",
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      alert(data.issuccess);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      alert("Error" +error);
+    })
   }
   render() {
     return (

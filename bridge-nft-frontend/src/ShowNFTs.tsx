@@ -1,12 +1,10 @@
 import React from "react";
 import CustomCard from "./Card";
-//import InfiniteScroll from 'react-infinite-scroller';
-import {withRouter} from "react-router";
 import ResponsiveContainer from "./ResponsiveContainer";
 import { Container, Dimmer, Loader, Segment } from "semantic-ui-react";
 import Footer from "./Footer";
 import './ShowNFTs.css';
-//import { createMedia } from "@artsy/fresnel";
+import { withAuth0 } from '@auth0/auth0-react';
 
 
 class ShowNFTs extends React.Component<any,any>{
@@ -19,9 +17,19 @@ class ShowNFTs extends React.Component<any,any>{
         };
       }
 
-      componentDidMount() {
-        fetch("http://localhost:8282/get_all_metadata")
-          .then(res => res.json())
+      async componentDidMount() {
+       const { getAccessTokenSilently } = this.props.auth0;
+       const domain = "unfoldinnovates.com";
+       const accessToken = await getAccessTokenSilently({
+        audience: `https://${domain}`,
+        scope: "read:current_user",
+        });
+        console.log("Access Token " + accessToken);
+        fetch("http://localhost:8282/get_all_metadata", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          }).then(res => res.json())
           .then( (result) => {
               this.setState({
                 isLoaded: true,
@@ -40,10 +48,11 @@ class ShowNFTs extends React.Component<any,any>{
     
       render() {
         const { error, isLoaded } = this.state;
+        //const { user } = this.props.auth0;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return   (  
+            return  (  
               <ResponsiveContainer>
                 <Segment style={{minHeight: 800, marginTop: 50}}>
                   <Dimmer active>
@@ -66,4 +75,4 @@ class ShowNFTs extends React.Component<any,any>{
       }
 }
 
-export default withRouter(ShowNFTs);
+export default withAuth0(ShowNFTs);

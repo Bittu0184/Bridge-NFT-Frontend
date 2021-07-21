@@ -10,34 +10,36 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
             <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
             {metadata.map((data:any,index:any) => (
             <Card raised link>
-                <Image size="large" src={`https://gateway.pinata.cloud/ipfs/${data.ipfsID}`} alt={data.name} wrapped ui={false} />
+                <Image size="medium" src={`https://gateway.pinata.cloud/ipfs/${data.ipfsID}`} alt={data.name} rounded fluid bordered wrapped ui={false} />
                 <Card.Content>
-                    <Card.Header>Art Name</Card.Header>
-                    <Card.Meta>By Artist-Name</Card.Meta>
+                    <Container>
                     <Grid>
-                            <Grid.Column floated='left' width={8} >
-                            <Card.Description left>
-                            Short Description 4 5 words max
-                            </Card.Description>
+                            <Grid.Column floated='left' width={6} >
+                            <Card.Header>Art Name</Card.Header>
+                            <Card.Meta>By Artist-Name</Card.Meta>
                             </Grid.Column>
-                            <Grid.Column floated='right' width={5} >
-                            <Card.Description left>
-                            <Icon name='rupee'/>1000000
-                            </Card.Description>
+                            <Grid.Column floated='right' width={8} >
+                                <Card.Description left>
+                                <Icon name='rupee'/>1000000
+                                </Card.Description>
+                                <Card.Description left>
+                                Peaky Blinder Thomas Shelby product
+                                </Card.Description>
                             </Grid.Column>
                     </Grid>
+                    </Container>
+                    
                 </Card.Content>
                 
                 <Card.Content extra>
                     <Container className='ui buttons'>
-                        <Button as={NavLink} to="/explore" fluid size='huge' animated='vertical'>
+                        <Button as={NavLink} to={{ pathname:'/cart', productid: {Id:'hey from card'}  }} fluid size='medium' animated='vertical'>
                         <Button.Content hidden>Buy Now</Button.Content>
                         <Button.Content visible>
                             <Icon name='shop' />
                         </Button.Content>
                         </Button>
-                    </Container>
-                    
+                    </Container> 
                 </Card.Content>
             </Card>
             ))}
