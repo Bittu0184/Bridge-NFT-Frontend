@@ -5,6 +5,7 @@ import SaleNFT from "./SaleNFT";
 import {withRouter} from 'react-router';
 import ResponsiveContainer from "./ResponsiveContainer";
 import Footer from "./Footer";
+import { connectWallets } from "./ConnectWallet";
 
 class UploadAndMintHandler extends React.Component<any,any> {
     constructor(props: any) {
@@ -15,12 +16,22 @@ class UploadAndMintHandler extends React.Component<any,any> {
             n: '',
             description: '',
             ipfsHash: '',
-            address: this.props.address,
+            address: "",
             completed: 0
         };
         alert('Addresss: ' + this.props.address);
         this.updateIPFSHash = this.updateIPFSHash.bind(this);
     }
+
+    async componentDidMount(){
+        await connectWallets().then((web3) => {
+          web3.eth.getAccounts().then((acc) => {
+            this.setState({address: acc[0]});
+          })
+        }).catch((err) => {
+          alert(err);
+        });
+      }
 
     nextStep = () => {
         const { step, completed } = this.state

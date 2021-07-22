@@ -8,7 +8,7 @@ class CustomCard extends React.Component<any,any>{
         return (
             <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
             {metadata.map((data:any,index:any) => (
-            <Card raised link>
+            <Card raised link key={index}>
                 <Image size="large" src={`https://gateway.pinata.cloud/ipfs/${data.ipfsID}`} alt={data.name} wrapped ui={false} />
                 <Card.Content>
                     <Card.Header>{data.name}</Card.Header>

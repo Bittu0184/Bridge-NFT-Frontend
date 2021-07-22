@@ -54,6 +54,7 @@ class Cart extends Component<any,any>{
             let total = 0;
             result.map((data) => {
                 total = total + data.price;
+                return null;
             })
             console.log("Total " + total);
               this.setState({
@@ -80,7 +81,7 @@ class Cart extends Component<any,any>{
         const { error, isLoaded } = this.state;
         if (error) {
             console.log("Error " + error);
-            if(error == "Empty Cart"){
+            if(error === "Empty Cart"){
                 return(<div>Empty</div>)
             }
             return (

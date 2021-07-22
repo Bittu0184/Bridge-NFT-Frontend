@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, Container, Header, Image, Segment } from "semantic-ui-react";
+import { Button, Container, Header, Segment } from "semantic-ui-react";
 import { fetchAPI } from "./CallAPI";
 //import CustomCard from "./Card";
 //import axios from 'axios';

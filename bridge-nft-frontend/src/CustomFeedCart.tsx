@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Button, Container, Divider, Header, Icon, Item, Label, Segment } from "semantic-ui-react";
+import { Button, Container, Header, Icon, Item, Label, Segment } from "semantic-ui-react";
 import { withAuth0 } from '@auth0/auth0-react';
 
 class CustomFeedCart extends Component<any,any>{
@@ -37,7 +37,7 @@ class CustomFeedCart extends Component<any,any>{
                .then( (result) => {
                  console.log("Item Deleted " + result);
                    const {dataInCart} = this.state;
-                   const removedEntry = dataInCart.filter((dataInCart) => dataInCart.productid == prodId);
+                   const removedEntry = dataInCart.filter((dataInCart) => dataInCart.productid === prodId);
                    console.log("Removed Entry "+ removedEntry[0].price);
                    const newTotal = this.state.totalAmt - removedEntry[0].price;
                    const updatedData = dataInCart.filter((dataInCart) => dataInCart.productid !== prodId);

@@ -4,7 +4,6 @@ import Footer from './Footer';
 import ResponsiveContainer from './ResponsiveContainer';
 import logo from './Assets/logo.png';
 import { NavLink } from 'react-router-dom';
-import { fetchAPI } from './CallAPI';
 
 class SignupForm extends Component{
   constructor(props){

@@ -1,11 +1,10 @@
 import {Component } from 'react'
-import {  Container, Dimmer, Loader, Segment } from 'semantic-ui-react'
+import {  Container, Dimmer, Header, Loader, Segment } from 'semantic-ui-react'
 import CustomCardTraditionalArt from './CustomCardTraditionalArt'
 import Footer from './Footer'
 import ResponsiveContainer from './ResponsiveContainer'
 import { withAuth0 } from '@auth0/auth0-react';
 import './ShowNFTs.css'
-import { Redirect } from 'react-router-dom'
 
 class ExploreTraditionalArt extends Component<any,any>{
     constructor(props:any) {
@@ -45,12 +44,12 @@ class ExploreTraditionalArt extends Component<any,any>{
                 isLoaded: true,
                 metadata: result
               });
-            },(error) => {
+            },(err) => {
               this.setState({
                 isLoaded: true,
-                error: error
+                error: err
               });
-              console.log("Error " + error);
+              console.log("Error " + err);
             }
           )
       }
@@ -62,14 +61,11 @@ class ExploreTraditionalArt extends Component<any,any>{
             return (
               <ResponsiveContainer>
               <Segment style={{minHeight: 800, marginTop: 50}}>
-                <Dimmer active>
-                  <Loader size='massive'/>
-                </Dimmer>
+                <Header as='h1'>Fail To Connect To server: {error.message}</Header>
               </Segment>
               <Footer/>
             </ResponsiveContainer>
             )
-
         } else if (!isLoaded) {
           console.log("waiting")
             return   (  

@@ -103,7 +103,7 @@ class DesktopContainer extends Component<any,any> {
                   <Dropdown.Menu>
                     <Dropdown.Item as={NavLink} to="/explore">Digital Art - NFT</Dropdown.Item>
                     <Dropdown.Item as={NavLink} to="/exploretraditionalart">Traditional Art</Dropdown.Item>
-                    <Dropdown.Item>Artists</Dropdown.Item>
+                    <Dropdown.Item as={NavLink} to="/artists">Artists</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
                 <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
@@ -156,7 +156,7 @@ class MobileContainer extends Component {
             </Menu.Item>
             <Menu.Item as={NavLink} to="/explore">Digital Art - NFT</Menu.Item>
             <Menu.Item as={NavLink} to="/exploretraditionalart">Traditional Art</Menu.Item>
-            <Menu.Item >Artists</Menu.Item>
+            <Menu.Item as={NavLink} to="/artists">Artists</Menu.Item>
             <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
             <Menu.Item><LoginButton fix='false'/></Menu.Item>
           </Sidebar>
