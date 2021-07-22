@@ -1,6 +1,6 @@
 import { Component  } from 'react';
 import { withAuth0 } from '@auth0/auth0-react';
-import { Button, Dimmer, Dropdown, DropdownItem, Icon, Loader } from 'semantic-ui-react';
+import { Button, Container, Dimmer, Dropdown, DropdownItem, Icon, Loader, Menu } from 'semantic-ui-react';
 import { NavLink } from "react-router-dom";
 
 class LoginButton extends Component<any,any>{
@@ -63,7 +63,7 @@ class LoginButton extends Component<any,any>{
                 <Dropdown trigger={trigger} options={options} />
               )            
             return (
-                <DropdownTriggerExample/>
+                    <DropdownTriggerExample/>
             )
         }else {
             return (

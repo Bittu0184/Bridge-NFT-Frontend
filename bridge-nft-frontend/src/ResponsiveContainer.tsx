@@ -109,6 +109,7 @@ class DesktopContainer extends Component<any,any> {
                 <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
                 <Menu.Item position='right'>
                   <LoginButton fix={fixed}/>
+                  <Button  as={NavLink} to="/cart"  inverted icon><Icon name='shop'/></Button>
                 </Menu.Item>  
               </Container>
             </Menu>
@@ -174,6 +175,7 @@ class MobileContainer extends Component {
                   </Menu.Item>
                   <Menu.Item position='right'>
                     <LoginButton fix='false'/>
+                    <Button  as={NavLink} to="/cart"  inverted icon><Icon name='shop'/></Button>
                   </Menu.Item>
                 </Menu>
               </Container>

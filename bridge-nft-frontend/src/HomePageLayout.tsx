@@ -106,7 +106,7 @@ class DesktopContainer extends Component{
               size='large'
             >
               <Container>
-                <Menu.Item as={NavLink} to="/home" active>
+                <Menu.Item as={NavLink} to="/home">
                   Home
                 </Menu.Item>
                 <Dropdown item text='Explore'>
@@ -117,9 +117,10 @@ class DesktopContainer extends Component{
                   </Dropdown.Menu>
                 </Dropdown>
                 <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
-                <Menu.Item position='right'>
+                <Menu.Item  position='right'>
                   <LoginButton fix={fixed}/>
-                </Menu.Item> 
+                  <Button  as={NavLink} to="/cart"  inverted icon><Icon name='shop'/></Button>
+                </Menu.Item>
               </Container>
             </Menu>
             <HomepageHeading />
@@ -168,7 +169,6 @@ class MobileContainer extends Component {
             <Menu.Item as={NavLink} to="/exploretraditionalart">Traditional Art</Menu.Item>
             <Menu.Item >Artists</Menu.Item>
             <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
-            <Menu.Item > <LoginButton fix='false'/></Menu.Item>
           </Sidebar>
 
           <Sidebar.Pusher dimmed={sidebarOpened}>
@@ -185,6 +185,7 @@ class MobileContainer extends Component {
                   </Menu.Item>
                   <Menu.Item position='right'>
                     <LoginButton inverted style={{ marginLeft: '0.5em' }} fix='false'/>
+                    <Button as={NavLink} to="/cart" inverted icon><Icon name='shop'/></Button>
                   </Menu.Item>
                 </Menu>
               </Container>

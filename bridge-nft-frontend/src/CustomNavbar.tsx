@@ -12,7 +12,8 @@ import { connectWallets } from "./ConnectWallet";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import ExploreTraditionalArt from "./ExploreTraditionalLogin";
-import CartPage from "./CartPage";
+import CartPage from "./BuyNowPage";
+import Cart from "./Cart";
 
 class CustomNavbar extends React.Component<any,any>{
     constructor(props){
@@ -59,7 +60,8 @@ class CustomNavbar extends React.Component<any,any>{
               <Route path="/login" exact component={LoginForm}/>
               <Route path="/signup" exact component={SignupForm}/> 
               <Route path="/exploretraditionalart" exact component={ExploreTraditionalArt}/>    
-              <Route path="/cart" exact component={CartPage}/>           
+              <Route path="/buynow" exact component={CartPage}/>   
+              <Route path="/cart" exact component={Cart} />        
             </Router>
         );
     }

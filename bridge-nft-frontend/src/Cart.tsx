@@ -1,26 +1,27 @@
-import {Component } from 'react'
-import {  Container, Dimmer, Loader, Segment } from 'semantic-ui-react'
-import CustomCardTraditionalArt from './CustomCardTraditionalArt'
-import Footer from './Footer'
-import ResponsiveContainer from './ResponsiveContainer'
+import { Component } from "react";
+import { Button, Container, Dimmer, Icon, Loader, Segment } from "semantic-ui-react";
+import CustomFeedCart from "./CustomFeedCart";
+import Footer from "./Footer";
+import ResponsiveContainer from "./ResponsiveContainer";
 import { withAuth0 } from '@auth0/auth0-react';
-import './ShowNFTs.css'
-import { Redirect } from 'react-router-dom'
 
-class ExploreTraditionalArt extends Component<any,any>{
+class Cart extends Component<any,any>{
     constructor(props:any) {
         super(props);
         this.state = {
             error: null,
             isLoaded: false,
-            metadata: []
+            metadata: [],
+            totalAmt: 0
         };
       }
 
       async componentDidMount() {
-        const { loginWithRedirect, getAccessTokenSilently } = this.props.auth0;
+        const { loginWithRedirect, getAccessTokenSilently, isAuthenticated } = this.props.auth0;
         const domain = "unfoldinnovates.com";
-        let accessToken;
+        if(isAuthenticated){
+            let accessToken;
+            const{user } = this.props.auth0;
         try{
           accessToken = await getAccessTokenSilently({
             audience: `https://${domain}`,
@@ -32,33 +33,56 @@ class ExploreTraditionalArt extends Component<any,any>{
           this.setState({isLoaded: true,error: err});
           return
         }
-         //console.log("Access Token " + accessToken);
-         fetch("http://localhost:8282/get_all_art", {
+         console.log("UserID " + user.sub);
+         fetch(`http://localhost:8282/get/cart/items/${encodeURIComponent(user.sub)}`, {
            headers: {
              Authorization: `Bearer ${accessToken}`,
            },
            })
           .then(res => res.json())
           .then( (result) => {
-            console.log("Metadata " + result.productname);
+              if(result == null){
+                this.setState({
+                    isLoaded: false,
+                    metadata: null,
+                    error: "Empty Cart",
+                    totalAmt: 0
+                  });
+                  return
+              }
+            console.log("Cart Items " + result.productname);
+            let total = 0;
+            result.map((data) => {
+                total = total + data.price;
+            })
+            console.log("Total " + total);
               this.setState({
                 isLoaded: true,
-                metadata: result
+                metadata: result,
+                totalAmt: total
               });
             },(error) => {
               this.setState({
                 isLoaded: true,
-                error: error
+                error: error,
+                totalAmt: 0
               });
               console.log("Error " + error);
             }
           )
+        }else {
+            await loginWithRedirect();
+        }
+        
       }
 
     render() {
         const { error, isLoaded } = this.state;
         if (error) {
             console.log("Error " + error);
+            if(error == "Empty Cart"){
+                return(<div>Empty</div>)
+            }
             return (
               <ResponsiveContainer>
               <Segment style={{minHeight: 800, marginTop: 50}}>
@@ -87,8 +111,9 @@ class ExploreTraditionalArt extends Component<any,any>{
             return (
               <ResponsiveContainer >
                   <Container style={{minHeight: 500}} className="customContainer">
-                  <CustomCardTraditionalArt metadata={this.state.metadata}/>
+                  <CustomFeedCart metadata={this.state.metadata} totalAmt={this.state.totalAmt}/>
                   </Container>
+                  <Button size='large' primary floated='right'><Icon name='cart'/>Proceed To Checkout</Button>
                 <Footer />
               </ResponsiveContainer>
             );
@@ -96,4 +121,4 @@ class ExploreTraditionalArt extends Component<any,any>{
     }
 }
 
-export default withAuth0(ExploreTraditionalArt)
+export default withAuth0(Cart);

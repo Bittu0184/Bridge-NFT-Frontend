@@ -12,7 +12,7 @@ ReactDOM.render(
   <Auth0Provider
     domain="dev-tvkm48gz.us.auth0.com"
     clientId="TKBOnDcaYwiqALd9hhpcAnkNl0DU1pCc"
-    redirectUri="http://localhost:3000/exploretraditionalart"
+    redirectUri="http://localhost:3000/"
     audience="https://unfoldinnovates.com"
     scope="read:current_user update:current_user_metadata"
   >
