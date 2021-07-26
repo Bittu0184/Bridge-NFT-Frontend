@@ -19,7 +19,7 @@ class UploadAndMintHandler extends React.Component<any,any> {
             address: "",
             completed: 0
         };
-        alert('Addresss: ' + this.props.address);
+        console.log('Addresss: ' + this.props.address);
         this.updateIPFSHash = this.updateIPFSHash.bind(this);
     }
 

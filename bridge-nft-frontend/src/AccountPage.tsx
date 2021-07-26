@@ -5,6 +5,7 @@ import { connectWallets } from './ConnectWallet';
 import Footer from "./Footer";
 import './MintNFT.css';
 import ResponsiveContainer from "./ResponsiveContainer";
+import configData from './Config.json';
 
 class AccountPage extends React.Component<any,any> {
     constructor(props: any) {
@@ -26,7 +27,7 @@ class AccountPage extends React.Component<any,any> {
                 console.log('Address acccount: ' + acc[0])
                 this.setState({address: acc[0]});
                 const postbody = acc[0];
-                await fetch("http://localhost:8282/get_metadata_address", {
+                await fetch(configData.apiBaseUri + configData.apiGetMetadata, {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',

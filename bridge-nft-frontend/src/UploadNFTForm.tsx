@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Checkbox, Container, Form, Grid, Segment } from "semantic-ui-react";
 import axios from 'axios';
 import CustomSteps from "./CustomSteps";
-
+import configData from './Config.json';
 class UploadNFTForm extends React.Component<any,any> {
     constructor(props: any) {
         super(props);
@@ -11,20 +11,20 @@ class UploadNFTForm extends React.Component<any,any> {
 
     async handleSubmit(event:any) {
         event.preventDefault();
-        alert('A name was submitted: ' + this.props.values.n);
+        console.log('A name was submitted: ' + this.props.values.n);
         const data = new FormData(document.forms.namedItem("formToMintNFT"));
         const config = {     
           headers: { 'content-type': 'multipart/form-data' }
         }
       
-        await axios.post("http://localhost:8282/upload_IPFS_pinata", data, config)
+        await axios.post(configData.apiBaseUri + configData.apiUploadArt, data, config)
             .then(response => {
-                alert("Success: " + response + "Address: " + this.props.values.address);
-                alert("Hash Generated: " + response.data['IpfsHash']);
+                console.log("Success: " + response + "Address: " + this.props.values.address);
+                console.log("Hash Generated: " + response.data['IpfsHash']);
                 this.props.updateIPFSHash(response.data['IpfsHash']);
             })
             .catch(error => {
-                alert("Errorr: " + error + " Address: " + this.props.values.address);
+                console.log("Errorr: " + error + " Address: " + this.props.values.address);
             });
             this.props.nextStep()
     }

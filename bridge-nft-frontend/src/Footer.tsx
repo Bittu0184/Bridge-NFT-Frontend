@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 class Footer extends Component{
     render(){
         return (
-            <Segment inverted vertical style={{ padding: '5em 0em' }}>
+            <Segment inverted vertical style={{ padding: '0em 0em' }}>
                 <Container>
                 <Grid divided inverted stackable>
                     <Grid.Row>
@@ -19,10 +19,10 @@ class Footer extends Component{
                     <Grid.Column width={3}>
                         <Header inverted as='h4' content='Services' />
                         <List link inverted>
-                        <List.Item as='a'>Buy Loacl Art</List.Item>
-                        <List.Item as='a'>Upload Art</List.Item>
-                        <List.Item as='a'>Mint NFT</List.Item>
-                        <List.Item as='a'>Sell NFT</List.Item>
+                        <List.Item as={NavLink} to="/exploretraditionalart">Buy Loacl Art</List.Item>
+                        <List.Item as={NavLink} to="/artists">Upload Art</List.Item>
+                        <List.Item as={NavLink} to="/drop">Mint NFT</List.Item>
+                        <List.Item as={NavLink} to="/drop">Sell NFT</List.Item>
                         </List>
                     </Grid.Column>
                     <Grid.Column width={7}>

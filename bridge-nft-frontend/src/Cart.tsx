@@ -1,10 +1,11 @@
 import { Component } from "react";
-import { Button, Container, Dimmer, Icon, Loader, Segment } from "semantic-ui-react";
+import { Button, Container, Dimmer, Header, Icon, Loader, Segment } from "semantic-ui-react";
 import CustomFeedCart from "./CustomFeedCart";
 import Footer from "./Footer";
 import ResponsiveContainer from "./ResponsiveContainer";
 import { withAuth0 } from '@auth0/auth0-react';
-
+import { NavLink } from "react-router-dom";
+import configData from './Config.json';
 class Cart extends Component<any,any>{
     constructor(props:any) {
         super(props);
@@ -18,14 +19,12 @@ class Cart extends Component<any,any>{
 
       async componentDidMount() {
         const { loginWithRedirect, getAccessTokenSilently, isAuthenticated } = this.props.auth0;
-        const domain = "unfoldinnovates.com";
         if(isAuthenticated){
             let accessToken;
-            const{user } = this.props.auth0;
+            const{ user } = this.props.auth0;
         try{
           accessToken = await getAccessTokenSilently({
-            audience: `https://${domain}`,
-            scope: "read:current_user",
+            audience: `${configData.audience}`,
             });
         }catch(err){
           console.log("Error in fetching acess token " + err.message);
@@ -33,8 +32,7 @@ class Cart extends Component<any,any>{
           this.setState({isLoaded: true,error: err});
           return
         }
-         console.log("UserID " + user.sub);
-         fetch(`http://localhost:8282/get/cart/items/${encodeURIComponent(user.sub)}`, {
+         fetch(`${configData.apiBaseUri}${configData.apiGetCartItems}${encodeURIComponent(user.sub)}`, {
            headers: {
              Authorization: `Bearer ${accessToken}`,
            },
@@ -82,7 +80,18 @@ class Cart extends Component<any,any>{
         if (error) {
             console.log("Error " + error);
             if(error === "Empty Cart"){
-                return(<div>Empty</div>)
+              const{ user } = this.props.auth0;
+                return(
+                  <ResponsiveContainer>
+                    <Segment style={{minHeight: 500, marginTop: 50}}>
+                      <Container textAlign='center' >
+                        <Header as='h1'>OOPS!! Seems Like you have an Empty Cart! Mr.{user.name}</Header>
+                        <Button icon as={NavLink} to="/exploretraditionalart"><Icon name='cart'/>Shop Now!!</Button>
+                      </Container>
+                    </Segment>
+                    <Footer/>
+                  </ResponsiveContainer>
+                )
             }
             return (
               <ResponsiveContainer>

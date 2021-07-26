@@ -4,6 +4,7 @@ import { fetchAPI } from "./CallAPI";
 //import CustomCard from "./Card";
 //import axios from 'axios';
 import CustomSteps from "./CustomSteps";
+import configData from './Config.json';
 
 class MintNFTForm extends React.Component<any,any> {
     constructor(props:any) {
@@ -30,7 +31,7 @@ class MintNFTForm extends React.Component<any,any> {
         };
         const strPost = JSON.stringify(postBody);
         alert(strPost)
-        alert(await fetchAPI('http://localhost:8282/mint_nft',strPost))
+        alert(await fetchAPI(configData.apiBaseUri + "mint_nft",strPost))
         this.props.nextStep()
     }
 /*

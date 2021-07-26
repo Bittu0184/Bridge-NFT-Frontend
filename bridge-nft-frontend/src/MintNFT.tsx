@@ -4,7 +4,8 @@ import { Form,Checkbox,Button,Container, Dimmer } from 'semantic-ui-react';
 import './MintNFT.css';
 import { connectWallets } from './ConnectWallet';
 import { fetchAPI } from './CallAPI';
-const { abi } = require('../src/BridgeCraft.json')
+const { abi } = require('../src/BridgeCraft.json');
+import configData from './Config.json';
 
 class MintNFT extends React.Component<any,any>{
     constructor(props: any) {
@@ -26,10 +27,8 @@ class MintNFT extends React.Component<any,any>{
       }
 
       async componentDidMount(){
-       // const web3 = await connectWallets();
         await connectWallets().then((web3) => {
           const accounts = web3.eth.getAccounts().then((acc) => alert('Address acccount: ' + acc[0]));
-          //alert('Address acccount: ' + accounts);
           this.setState({address: accounts[0]});
           this.setState({showUserForm: true});
         }).catch((err) => {alert("err while connecting "+ err)}); 
@@ -45,20 +44,17 @@ class MintNFT extends React.Component<any,any>{
     
       handleSubmit(event:any) {
         event.preventDefault();
-        alert('A name was submitted: ' + this.state.n);
         const data = new FormData(document.forms.namedItem("formToMintNFT"));
         const config = {     
           headers: { 'content-type': 'multipart/form-data' }
         }
       
-        axios.post("http://localhost:8282/upload_IPFS_pinata", data, config)
+        axios.post(configData.apiBaseUri + configData.apiUploadArt, data, config)
             .then(response => {
-                alert("Success: " + response + "Address: " + this.state.address);
-                alert("Hash Generated: " + response.data['IpfsHash']);
                 this.setState({ipfsHash: response.data['IpfsHash']});
             })
             .catch(error => {
-                alert("Errorr: " + error + " Address: " + this.state.address);
+                console.log("Errorr: " + error + " Address: " + this.state.address);
             });
       }
 
@@ -74,34 +70,25 @@ class MintNFT extends React.Component<any,any>{
           datatomint: this.state.ipfsHash
         };
         const strPost = JSON.stringify(postBody);
-        alert(strPost)
-        alert(await fetchAPI('http://localhost:8282/mint_nft',strPost))
+        console.log(strPost)
+        console.log(await fetchAPI('http://localhost:8282/mint_nft',strPost))
         const web3 = await connectWallets(); 
-       //web3.eth.personal.unlockAccount("0x7D80B2e84fC91A330D36d80E4C0050896AcC59D4","testpassword",500);
         const instance = new web3.eth.Contract(abi, "0x56a5372Dd84f2F1D4cF6B43c4c1FF59427dc0A69");
         web3.eth.getCoinbase().then((coin) => {
           web3.eth.defaultAccount = coin
         });
-      //  web3.eth.getAccounts().then((acc) => {
           instance.methods.approve("0xE29824d23619204146e675Dc93b35e616D748da2",4).send({from: this.state.address})
             .then((tx) => {
-              alert('tx hash : ' + tx);
+              console.log('tx hash : ' + tx);
               
             })
-            .catch((err) => {alert('error: ' + err)});
-        //});
+            .catch((err) => {console.log('error: ' + err)});
       }
       
       async transferNFT(e){
         e.preventDefault();
         const web3 = await connectWallets(); 
-       //web3.eth.personal.unlockAccount("0x7D80B2e84fC91A330D36d80E4C0050896AcC59D4","testpassword",500);
          const instance = new web3.eth.Contract(abi, "0x56a5372Dd84f2F1D4cF6B43c4c1FF59427dc0A69");
-        /* web3.eth.getCoinbase().then((coin) => {
-           alert('coinbase: ' + coin)
-           web3.eth.defaultAccount = coin
-         });*/
-        //web3.utils.toChecksumAddress("0x56a5372Dd84f2F1D4cF6B43c4c1FF59427dc0A69")
         web3.eth.getAccounts().then((acc) => {
           web3.eth.defaultAccount = "0x56a5372Dd84f2F1D4cF6B43c4c1FF59427dc0A69";
           instance.methods.safeTransferFrom("0xE29824d23619204146e675Dc93b35e616D748da2",acc[0],4).send({from: "0xE29824d23619204146e675Dc93b35e616D748da2"})

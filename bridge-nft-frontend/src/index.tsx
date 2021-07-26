@@ -6,15 +6,14 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'semantic-ui-css/semantic.min.css';
 import { Auth0Provider } from "@auth0/auth0-react";
-
+import configData from './Config.json';
 
 ReactDOM.render(
   <Auth0Provider
-    domain="dev-tvkm48gz.us.auth0.com"
-    clientId="TKBOnDcaYwiqALd9hhpcAnkNl0DU1pCc"
-    redirectUri="http://localhost:3000/"
-    audience="https://unfoldinnovates.com"
-    scope="read:current_user update:current_user_metadata"
+    domain={configData.domain}
+    clientId={configData.clientId}
+    redirectUri={configData.redirectUri}
+    audience={configData.audience}
   >
     <App />
   </Auth0Provider>,

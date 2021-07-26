@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Button, Card, Container, Grid, Icon, Image } from 'semantic-ui-react';
 import { withAuth0 } from '@auth0/auth0-react';
-
+import configData from './Config.json';
 
 class CustomCardTraditionalArt extends React.Component<any,any>{
     constructor(props){
@@ -16,12 +16,10 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
 
     async addToCart(data){
         const { loginWithRedirect, getAccessTokenSilently, user } = this.props.auth0;
-            const domain = "unfoldinnovates.com";
             let accessToken;
             try{
               accessToken = await getAccessTokenSilently({
-                audience: `https://${domain}`,
-                scope: "read:current_user",
+                audience: `${configData.audience}`,
                 });
             }catch(err){
               console.log("Error in fetching acess token " + err.message);
@@ -31,7 +29,7 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
             }
             const dataToPass = {...data, userid: user.sub}
              console.log("Data In add " + JSON.stringify(dataToPass));
-             fetch("http://localhost:8282/add/to/cart", {
+             fetch(configData.apiBaseUri+configData.apiAddToCart, {
                  method:'POST',
                headers: {
                  Authorization: `Bearer ${accessToken}`,

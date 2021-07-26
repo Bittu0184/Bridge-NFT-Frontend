@@ -4,7 +4,8 @@ import CustomCardTraditionalArt from './CustomCardTraditionalArt'
 import Footer from './Footer'
 import ResponsiveContainer from './ResponsiveContainer'
 import { withAuth0 } from '@auth0/auth0-react';
-import './ShowNFTs.css'
+import './ShowNFTs.css';
+import configData from './Config.json';
 
 class ExploreTraditionalArt extends Component<any,any>{
     constructor(props:any) {
@@ -18,12 +19,10 @@ class ExploreTraditionalArt extends Component<any,any>{
 
       async componentDidMount() {
         const { loginWithRedirect, getAccessTokenSilently } = this.props.auth0;
-        const domain = "unfoldinnovates.com";
         let accessToken;
         try{
           accessToken = await getAccessTokenSilently({
-            audience: `https://${domain}`,
-            scope: "read:current_user",
+            audience: `${configData.audience}`,
             });
         }catch(err){
           console.log("Error in fetching acess token " + err.message);
@@ -31,8 +30,7 @@ class ExploreTraditionalArt extends Component<any,any>{
           this.setState({isLoaded: true,error: err});
           return
         }
-         //console.log("Access Token " + accessToken);
-         fetch("http://localhost:8282/get_all_art", {
+         fetch(configData.apiBaseUri + configData.apiGetAllArt, {
            headers: {
              Authorization: `Bearer ${accessToken}`,
            },

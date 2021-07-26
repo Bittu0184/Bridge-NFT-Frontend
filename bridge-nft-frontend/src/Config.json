@@ -1,0 +1,15 @@
+{
+    "domain":"dev-tvkm48gz.us.auth0.com",
+    "clientId":"TKBOnDcaYwiqALd9hhpcAnkNl0DU1pCc",
+    "redirectUri":"https://ec2-15-207-236-210.ap-south-1.compute.amazonaws.com:3000/",
+    "audience":"https://unfoldinnovates.com",
+    "apiBaseUri":"http://localhost:8282/",
+    "apiGetMetadata":"get_metadata_address",
+    "apiGetCartItems":"get/cart/items/",
+    "apiAddToCart":"add/to/cart",
+    "apiDeleteCartItem":"delete/cart/item/",
+    "apiGetAllArt":"get_all_art",
+    "apiUploadArt":"upload_IPFS_pinata",
+    "apiMintNFT":"mint_nft",
+    "rinkebyinfuraId":"https://rinkeby.infura.io/v3/5a13ceea0a5a49d5962dfaaeb104a62c"
+}

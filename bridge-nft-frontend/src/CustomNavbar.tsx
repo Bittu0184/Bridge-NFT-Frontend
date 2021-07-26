@@ -29,11 +29,9 @@ class CustomNavbar extends React.Component<any,any>{
               <Route path="/cart" exact component={Cart} />      
               <Route path="/profile" exact component={Profile}/>  
               <Route path="/artists" exact component={Artists}/>
+              <Route path="/about" exact component={HomepageLayout}/>
             </Router>
         );
     }
 }
-/*<Route path="/login" exact component={LoginForm}/>
-<Route path="/signup" exact component={SignupForm}/> */
-
 export default CustomNavbar;

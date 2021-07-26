@@ -5,7 +5,7 @@ import { Container, Dimmer, Loader, Segment } from "semantic-ui-react";
 import Footer from "./Footer";
 import './ShowNFTs.css';
 import { withAuth0 } from '@auth0/auth0-react';
-
+import configData from './Config.json';
 
 class ShowNFTs extends React.Component<any,any>{
     constructor(props:any) {
@@ -19,13 +19,10 @@ class ShowNFTs extends React.Component<any,any>{
 
       async componentDidMount() {
        const { getAccessTokenSilently } = this.props.auth0;
-       const domain = "unfoldinnovates.com";
        const accessToken = await getAccessTokenSilently({
-        audience: `https://${domain}`,
-        scope: "read:current_user",
+        audience: `${configData.audience}`,
         });
-        console.log("Access Token " + accessToken);
-        fetch("http://localhost:8282/get_all_metadata", {
+        fetch(configData.apiBaseUri + configData.apiGetMetadata, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },

@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { Button, Container, Header, Icon, Item, Label, Segment } from "semantic-ui-react";
 import { withAuth0 } from '@auth0/auth0-react';
+import configData from './Config.json';
 
 class CustomFeedCart extends Component<any,any>{
     constructor(props){
@@ -16,12 +17,10 @@ class CustomFeedCart extends Component<any,any>{
         const { loginWithRedirect, getAccessTokenSilently, isAuthenticated } = this.props.auth0;
         if(isAuthenticated){
             const {user} = this.props.auth0;
-            const domain = "unfoldinnovates.com";
             let accessToken;
             try{
               accessToken = await getAccessTokenSilently({
-                audience: `https://${domain}`,
-                scope: "read:current_user",
+                audience: `${configData.audience}`,
                 });
             }catch(err){
               console.log("Error in fetching acess token " + err.message);
@@ -29,7 +28,7 @@ class CustomFeedCart extends Component<any,any>{
               //this.setState({isDeleted: true,error: err});
               return
             }
-            await fetch(`http://localhost:8282/delete/cart/item/${encodeURIComponent(user.sub)}/${encodeURIComponent(prodId)}`, {
+            await fetch(`${configData.apiDeleteCartItem}${configData.apiDeleteCartItem}${encodeURIComponent(user.sub)}/${encodeURIComponent(prodId)}`, {
                 headers: {
                   Authorization: `Bearer ${accessToken}`,
                 },
