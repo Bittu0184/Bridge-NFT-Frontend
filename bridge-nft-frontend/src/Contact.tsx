@@ -12,7 +12,7 @@ class Contact extends Component{
                         <Grid>
                             <Grid.Row>
                                 <Grid.Column textAlign="center">
-                                    <Header as='h1'>About Us</Header>
+                                    <Header as='h1'>Contact Us</Header>
                                     <br/>
                                     <br/>
                                     <Header as='h4'>Get Started Today</Header>

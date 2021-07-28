@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Button, Container, Dimmer, Header, Icon, Item, Label, Loader, Segment } from "semantic-ui-react";
+import { Button, Container, Dimmer, Header, Icon, Item, Loader, Segment } from "semantic-ui-react";
 import { withAuth0 } from '@auth0/auth0-react';
 import configData from './Config.json';
 

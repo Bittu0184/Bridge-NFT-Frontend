@@ -4,13 +4,13 @@ import { NavLink, withRouter } from 'react-router-dom'
 import { Component } from 'react'
 import {
   Button,
+  Card,
   Container,
   Divider,
   Dropdown,
   Grid,
   Header,
   Icon,
-  Image,
   Menu,
   Segment,
   Sidebar,
@@ -19,6 +19,9 @@ import {
 import buylocal from './Assets/buylocal.jpg';
 import buynft from './Assets/buynft.png';
 import uploadart from './Assets/uploadart.png';
+import mintnft from './Assets/mintAsset.png';
+import uploadAsset from './Assets/uploadAsset.png';
+import forsale from './Assets/forsaleAsset.png';
 import Footer from './Footer';
 import LoginButton from './LoginButton'
 
@@ -220,57 +223,81 @@ ResponsiveContainer.propTypes = {
 
 const HomepageLayout = () => (
   <ResponsiveContainer>
-    <Segment style={{ padding: '8em 0em' }} vertical>
+    <Segment vertical>
       <Grid container stackable verticalAlign='middle'>
-        <Grid.Row >
+        <Grid.Row style={{ padding: '8em 0em' }}>
             <Grid.Column width={7}>
               <Container textAlign='center'>
-                <Header as='h3' style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
-                BUY ARTS FROM LOCAL ARTISANS
-                </Header>
-                <Image bordered rounded size='large' src={buylocal} centered />
-                <p style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
-                We can give you access to wide range of Indian Traditional art from across the country. You can even customise and contact the artist directly.
-                </p>
+              <Card style={{minWidth:500, minHeight:520}}
+                href="/exploretraditionalart"
+                link raised
+                image={buylocal}
+                header='BUY ARTS FROM LOCAL ARTISANS'
+                description='We can give you access to wide range of Indian Traditional art from across the country. You can even customise and contact the artist directly.'
+              />
               </Container> 
             </Grid.Column>
-            <Grid.Column floated='right' width={7}>
-              <Container as={NavLink} to='/drop'  textAlign='center'>
-              <Header as='h3' style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
-                MINT YOUR DIGITAL ART AND PUT FOR SALE
-                </Header>
-                <Image bordered rounded size='large' src={buynft} centered />
-                <p style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
-                Are you confused about how to get your digital art up for sale? Contact us, we provide platform to mint i.e. store your art on blockchain so you can sell it or store it for eternity.</p>
-              </Container>
+            <Grid.Column textAlign='center' floated='right' width={7}>
+            <Card style={{minWidth:500, minHeight:500}}
+                href="/drop"
+                link raised
+                image={buynft}
+                header='MINT YOUR DIGITAL ART AND PUT FOR SALE'
+                description='Are you confused about how to get your digital art up for sale? Contact us, we provide platform to mint i.e. store your art on blockchain so you can sell it or store it for eternity.'
+              />
+              
              </Grid.Column>
         </Grid.Row>
         <Grid.Row>
             <Grid.Column width={7}>
                 <Container textAlign='center'>
-                <Header as='h3' style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
-                PUT YOUR ARTWROK FOR SALE
-                </Header>
-                <Image bordered rounded size='large' src={uploadart} centered />
-                <p style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
-                You can put your traditional or digital artwork on sale. You get exciting benefits on other artworks when you put your art on sale. </p>
-                </Container>
+                <Card style={{minWidth:500, minHeight:500}}
+                href="/artists"
+                link raised
+                image={uploadart}
+                header='PUT YOUR ARTWROK FOR SALE'
+                description='You can put your traditional or digital artwork on sale. You get exciting benefits on other artworks when you put your art on sale.'
+              />
+              </Container>
             </Grid.Column>
             <Grid.Column floated='right' width={7}>
                 <Container textAlign='center'>
-                <Header as='h3' style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
-                CONNECTING ARTISTS AND ARCHITECTS
-                </Header>
-                <Image bordered rounded size='large' src={buylocal} centered />
-                <p style={{ fontFamily:'Source Sans Pro', fontSize: '16px', padding: '2em 0em' }}>
-                Connecting local artists with architects to create new experiences for the customers/companies. 
-                </p>
-                </Container>
+                <Card style={{minWidth:500, minHeight:500}}
+                link raised
+                image={buylocal}
+                header='CONNECTING ARTISTS AND ARCHITECTS'
+                description='Connecting local artists with architects to create new experiences for the customers/companies.'
+              />
+              </Container>
             </Grid.Column>
         </Grid.Row>
       </Grid>
     </Segment>
-
+    <Segment style={{ padding: '8em 0em' }} vertical>
+      <Container textAlign='center' as='h1' style={{marginBottom: 100}}>STEPS TO PUT UP DIGITAL ART</Container>
+      <Container textAlign='center'>
+        <Card.Group centered>
+        <Card style={{minWidth: 350}}
+                link raised
+                image={uploadAsset}
+                header='UPLOAD YOUR ART'
+                description='Upload you digital art file in image, gif, 3d format. This will upload your file to IPFS network.'
+          />
+          <Card style={{minWidth: 350}}
+                link raised
+                image={mintnft}
+                header='MINT UPLOADED ART'
+                description='Mint your uploaded art. This will put information about your art on ethereum blockchain with your  address as owner of it.'
+          />
+          <Card style={{minWidth: 350}}
+                link raised
+                image={forsale}
+                header='STORE IT OR PUT FOR SALE'
+                description='Your art can be put on sale or you can just showcase it to gain followers.'
+          />
+        </Card.Group>
+      </Container>
+    </Segment>
     <Segment style={{ padding: '8em 0em' }} vertical>
       <Container textAlign='center' text>
         <Header as='h3' style={{ fontSize: '2em' }}>

@@ -3,15 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Card, Image } from 'semantic-ui-react';
 import configData from './Config.json';
 
-class ArtistCard extends React.Component<any,any>{
-    constructor(props){
-        super(props);
-        this.handleCardClick = this.handleCardClick.bind(this);
-    }
-
-    handleCardClick(data){
-        
-    }
+class ArtistCard extends React.Component<any,any>{ 
     render() {
         const { metadata }  = this.props;
         return (

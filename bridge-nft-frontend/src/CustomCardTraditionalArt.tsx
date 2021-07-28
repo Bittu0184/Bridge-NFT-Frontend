@@ -1,6 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { Button, Card, Container, Grid, Icon, Image } from 'semantic-ui-react';
+import { Button, Card, Container, Grid, Icon } from 'semantic-ui-react';
 import { withAuth0 } from '@auth0/auth0-react';
 import configData from './Config.json';
 

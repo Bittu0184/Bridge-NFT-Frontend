@@ -28,9 +28,6 @@ class ExploreTraditionalArt extends Component<any,any>{
           console.log("Access Token "  + accessToken);
         }catch(err){
           console.log("Error in fetching acess token " + err.message);
-          //await loginWithRedirect();
-          //this.setState({isLoaded: true,error: err});
-          //return
         }
          fetch(configData.apiBaseUri + configData.apiGetAllArt, {
            headers: {
