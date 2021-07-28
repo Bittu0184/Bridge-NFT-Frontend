@@ -1,13 +1,11 @@
-import {Component } from 'react'
-import {  Container, Dimmer, Header, Loader, Segment } from 'semantic-ui-react'
-import CustomCardTraditionalArt from './CustomCardTraditionalArt'
-import Footer from './Footer'
-import ResponsiveContainer from './ResponsiveContainer'
-import { withAuth0 } from '@auth0/auth0-react';
-import './ShowNFTs.css';
+import { Component } from "react";
+import { Container, Dimmer, Divider, Header, Loader, Segment } from "semantic-ui-react";
+import Footer from "./Footer";
+import ResponsiveContainer from "./ResponsiveContainer";
 import configData from './Config.json';
+import ArtistCard from "./ArtistCard";
 
-class ExploreTraditionalArt extends Component<any,any>{
+class AllArtists extends Component<any,any>{
     constructor(props:any) {
         super(props);
         this.state = {
@@ -18,28 +16,9 @@ class ExploreTraditionalArt extends Component<any,any>{
       }
 
       async componentDidMount() {
-        const { loginWithRedirect, getAccessTokenSilently, isAuthenticated } = this.props.auth0;
-        if(isAuthenticated){
-          let accessToken;
-        try{
-          accessToken = await getAccessTokenSilently({
-            audience: `${configData.audience}`,
-            });
-          console.log("Access Token "  + accessToken);
-        }catch(err){
-          console.log("Error in fetching acess token " + err.message);
-          //await loginWithRedirect();
-          //this.setState({isLoaded: true,error: err});
-          //return
-        }
-         fetch(configData.apiBaseUri + configData.apiGetAllArt, {
-           headers: {
-             Authorization: `Bearer ${accessToken}`,
-           },
-           })
+         fetch(configData.apiBaseUri + configData.apiGetAllArtist)
           .then(res => res.json())
           .then( (result) => {
-            //console.log("Metadata " + result.productname);
               this.setState({
                 isLoaded: true,
                 metadata: result
@@ -52,11 +31,7 @@ class ExploreTraditionalArt extends Component<any,any>{
               console.log("Error " + err.message);
             }
           )
-        }else{
-          await loginWithRedirect();
         }
-        
-      }
 
     render() {
         const { error, isLoaded } = this.state;
@@ -85,15 +60,21 @@ class ExploreTraditionalArt extends Component<any,any>{
         } else {
           console.log("Loaded ")
             return (
-              <ResponsiveContainer >
-                  <Container style={{minHeight: 500}} className="customContainer">
-                  <CustomCardTraditionalArt metadata={this.state.metadata}/>
-                  </Container>
-                <Footer />
-              </ResponsiveContainer>
+                <ResponsiveContainer>
+                <Segment>
+                    <Container textAlign='center' >
+                        <Header cenetered as='h1'>!!Our Beloved Artist!!</Header>
+                        <Divider/>
+                    </Container>
+                    <Container textAlign='center'>
+                        <ArtistCard metadata={this.state.metadata}/>
+                    </Container>
+                </Segment>
+                <Footer/>
+            </ResponsiveContainer>
             );
         }
     }
 }
 
-export default withAuth0(ExploreTraditionalArt)
+export default AllArtists;

@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Button, Container, Header, Icon, Item, Label, Segment } from "semantic-ui-react";
+import { Button, Container, Dimmer, Header, Icon, Item, Label, Loader, Segment } from "semantic-ui-react";
 import { withAuth0 } from '@auth0/auth0-react';
 import configData from './Config.json';
 
@@ -24,11 +24,8 @@ class CustomFeedCart extends Component<any,any>{
                 });
             }catch(err){
               console.log("Error in fetching acess token " + err.message);
-              await loginWithRedirect();
-              //this.setState({isDeleted: true,error: err});
-              return
             }
-            await fetch(`${configData.apiDeleteCartItem}${configData.apiDeleteCartItem}${encodeURIComponent(user.sub)}/${encodeURIComponent(prodId)}`, {
+            await fetch(`${configData.apiBaseUri}${configData.apiDeleteCartItem}${encodeURIComponent(user.sub)}/${encodeURIComponent(prodId)}`, {
                 headers: {
                   Authorization: `Bearer ${accessToken}`,
                 },
@@ -57,9 +54,14 @@ class CustomFeedCart extends Component<any,any>{
     }
     render(){
         const { dataInCart, totalAmt }  = this.state;
-        //const { totalAmt } = this.props;
         if(dataInCart == null){
-            return(<div>Loading</div>)
+            return(
+              <Segment style={{minHeight: 800, marginTop: 50}}>
+                <Dimmer active>
+                  <Loader size='massive'/>
+                </Dimmer>
+              </Segment>
+            )
         }
         return (
             <Container>
@@ -67,7 +69,7 @@ class CustomFeedCart extends Component<any,any>{
             <Item.Group divided>
             {dataInCart.map((data:any,index:any) => (
                 <Item key={index}>
-                <Item.Image size='medium' src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                <Item.Image size='medium' src={configData.awsS3BaseUri + data.imagelocation} />
           
                 <Item.Content>
                   <Item.Header>{data.productname}</Item.Header>
@@ -76,11 +78,10 @@ class CustomFeedCart extends Component<any,any>{
                   </Item.Meta>
                   <Item.Description>{data.productdesc}</Item.Description>
                   <Item.Extra>
-                    <Button onClick={() => this.deleteItem(data.productid)} size='small' floated='right'>
+                    <Button onClick={() => this.deleteItem(data.productid)} size='small' floated='right' icon>
                         Delete
                         <Icon name='delete' />
                     </Button>
-                    <Label>Limited</Label>
                   </Item.Extra>
                 </Item.Content>
 

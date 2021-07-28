@@ -14,8 +14,35 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
         this.addToCart = this.addToCart.bind(this);
     }
 
-    async addToCart(data){
-        const { loginWithRedirect, getAccessTokenSilently, user } = this.props.auth0;
+    async componentDidMount(){
+      const { loginWithRedirect, getAccessTokenSilently, isAuthenticated, user } = this.props.auth0;
+      if(isAuthenticated){
+        let accessToken;
+        try{
+          accessToken = await getAccessTokenSilently({
+            audience: `${configData.audience}`,
+            });
+        }catch(err){
+          console.log("Error in fetching acess token " + err.message);
+        }
+        fetch(`${configData.apiBaseUri}${configData.apiGetTotalCartItem}${encodeURIComponent(user.sub)}`,{
+          headers:{
+            Authorization: `Bearer ${accessToken}`,
+          }
+        }).then((res) => (res.text()))
+        .then((response) => {
+          console.log("Total item from API: " + response)
+          this.setState({TotalItem: response});
+        }, (err) => {
+          console.log("Error while getting total items: " + err.message);
+        })
+      }else{
+        await loginWithRedirect();
+      }
+    }
+
+    async addToCart(prodid){
+        const { getAccessTokenSilently, user } = this.props.auth0;
             let accessToken;
             try{
               accessToken = await getAccessTokenSilently({
@@ -23,25 +50,18 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
                 });
             }catch(err){
               console.log("Error in fetching acess token " + err.message);
-              await loginWithRedirect();
-              this.setState({isLoaded: true,error: err});
-              return
             }
-            const dataToPass = {...data, userid: user.sub}
-             console.log("Data In add " + JSON.stringify(dataToPass));
-             fetch(configData.apiBaseUri+configData.apiAddToCart, {
-                 method:'POST',
-               headers: {
-                 Authorization: `Bearer ${accessToken}`,
-               },
-               body: JSON.stringify(dataToPass)
-               })
+            console.log("USer id: "+ user.sub + " productid: " + prodid)
+             fetch(`${configData.apiBaseUri}${configData.apiAddToCart}${encodeURIComponent(user.sub)}/${encodeURIComponent(prodid)}`, {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                }
+                })
               .then(res => res.json())
               .then( (result) => {
                 console.log("Response For Add to cart API " + result.Message);
                   this.setState({
                     isAdded: true,
-                    TotalItem: this.state.TotalItem + 1,
                   });
                 },(error) => {
                   this.setState({
@@ -54,24 +74,23 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
 
     render() {
         const { metadata }  = this.props;
-        //console.log("custom Card " + metadata);
         return (
-            <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
+            <Card.Group>
             {metadata.map((data:any,index:any) => (
-            <Card raised link key={index}>
-                <Image size="medium" src={`https://gateway.pinata.cloud/ipfs/${data.ipfsID}`} alt={data.productname} rounded bordered wrapped ui={false} />
+            <Card style={{minWidth: 350}} raised link key={index}>
+                <img style={{width:350, height:350 }} src={configData.awsS3BaseUri + data.imagelocation} alt={data.productname}/>
                 <Card.Content>
                     <Container>
                     <Grid>
                             <Grid.Column floated='left' width={6} >
-                            <Card.Header>{data.productname}</Card.Header>
-                            <Card.Meta>{data.supplierid}</Card.Meta>
+                              <Card.Header>{data.productname}</Card.Header>
+                              <Card.Meta>{data.supplierid}</Card.Meta>
                             </Grid.Column>
                             <Grid.Column floated='right' width={8} >
-                                <Card.Description left>
-                                <Icon name='rupee'/>{data.price}
+                                <Card.Description>
+                                  <Icon name='rupee'/>{data.price}
                                 </Card.Description>
-                                <Card.Description left>{data.productdesc}</Card.Description>
+                                <Card.Description>{data.productdesc}</Card.Description>
                             </Grid.Column>
                     </Grid>
                     </Container>
@@ -79,16 +98,9 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
                 </Card.Content>
                 
                 <Card.Content extra>
-                    <Container className='ui two buttons horizontal'>
-                        <Button.Group fluid>
-                            <Button as={NavLink} to={{ pathname:'/buynow', state: { productDetail: {...data,fromExplore: true} } }}  size='large' animated>
-                                <Button.Content visible>Buy Now</Button.Content>
-                                <Button.Content hidden>
-                                    <Icon name='arrow right' />
-                                </Button.Content>
-                            </Button>
-                            <Button.Or />
-                            <Button content='Add To Cart' onClick={() => this.addToCart(data)}  size='large'  label={{ basic: true , pointing: 'left', content: this.state.TotalItem }}>
+                    <Container textAlign='center' className='ui two buttons horizontal'>
+                        <Button.Group>
+                            <Button content='Add To Cart' onClick={() => this.addToCart(data.productid)}  size='large'  label={{ basic: true , pointing: 'left', content: 'Total Item in Cart ' + this.state.TotalItem }}>
                             </Button>
                         </Button.Group>
                         
@@ -101,3 +113,11 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
     }
 }
 export default withAuth0(CustomCardTraditionalArt);
+/*
+<Button as={NavLink} to={{ pathname:'/buynow', state: { productDetail: {...data,fromExplore: true} } }}  size='large' animated>
+                                <Button.Content visible>Buy Now</Button.Content>
+                                <Button.Content hidden>
+                                    <Icon name='arrow right' />
+                                </Button.Content>
+                            </Button>
+                            <Button.Or />*/

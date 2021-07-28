@@ -22,53 +22,52 @@ class Cart extends Component<any,any>{
         if(isAuthenticated){
             let accessToken;
             const{ user } = this.props.auth0;
-        try{
-          accessToken = await getAccessTokenSilently({
-            audience: `${configData.audience}`,
-            });
-        }catch(err){
-          console.log("Error in fetching acess token " + err.message);
-          await loginWithRedirect();
-          this.setState({isLoaded: true,error: err});
-          return
-        }
-         fetch(`${configData.apiBaseUri}${configData.apiGetCartItems}${encodeURIComponent(user.sub)}`, {
-           headers: {
-             Authorization: `Bearer ${accessToken}`,
-           },
-           })
-          .then(res => res.json())
-          .then( (result) => {
-              if(result == null){
-                this.setState({
-                    isLoaded: false,
-                    metadata: null,
-                    error: "Empty Cart",
+            try{
+              accessToken = await getAccessTokenSilently({
+                audience: `${configData.audience}`,
+                });
+            }catch(err){
+              console.log("Error in fetching acess token " + err.message);
+              this.setState({isLoaded: false,error: err});
+            }
+            console.log("Userid" + user.sub);
+            await fetch(`${configData.apiBaseUri}${configData.apiGetCartItems}${encodeURIComponent(user.sub)}`, {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+              })
+              .then(res => res.json())
+              .then( (result) => {
+                  if(result == null){
+                    this.setState({
+                        isLoaded: false,
+                        metadata: null,
+                        error: "Empty Cart",
+                        totalAmt: 0
+                      });
+                      return
+                  }
+                console.log("Cart Items " + result);
+                let total = 0;
+                result.map((data) => {
+                    total = total + data.price;
+                    return null;
+                })
+                console.log("Total " + total);
+                  this.setState({
+                    isLoaded: true,
+                    metadata: result,
+                    totalAmt: total
+                  });
+                },(error) => {
+                  this.setState({
+                    isLoaded: true,
+                    error: error,
                     totalAmt: 0
                   });
-                  return
-              }
-            console.log("Cart Items " + result.productname);
-            let total = 0;
-            result.map((data) => {
-                total = total + data.price;
-                return null;
-            })
-            console.log("Total " + total);
-              this.setState({
-                isLoaded: true,
-                metadata: result,
-                totalAmt: total
-              });
-            },(error) => {
-              this.setState({
-                isLoaded: true,
-                error: error,
-                totalAmt: 0
-              });
-              console.log("Error " + error);
-            }
-          )
+                  console.log("Error " + error);
+                }
+              )
         }else {
             await loginWithRedirect();
         }
@@ -96,9 +95,9 @@ class Cart extends Component<any,any>{
             return (
               <ResponsiveContainer>
               <Segment style={{minHeight: 800, marginTop: 50}}>
-                <Dimmer active>
-                  <Loader size='massive'/>
-                </Dimmer>
+                <Container textAlign='center'>
+                  <Header as='h1'>OOPS Something Went Wrong.</Header>
+                </Container>
               </Segment>
               <Footer/>
             </ResponsiveContainer>
@@ -123,7 +122,7 @@ class Cart extends Component<any,any>{
                   <Container style={{minHeight: 500}} className="customContainer">
                   <CustomFeedCart metadata={this.state.metadata} totalAmt={this.state.totalAmt}/>
                   </Container>
-                  <Button size='large' primary floated='right'><Icon name='cart'/>Proceed To Checkout</Button>
+                  <Button size='large' primary><Icon name='cart'/>Proceed To Checkout</Button>
                 <Footer />
               </ResponsiveContainer>
             );

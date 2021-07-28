@@ -7,7 +7,6 @@ class LoginButton extends Component<any,any>{
     constructor(props){
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
-        this.handleProfile = this.handleProfile.bind(this);
         this.navCustom = this.navCustom.bind(this);
     }
 
@@ -20,10 +19,6 @@ class LoginButton extends Component<any,any>{
     handleLogout() {
         const {logout} = this.props.auth0;
         logout({ returnTo: window.location.origin });
-    }
-
-    handleProfile() {
-        this.props.history.push(`/drop`);
     }
 
     
