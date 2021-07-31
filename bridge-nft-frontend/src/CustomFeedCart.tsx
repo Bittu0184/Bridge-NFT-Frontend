@@ -64,12 +64,12 @@ class CustomFeedCart extends Component<any,any>{
             )
         }
         return (
-            <Container>
+            <Segment>
             <Segment>
             <Item.Group divided>
             {dataInCart.map((data:any,index:any) => (
                 <Item key={index}>
-                <Item.Image size='medium' src={configData.awsS3BaseUri + data.imagelocation} />
+                <Item.Image size='medium' src={configData.awsS3BaseUri + data.imagelocation.split(',')[0]} />
           
                 <Item.Content>
                   <Item.Header>{data.productname}</Item.Header>
@@ -78,7 +78,7 @@ class CustomFeedCart extends Component<any,any>{
                   </Item.Meta>
                   <Item.Description>{data.productdesc}</Item.Description>
                   <Item.Extra>
-                    <Button onClick={() => this.deleteItem(data.productid)} size='small' floated='right' icon>
+                    <Button onClick={() => this.deleteItem(data.productid)} floated='right' color='red' icon>
                         Delete
                         <Icon name='delete' />
                     </Button>
@@ -90,13 +90,13 @@ class CustomFeedCart extends Component<any,any>{
             ))}
             </Item.Group>
             </Segment>
-            <Segment>
+            <Segment >
                 <Container>
                     <Header floated='left' as='h3'>Total Amount: </Header>
                     <Header floated='right' as='h3'>₹{totalAmt}</Header>
                 </Container>
             </Segment>
-            </Container>
+            </Segment>
         )
     }
 }

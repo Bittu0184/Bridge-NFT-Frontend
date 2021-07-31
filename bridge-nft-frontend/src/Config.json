@@ -1,9 +1,9 @@
 {
     "domain":"dev-tvkm48gz.us.auth0.com",
     "clientId":"TKBOnDcaYwiqALd9hhpcAnkNl0DU1pCc",
-    "redirectUri":"http://localhost:3000/",
+    "redirectUri":"https://Unfold-load-balancer-95811434.ap-south-1.elb.amazonaws.com/",
     "audience":"https://unfoldinnovates.com",
-    "apiBaseUri":"http://localhost:8282/",
+    "apiBaseUri":"https://Unfold-load-balancer-backend-1278431727.ap-south-1.elb.amazonaws.com/",
     "apiGetMetadata":"get_metadata_address",
     "apiGetAllMetadata":"get_all_metadata",
     "apiGetCartItems":"get/cart/items/",
@@ -15,6 +15,7 @@
     "apiGetTotalCartItem":"get/cart/total/item/",
     "apiGetAllArtist":"get/artists",
     "apiGetAllArtByArtist":"/get/artists/art/",
+    "apiGetArtistDetails":"/get/artists/art/details/",
     "rinkebyinfuraId":"https://rinkeby.infura.io/v3/5a13ceea0a5a49d5962dfaaeb104a62c",
     "awsS3BaseUri":"https://unfold-public.s3.ap-south-1.amazonaws.com/"
 }

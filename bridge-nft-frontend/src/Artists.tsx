@@ -3,7 +3,6 @@ import { Container, Dimmer, Divider, Header, Image, Loader, Segment } from "sema
 import Footer from "./Footer";
 import ResponsiveContainer from "./ResponsiveContainer";
 import configData from './Config.json';
-import { Redirect } from "react-router-dom";
 import CustomCardTraditionalArt from "./CustomCardTraditionalArt";
 
 class Artists extends Component<any,any>{
@@ -11,45 +10,50 @@ class Artists extends Component<any,any>{
         super(props);
         this.state = {
             error: null,
-            isLoaded: false,
-            metadata: []
+            isLoadedMetadata: false,
+            isLoadedDetails: false,
+            metadata: [],
+            artistdetails: []
         };
     }
 
     async componentDidMount(){
-        const state = this.props.location;
-        console.log("Did mount artist " + state)
-        if(state === undefined){
-            return
-        }
-        const artistdetails = this.props.location.state.artistdetails;
-        console.log("Supplierr id " + artistdetails.supplierid)
-        fetch(`${configData.apiBaseUri + configData.apiGetAllArtByArtist + encodeURIComponent(artistdetails.supplierid) }`)
+        const id = this.props.match.params.id;
+        console.log("Supplierr id " + id)
+        fetch(`${configData.apiBaseUri + configData.apiGetAllArtByArtist + encodeURIComponent(id) }`)
           .then(res => res.json())
           .then( (result) => {
               this.setState({
-                isLoaded: true,
+                isLoadedMetadata: true,
                 metadata: result
               });
             },(err) => {
               this.setState({
-                isLoaded: true,
+                isLoadedMetadata: true,
                 error: err
               });
               console.log("Error " + err.message);
             }
         )
+        fetch(`${configData.apiBaseUri + configData.apiGetArtistDetails + encodeURIComponent(id) }`) 
+            .then(res => res.json())
+            .then((result) => {
+              this.setState({
+                isLoadedDetails: true,
+                artistdetails: result
+              });
+              }, (err) => {
+                this.setState({
+                  isLoadedDetails: true,
+                  error: err
+                });
+                console.log("Error: " + err.message);
+              }
+            )
     }
     render() {
         console.log("Inside s artist");
-        const { state } = this.props.location;
-        console.log("In Cart " + state);
-        if(state === undefined){
-            return(
-            <Redirect to="/home" />
-            )
-        }
-        const { error, isLoaded } = this.state;
+        const { error, isLoadedMetadata, isLoadedDetails } = this.state;
         if (error) {
             console.log("Error " + error.message);
             return (
@@ -60,7 +64,7 @@ class Artists extends Component<any,any>{
               <Footer/>
             </ResponsiveContainer>
             )
-        } else if (!isLoaded) {
+        } else if (!isLoadedMetadata || !isLoadedDetails) {
           console.log("waiting")
             return   (  
               <ResponsiveContainer>
@@ -74,32 +78,45 @@ class Artists extends Component<any,any>{
             )
         } else {
           console.log("Loaded ")
-          const { artistdetails } = state;
-          if(artistdetails.fromAllArtist){
-              return (
-                  <ResponsiveContainer>
-                      <Segment>
-                          <Container textAlign='center' style={{minHeight: 500}}>
-                              <Image src={configData.awsS3BaseUri + artistdetails.profilelocation} alt='image not available' size='medium' centered circular/>
-                              <Divider/>
-                              <Header as='h2'>{artistdetails.name}</Header>
-                              <Container textAlign='justified'>
-                              {artistdetails.about}
-                              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede link mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
-                              </Container>
-                              <Divider/>
-                              <CustomCardTraditionalArt metadata={this.state.metadata}/>
-                          </Container>
-                      </Segment>
-                      <Footer/>
-                  </ResponsiveContainer>
-                  
-              )
-          }else{
+          const { artistdetails } = this.state;
+          if(this.state.metadata == null){
             return(
-                <Redirect to="/"/>
-            )
-        }
+            <ResponsiveContainer>
+            <Segment>
+                <Container textAlign='center' style={{minHeight: 500}}>
+                    <Image src={configData.awsS3BaseUri + artistdetails.profilelocation} alt='image not available' size='medium' centered circular/>
+                    <Divider/>
+                    <Header as='h2'>{artistdetails.name}</Header>
+                    <Container textAlign='justified'>
+                    {artistdetails.about}
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede link mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
+                    </Container>
+                    <Divider/>
+                    <Header as='h3'>Arts Coming Soon!!</Header>
+                </Container>
+            </Segment>
+            <Footer/>
+            </ResponsiveContainer>)
+          }
+          return (
+              <ResponsiveContainer>
+                  <Segment>
+                      <Container textAlign='center' style={{minHeight: 500}}>
+                          <Image src={configData.awsS3BaseUri + artistdetails.profilelocation} alt='image not available' size='medium' centered circular/>
+                          <Divider/>
+                          <Header as='h2'>{artistdetails.name}</Header>
+                          <Container textAlign='justified'>
+                          {artistdetails.about}
+                          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede link mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
+                          </Container>
+                          <Divider/>
+                          <CustomCardTraditionalArt metadata={this.state.metadata}/>
+                      </Container>
+                  </Segment>
+                  <Footer/>
+              </ResponsiveContainer>
+              
+          )
         }
     }
 }

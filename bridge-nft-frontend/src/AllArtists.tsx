@@ -66,7 +66,7 @@ class AllArtists extends Component<any,any>{
                         <Header cenetered as='h1'>!!Our Beloved Artist!!</Header>
                         <Divider/>
                     </Container>
-                    <Container textAlign='center'>
+                    <Container  textAlign='center'>
                         <ArtistCard metadata={this.state.metadata}/>
                     </Container>
                 </Segment>

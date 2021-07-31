@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Card, Container, Grid, Icon } from 'semantic-ui-react';
 import { withAuth0 } from '@auth0/auth0-react';
 import configData from './Config.json';
+import { NavLink } from "react-router-dom";
 
 class CustomCardTraditionalArt extends React.Component<any,any>{
     constructor(props){
@@ -76,8 +77,11 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
         return (
             <Card.Group>
             {metadata.map((data:any,index:any) => (
-            <Card style={{minWidth: 350}} raised link key={index}>
-                <img style={{width:350, height:350 }} src={configData.awsS3BaseUri + data.imagelocation} alt={data.productname}/>
+            <Card style={{minWidth: 350,color:'black'}} raised key={index} as={NavLink} to={{
+              pathname:"/buynow",
+              productDetail:{...data,FromAllProducts: true},
+              }} activeStyle={{color:'black', textDecoration: 'none'}}>
+                <img style={{width:350, height:350 }} src={configData.awsS3BaseUri + data.imagelocation.split(',')[0]} alt={data.productname}/>
                 <Card.Content>
                     <Container>
                     <Grid>

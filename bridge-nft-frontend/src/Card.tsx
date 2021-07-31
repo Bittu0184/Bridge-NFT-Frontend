@@ -1,11 +1,12 @@
 import React from "react";
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Container, Icon, Image } from 'semantic-ui-react'
 
 class CustomCard extends React.Component<any,any>{
     render() {
         const { metadata }  = this.props;
         
         return (
+            <Container>
             <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
             {metadata.map((data:any,index:any) => (
             <Card raised link key={index}>
@@ -25,6 +26,7 @@ class CustomCard extends React.Component<any,any>{
             </Card>
             ))}
             </Card.Group>
+            </Container>
         )
     }
 }

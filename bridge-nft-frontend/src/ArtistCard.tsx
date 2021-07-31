@@ -7,9 +7,9 @@ class ArtistCard extends React.Component<any,any>{
     render() {
         const { metadata }  = this.props;
         return (
-            <Card.Group>
+            <Card.Group centered>
             {metadata.map((data:any,index:any) => (
-            <Card raised link key={index} as={NavLink} to={{ pathname:'/sartist', state: { artistdetails: {...data,fromAllArtist: true} } }}>
+            <Card raised link key={index} as={NavLink} to={{ pathname:'/artist/' + data.name + '/' + data.supplierid}}>
                 <Image size="large" src={configData.awsS3BaseUri + data.profilelocation} alt={data.name} circular />
                 <Card.Content>
                     <Card.Header>{data.name}</Card.Header>

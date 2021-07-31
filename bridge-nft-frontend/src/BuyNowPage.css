@@ -1,0 +1,9 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 800px) {
+    .example {background: red;}
+  }
+  
+.ui.grid.gridBuyNow{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}

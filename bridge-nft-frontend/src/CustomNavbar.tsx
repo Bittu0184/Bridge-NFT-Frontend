@@ -30,7 +30,7 @@ class CustomNavbar extends React.Component<any,any>{
               <Route path="/cart" exact component={Cart} />      
               <Route path="/profile" exact component={Profile}/>  
               <Route path="/artists" exact component={AllArtists}/>
-              <Route path="/sartist" exact component={Artists}/>
+              <Route path="/artist/:name/:id" exact component={Artists}/>
               <Route path="/about" exact component={HomepageLayout}/>
             </Router>
         );
