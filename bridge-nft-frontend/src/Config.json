@@ -1,9 +1,9 @@
 {
     "domain":"dev-tvkm48gz.us.auth0.com",
     "clientId":"TKBOnDcaYwiqALd9hhpcAnkNl0DU1pCc",
-    "redirectUri":"https://Unfold-load-balancer-95811434.ap-south-1.elb.amazonaws.com/",
+    "redirectUri":"https://unfoldinnovates.com/",
     "audience":"https://unfoldinnovates.com",
-    "apiBaseUri":"https://Unfold-load-balancer-backend-1278431727.ap-south-1.elb.amazonaws.com/",
+    "apiBaseUri":"https://unfoldinnovates.com/backend/",
     "apiGetMetadata":"get_metadata_address",
     "apiGetAllMetadata":"get_all_metadata",
     "apiGetCartItems":"get/cart/items/",

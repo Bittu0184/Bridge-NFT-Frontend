@@ -27,6 +27,7 @@ class AccountPage extends React.Component<any,any> {
                 console.log('Address acccount: ' + acc[0])
                 this.setState({address: acc[0]});
                 const postbody = acc[0];
+                console.log("URL ACcount page: "+ configData.apiBaseUri + configData.apiGetMetadata)
                 await fetch(configData.apiBaseUri + configData.apiGetMetadata, {
                     method: 'POST',
                     headers: {

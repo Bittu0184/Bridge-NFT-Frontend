@@ -8,3 +8,12 @@
     padding-top: 100px !important;
     padding-left: 100px;
 }
+
+.ui.segmentTest{
+    min-height: 700px;
+    Padding: '1em 0em';
+    background-image: url("./Assets/page4.jpg");
+    background-size: 'contain';
+    background-repeat  : 'no-repeat';
+    background-position: 'top';
+}

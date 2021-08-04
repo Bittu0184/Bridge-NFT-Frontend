@@ -29,6 +29,7 @@ class ExploreTraditionalArt extends Component<any,any>{
         }catch(err){
           console.log("Error in fetching acess token " + err.message);
         }
+        console.log("URL: " + configData.apiBaseUri + configData.apiGetAllArt);
          fetch(configData.apiBaseUri + configData.apiGetAllArt, {
            headers: {
              Authorization: `Bearer ${accessToken}`,

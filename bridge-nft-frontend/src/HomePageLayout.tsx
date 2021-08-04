@@ -23,7 +23,8 @@ import mintnft from './Assets/mintAsset.png';
 import uploadAsset from './Assets/uploadAsset.png';
 import forsale from './Assets/forsaleAsset.png';
 import Footer from './Footer';
-import LoginButton from './LoginButton'
+import LoginButton from './LoginButton';
+import landingPage from './Assets/page4.jpg';
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
@@ -88,7 +89,7 @@ class DesktopContainer extends Component{
    // const { isLog } = this.props
    // alert("From Home page layout " + isLog);
     return (
-      <Media greaterThan='mobile'>
+      <Media greaterThan='mobile' >
         <Visibility
           once={false}
           onBottomPassed={this.showFixedMenu}
@@ -97,8 +98,8 @@ class DesktopContainer extends Component{
           <Segment
             inverted
             textAlign='center'
-            style={{ minHeight: 700, padding: '1em 0em' }}
             vertical
+            style={{minHeight: 700, padding: '1em 0em'}}
           >
             <Menu
               fixed={fixed ? 'top' : null}
@@ -177,7 +178,7 @@ class MobileContainer extends Component {
             <Segment
               inverted
               textAlign='center'
-              style={{ minHeight: 350, padding: '1em 0em' }}
+              style={{ minHeight: 350, padding: '1em 0em', backgroundImage: `url(${landingPage})`, backgroundSize: 'contain', backgroundRepeat  : 'no-repeat',backgroundPosition: 'top' }}
               vertical
             >
               <Container>

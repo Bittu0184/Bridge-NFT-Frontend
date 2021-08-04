@@ -14,6 +14,8 @@ import Cart from "./Cart";
 import Profile from "./Profile";
 import Artists from "./Artists";
 import AllArtists from "./AllArtists";
+import HealthCheck from "./HealthCheck";
+import About from "./About";
 
 class CustomNavbar extends React.Component<any,any>{
     render() {
@@ -31,7 +33,8 @@ class CustomNavbar extends React.Component<any,any>{
               <Route path="/profile" exact component={Profile}/>  
               <Route path="/artists" exact component={AllArtists}/>
               <Route path="/artist/:name/:id" exact component={Artists}/>
-              <Route path="/about" exact component={HomepageLayout}/>
+              <Route path="/about" exact component={About}/>
+              <Route path="/healthCheck" exact component={HealthCheck}/>
             </Router>
         );
     }
