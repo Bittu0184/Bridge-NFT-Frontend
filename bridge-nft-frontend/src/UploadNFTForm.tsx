@@ -17,7 +17,7 @@ class UploadNFTForm extends React.Component<any,any> {
           headers: { 'content-type': 'multipart/form-data' }
         }
       
-        await axios.post(configData.apiBaseUri + configData.apiUploadArt, data, config)
+        await axios.post(process.env.REACT_APP_API_BASE_URI + configData.apiUploadArt, data, config)
             .then(response => {
                 console.log("Success: " + response + "Address: " + this.props.values.address);
                 console.log("Hash Generated: " + response.data['IpfsHash']);

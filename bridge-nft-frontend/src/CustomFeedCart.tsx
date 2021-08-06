@@ -20,12 +20,12 @@ class CustomFeedCart extends Component<any,any>{
             let accessToken;
             try{
               accessToken = await getAccessTokenSilently({
-                audience: `${configData.audience}`,
+                audience: `${process.env.REACT_APP_AUTH_AUDIENCE}`,
                 });
             }catch(err){
               console.log("Error in fetching acess token " + err.message);
             }
-            await fetch(`${configData.apiBaseUri}${configData.apiDeleteCartItem}${encodeURIComponent(user.sub)}/${encodeURIComponent(prodId)}`, {
+            await fetch(`${process.env.REACT_APP_API_BASE_URI}${configData.apiDeleteCartItem}${encodeURIComponent(user.sub)}/${encodeURIComponent(prodId)}`, {
                 headers: {
                   Authorization: `Bearer ${accessToken}`,
                 },
@@ -57,7 +57,7 @@ class CustomFeedCart extends Component<any,any>{
         if(dataInCart == null){
             return(
               <Segment style={{minHeight: 800, marginTop: 50}}>
-                <Dimmer active>
+                <Dimmer inverted active>
                   <Loader size='massive'/>
                 </Dimmer>
               </Segment>
@@ -69,7 +69,7 @@ class CustomFeedCart extends Component<any,any>{
             <Item.Group divided>
             {dataInCart.map((data:any,index:any) => (
                 <Item key={index}>
-                <Item.Image size='medium' src={configData.awsS3BaseUri + data.imagelocation.split(',')[0]} />
+                <Item.Image size='medium' src={process.env.REACT_APP_AWS_S3_BASE_URI + data.imagelocation.split(',')[0]} />
           
                 <Item.Content>
                   <Item.Header>{data.productname}</Item.Header>

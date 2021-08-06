@@ -6,6 +6,7 @@ import ResponsiveContainer from "./ResponsiveContainer";
 import { withAuth0 } from '@auth0/auth0-react';
 import { NavLink } from "react-router-dom";
 import configData from './Config.json';
+
 class Cart extends Component<any,any>{
     constructor(props:any) {
         super(props);
@@ -24,14 +25,13 @@ class Cart extends Component<any,any>{
             const{ user } = this.props.auth0;
             try{
               accessToken = await getAccessTokenSilently({
-                audience: `${configData.audience}`,
+                audience: `${process.env.REACT_APP_AUTH_AUDIENCE}`,
                 });
             }catch(err){
               console.log("Error in fetching acess token " + err.message);
               this.setState({isLoaded: false,error: err});
             }
-            console.log("Userid" + user.sub);
-            await fetch(`${configData.apiBaseUri}${configData.apiGetCartItems}${encodeURIComponent(user.sub)}`, {
+            await fetch(`${process.env.REACT_APP_API_BASE_URI}${configData.apiGetCartItems}${encodeURIComponent(user.sub)}`, {
               headers: {
                 Authorization: `Bearer ${accessToken}`,
               },
@@ -108,7 +108,7 @@ class Cart extends Component<any,any>{
             return   (  
               <ResponsiveContainer>
                 <Segment style={{minHeight: 800, marginTop: 50}}>
-                  <Dimmer active>
+                  <Dimmer inverted active>
                     <Loader size='massive'/>
                   </Dimmer>
                 </Segment>

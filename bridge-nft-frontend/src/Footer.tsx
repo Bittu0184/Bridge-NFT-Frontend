@@ -1,24 +1,25 @@
 import { Component } from "react";
-import { Container, Grid, Header, List, Segment } from "semantic-ui-react";
+import { Container, Divider, Grid, Header, List, Segment } from "semantic-ui-react";
 import { NavLink } from 'react-router-dom';
 
 class Footer extends Component{
     render(){
         return (
-            <Segment inverted vertical style={{ padding: '0em 0em' }}>
+            <Segment vertical style={{ padding: '0em 0em' }}>
+                <Divider/>
                 <Container>
-                <Grid divided inverted stackable>
+                <Grid divided stackable>
                     <Grid.Row>
                     <Grid.Column width={3}>
-                        <Header inverted as='h4' content='About' />
-                        <List link inverted>
+                        <Header as='h4' content='About' />
+                        <List link >
                             <List.Item as={NavLink} to="/contact">Contact Us</List.Item>
                             <List.Item as={NavLink} to="/about">About us</List.Item>
                         </List>
                     </Grid.Column>
                     <Grid.Column width={3}>
-                        <Header inverted as='h4' content='Services' />
-                        <List link inverted>
+                        <Header as='h4' content='Services' />
+                        <List link>
                         <List.Item as={NavLink} to="/exploretraditionalart">Buy Loacl Art</List.Item>
                         <List.Item as={NavLink} to="/artists">Upload Art</List.Item>
                         <List.Item as={NavLink} to="/drop">Mint NFT</List.Item>
@@ -26,7 +27,7 @@ class Footer extends Component{
                         </List>
                     </Grid.Column>
                     <Grid.Column width={7}>
-                        <Header as='h4' inverted>
+                        <Header as='h4'>
 
                         </Header>
                         <p>

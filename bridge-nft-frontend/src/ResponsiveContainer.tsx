@@ -6,14 +6,16 @@ import {
   Button,
   Container,
   Dropdown,
-  Header,
+  Image,
   Icon,
   Menu,
   Segment,
   Sidebar,
   Visibility,
 } from 'semantic-ui-react'
-import LoginButton from './LoginButton'
+import LoginButton from './LoginButton';
+import logo from './logo.svg';
+
 
 
 const { MediaContextProvider, Media } = createMedia({
@@ -30,27 +32,6 @@ const { MediaContextProvider, Media } = createMedia({
  */
 const HomepageHeading = ({ mobile }) => (
   <Container text>
-    <Header
-      as='h1'
-      content='UNFOLD INNOVATES'
-      inverted
-      style={{
-        fontSize: mobile ? '2em' : '4em',
-        fontWeight: 'normal',
-        marginBottom: 0,
-        marginTop: mobile ? '1.5em' : '3em',
-      }}
-    />
-    <Header
-      as='h2'
-      content='UNFOLDING ONLINE PLATFORM FOR DIGITAL AND TRADITIONAL ARTS!!'
-      inverted
-      style={{
-        fontSize: mobile ? '1.5em' : '1.7em',
-        fontWeight: 'normal',
-        marginTop: mobile ? '0.5em' : '1.5em',
-      }}
-    />
   </Container>
 )
 
@@ -83,19 +64,20 @@ class DesktopContainer extends Component<any,any> {
           onBottomPassedReverse={this.hideFixedMenu}
         >
           <Segment
-            inverted
+
             textAlign='center'
             style={{ minHeight: 90, padding: '1em 0em' }}
             vertical
           >
             <Menu
               fixed={fixed ? 'top' : null}
-              inverted={!fixed}
               pointing={!fixed}
               secondary={!fixed}
               size='large'
             >
-              <Container>
+              <Menu.Item>
+                  <Image src={logo} alt='logo' size='tiny'/>
+                </Menu.Item>
                 <Menu.Item as={NavLink} to="/home">
                   Home
                 </Menu.Item>
@@ -109,9 +91,8 @@ class DesktopContainer extends Component<any,any> {
                 <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
                 <Menu.Item position='right'>
                   <LoginButton fix={fixed}/>
-                  <Button  as={NavLink} to="/cart"  inverted icon><Icon name='shop'/></Button>
+                  <Button  as={NavLink} to="/cart" icon><Icon name='shop'/></Button>
                 </Menu.Item>  
-              </Container>
             </Menu>
           </Segment>
         </Visibility>
@@ -151,7 +132,10 @@ class MobileContainer extends Component {
             vertical
             visible={sidebarOpened}
           >
-            <Menu.Item as={NavLink} to="/home">
+            <Menu.Item>
+            <Image src={logo} alt='logo' size='tiny'/>
+            </Menu.Item>
+            <Menu.Item as={NavLink} to="/home" active>
               Home
             </Menu.Item>
             <Menu.Item as={NavLink} to="/explore">Digital Art - NFT</Menu.Item>
@@ -175,7 +159,7 @@ class MobileContainer extends Component {
                   </Menu.Item>
                   <Menu.Item position='right'>
                     <LoginButton fix='false'/>
-                    <Button  as={NavLink} to="/cart"  inverted icon><Icon name='shop'/></Button>
+                    <Button as={NavLink} to="/cart"  icon><Icon name='shop'/></Button>
                   </Menu.Item>
                 </Menu>
               </Container>

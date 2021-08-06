@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Card, Container, Grid, Icon } from 'semantic-ui-react';
 import { withAuth0 } from '@auth0/auth0-react';
-import configData from './Config.json';
+//import configData from './Config.json';
 import { NavLink } from "react-router-dom";
 
 class CustomCardTraditionalArt extends React.Component<any,any>{
@@ -15,17 +15,17 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
     }
 
     async componentDidMount(){
-      const { loginWithRedirect, getAccessTokenSilently, isAuthenticated, user } = this.props.auth0;
+     /* const { loginWithRedirect, getAccessTokenSilently, isAuthenticated, user } = this.props.auth0;
       if(isAuthenticated){
         let accessToken;
         try{
           accessToken = await getAccessTokenSilently({
-            audience: `${configData.audience}`,
+            audience: `${process.env.REACT_APP_AUTH_AUDIENCE}`,
             });
         }catch(err){
           console.log("Error in fetching acess token " + err.message);
         }
-        fetch(`${configData.apiBaseUri}${configData.apiGetTotalCartItem}${encodeURIComponent(user.sub)}`,{
+        fetch(`${process.env.REACT_APP_API_BASE_URI}${configData.apiGetTotalCartItem}${encodeURIComponent(user.sub)}`,{
           headers:{
             Authorization: `Bearer ${accessToken}`,
           }
@@ -38,21 +38,24 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
         })
       }else{
         await loginWithRedirect();
-      }
+      }*/
     }
 
     async addToCart(prodid){
-        const { getAccessTokenSilently, user } = this.props.auth0;
+       /* const { loginWithRedirect, getAccessTokenSilently, user, isAuthenticated } = this.props.auth0;
+        if(!isAuthenticated){
+          await loginWithRedirect;
+        }else{
             let accessToken;
             try{
               accessToken = await getAccessTokenSilently({
-                audience: `${configData.audience}`,
+                audience: `${process.env.REACT_APP_AUTH_AUDIENCE}`,
                 });
             }catch(err){
               console.log("Error in fetching acess token " + err.message);
             }
             console.log("USer id: "+ user.sub + " productid: " + prodid)
-             fetch(`${configData.apiBaseUri}${configData.apiAddToCart}${encodeURIComponent(user.sub)}/${encodeURIComponent(prodid)}`, {
+             fetch(`${process.env.REACT_APP_API_BASE_URI}${configData.apiAddToCart}${encodeURIComponent(user.sub)}/${encodeURIComponent(prodid)}`, {
                 headers: {
                   Authorization: `Bearer ${accessToken}`,
                 }
@@ -70,6 +73,7 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
                   console.log("Error in adding to cart " + error);
                 }
               )
+        }*/
     }
 
     render() {
@@ -81,7 +85,7 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
               pathname:"/buynow",
               productDetail:{...data,FromAllProducts: true},
               }} activeStyle={{color:'black', textDecoration: 'none'}}>
-                <img style={{width:350, height:350 }} src={configData.awsS3BaseUri + data.imagelocation.split(',')[0]} alt={data.productname}/>
+                <img style={{width:350, height:350 }} src={process.env.REACT_APP_AWS_S3_BASE_URI + data.imagelocation.split(',')[0]} alt={data.productname}/>
                 <Card.Content>
                     <Container>
                     <Grid>
@@ -97,13 +101,11 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
                             </Grid.Column>
                     </Grid>
                     </Container>
-                    
                 </Card.Content>
-                
                 <Card.Content extra>
                     <Container textAlign='center' className='ui two buttons horizontal'>
                         <Button.Group>
-                            <Button content='Add To Cart' onClick={() => this.addToCart(data.productid)}  size='large'  label={{ basic: true , pointing: 'left', content: 'Total Item in Cart ' + this.state.TotalItem }}>
+                            <Button content='Coming Soon!!' onClick={() => this.addToCart(data.productid)}  size='medium' >
                             </Button>
                         </Button.Group>
                         
@@ -116,11 +118,3 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
     }
 }
 export default withAuth0(CustomCardTraditionalArt);
-/*
-<Button as={NavLink} to={{ pathname:'/buynow', state: { productDetail: {...data,fromExplore: true} } }}  size='large' animated>
-                                <Button.Content visible>Buy Now</Button.Content>
-                                <Button.Content hidden>
-                                    <Icon name='arrow right' />
-                                </Button.Content>
-                            </Button>
-                            <Button.Or />*/

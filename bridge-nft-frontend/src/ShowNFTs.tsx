@@ -21,10 +21,9 @@ class ShowNFTs extends React.Component<any,any>{
        const { loginWithRedirect,getAccessTokenSilently, isAuthenticated } = this.props.auth0;
        if(isAuthenticated){
         const accessToken = await getAccessTokenSilently({
-          audience: `${configData.audience}`,
+          audience: `${process.env.REACT_APP_AUTH_AUDIENCE}`,
           });
-          console.log("Acces " + accessToken);
-          fetch(configData.apiBaseUri + configData.apiGetAllMetadata, {
+          fetch(process.env.REACT_APP_API_BASE_URI + configData.apiGetAllMetadata, {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
@@ -56,7 +55,7 @@ class ShowNFTs extends React.Component<any,any>{
             return  (  
               <ResponsiveContainer>
                 <Segment style={{minHeight: 800, marginTop: 50}}>
-                  <Dimmer active>
+                  <Dimmer inverted active>
                     <Loader size='massive'/>
                   </Dimmer>
                 </Segment>

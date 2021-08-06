@@ -1,6 +1,6 @@
 import { Component  } from 'react';
 import { withAuth0 } from '@auth0/auth0-react';
-import { Button, Dimmer, Dropdown, DropdownItem, Icon, Loader } from 'semantic-ui-react';
+import { Dimmer, Dropdown, DropdownItem, Icon, Loader, Menu } from 'semantic-ui-react';
 import { NavLink } from "react-router-dom";
 
 class LoginButton extends Component<any,any>{
@@ -27,7 +27,7 @@ class LoginButton extends Component<any,any>{
         if (isLoading) {
             return (
                 <Dimmer active>
-                    <Loader size='large'/>
+                    <Loader size='medium'/>
                 </Dimmer>
             )
         }
@@ -60,8 +60,9 @@ class LoginButton extends Component<any,any>{
                     <DropdownTriggerExample/>
             )
         }else {
+            const {fix} = this.props;
             return (
-                <Button onClick={() => loginWithRedirect()} inverted style={{ marginLeft: '0.5em' }} >Log In</Button>
+                <Menu.Item onClick={() => loginWithRedirect()} inverted={fix} style={{ marginLeft: '0.5em' }} >Log In</Menu.Item>
             )
         }
         

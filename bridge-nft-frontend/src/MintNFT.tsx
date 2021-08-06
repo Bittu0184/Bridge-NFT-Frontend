@@ -49,7 +49,7 @@ class MintNFT extends React.Component<any,any>{
           headers: { 'content-type': 'multipart/form-data' }
         }
       
-        axios.post(configData.apiBaseUri + configData.apiUploadArt, data, config)
+        axios.post(process.env.REACT_APP_API_BASE_URI + configData.apiUploadArt, data, config)
             .then(response => {
                 this.setState({ipfsHash: response.data['IpfsHash']});
             })

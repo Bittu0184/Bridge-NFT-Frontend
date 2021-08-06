@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Image, Header, Icon, Button, Divider, Card } from "semantic-ui-react";
+import { Image, Header, Icon, Button, Card } from "semantic-ui-react";
 import Footer from "./Footer";
 import ResponsiveContainer from "./ResponsiveContainer";
 import { NavLink, Redirect } from "react-router-dom";
@@ -16,17 +16,20 @@ class CartPage extends Component<any,any>{
     }
 
     async addToCart(prodid){
-        const { getAccessTokenSilently, user } = this.props.auth0;
+        const { getAccessTokenSilently, user, isAuthenticated, loginWithRedirect } = this.props.auth0;
+        if(!isAuthenticated){
+          await loginWithRedirect();
+        }else{
             let accessToken;
             try{
               accessToken = await getAccessTokenSilently({
-                audience: `${configData.audience}`,
+                audience: `${process.env.REACT_APP_AUTH_AUDIENCE}`,
                 });
             }catch(err){
               console.log("Error in fetching acess token " + err.message);
             }
             console.log("USer id: "+ user.sub + " productid: " + prodid)
-             fetch(`${configData.apiBaseUri}${configData.apiAddToCart}${encodeURIComponent(user.sub)}/${encodeURIComponent(prodid)}`, {
+             fetch(`${process.env.REACT_APP_API_BASE_URI}${configData.apiAddToCart}${encodeURIComponent(user.sub)}/${encodeURIComponent(prodid)}`, {
                 headers: {
                   Authorization: `Bearer ${accessToken}`,
                 }
@@ -44,6 +47,7 @@ class CartPage extends Component<any,any>{
                   console.log("Error in adding to cart " + error);
                 }
               )
+        }
     }
 
     render() {
@@ -54,20 +58,17 @@ class CartPage extends Component<any,any>{
             <Redirect to="/home" />
             )
         }
-        //const {productDetail} = state;
         const imagelocationArray = productDetail.imagelocation.split(',');
-        console.log("First Locatio " + imagelocationArray[0])
-        console.log("image Loacation Array: " + imagelocationArray);
         return (
             <ResponsiveContainer>
                 <Card.Group centered style={{marginTop: 30,marginBottom:30}}>
-                            <Card raised style={{minWidth: 600, minHeight: 400}}>
+                            <Card raised style={{minWidth: 450, minHeight: 450, maxHeight:450}}>
                                 <Carousel>
                                 {imagelocationArray.map((location:any,index:any) => (
                                 <Carousel.Item>
                                     <Image
                                     fluid
-                                    src={configData.awsS3BaseUri + location}
+                                    src={process.env.REACT_APP_AWS_S3_BASE_URI + location}
                                     alt={productDetail.productname}
                                     style={{minHeight: 450, maxHeight: 450}}
                                     />
@@ -86,7 +87,6 @@ class CartPage extends Component<any,any>{
                                     <Button as={NavLink} to="/exploretraditionalart">Continue Shopping</Button>
                                     </Button.Group>
                                 </Card.Content>
-                                <Divider/>
                                 <Card.Content extra>
                                     <Header as={NavLink} to="/home"><Icon name='mail' />Request more Information </Header>
                                     <Header as='h3'>Other Details: <br/> Size: {productDetail.size} <br/> Year: 2021 <br/> Color: {productDetail.color}</Header>

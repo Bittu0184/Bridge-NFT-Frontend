@@ -27,8 +27,8 @@ class AccountPage extends React.Component<any,any> {
                 console.log('Address acccount: ' + acc[0])
                 this.setState({address: acc[0]});
                 const postbody = acc[0];
-                console.log("URL ACcount page: "+ configData.apiBaseUri + configData.apiGetMetadata)
-                await fetch(configData.apiBaseUri + configData.apiGetMetadata, {
+                console.log("URL ACcount page: "+ process.env.REACT_APP_API_BASE_URI + configData.apiGetMetadata)
+                await fetch(process.env.REACT_APP_API_BASE_URI + configData.apiGetMetadata, {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ class AccountPage extends React.Component<any,any> {
             return (
             <ResponsiveContainer>
                 <Segment style={{minHeight: 800}}>
-                  <Dimmer active>
+                  <Dimmer inverted active>
                     <Loader size='massive'/>
                   </Dimmer>
                 </Segment>

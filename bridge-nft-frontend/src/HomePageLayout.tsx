@@ -8,23 +8,20 @@ import {
   Container,
   Divider,
   Dropdown,
-  Grid,
   Header,
   Icon,
+  Image,
   Menu,
   Segment,
   Sidebar,
   Visibility,
 } from 'semantic-ui-react'
-import buylocal from './Assets/buylocal.jpg';
-import buynft from './Assets/buynft.png';
-import uploadart from './Assets/uploadart.png';
 import mintnft from './Assets/mintAsset.png';
 import uploadAsset from './Assets/uploadAsset.png';
 import forsale from './Assets/forsaleAsset.png';
 import Footer from './Footer';
 import LoginButton from './LoginButton';
-import landingPage from './Assets/page4.jpg';
+import logo from './logo.svg';
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
@@ -40,28 +37,8 @@ const { MediaContextProvider, Media } = createMedia({
  */
 
 const HomepageHeading = ({ mobile }) => (
-  <Container text>
-    <Header
-      as='h1'
-      content='UNFOLD INNOVATES'
-      inverted
-      style={{
-        fontSize: mobile ? '2em' : '4em',
-        fontWeight: 'normal',
-        marginBottom: 0,
-        marginTop: mobile ? '1.5em' : '3em',
-      }}
-    />
-    <Header
-      as='h2'
-      content='UNFOLDING ONLINE PLATFORM FOR DIGITAL AND TRADITIONAL ARTS!!'
-      inverted
-      style={{
-        fontSize: mobile ? '1.5em' : '1.7em',
-        fontWeight: 'normal',
-        marginTop: mobile ? '0.5em' : '1.5em',
-      }}
-    />
+  <Container text >
+    
   </Container>
 )
 
@@ -99,16 +76,16 @@ class DesktopContainer extends Component{
             inverted
             textAlign='center'
             vertical
-            style={{minHeight: 700, padding: '1em 0em'}}
+            style={{minHeight: 700, padding: '1em 0em', backgroundImage: `url(${process.env.REACT_APP_AWS_S3_BASE_URI + "finallandingpage.svg"})`, backgroundSize: 'cover', backgroundPosition: 'top', backgroundRepeat: 'no-repeat'}}
           >
             <Menu
               fixed={fixed ? 'top' : null}
-              inverted={!fixed}
-              pointing={!fixed}
-              secondary={!fixed}
+              secondary
               size='large'
             >
-              <Container>
+                <Menu.Item>
+                  <Image src={logo} alt='logo' size='tiny'/>
+                </Menu.Item>
                 <Menu.Item as={NavLink} to="/home">
                   Home
                 </Menu.Item>
@@ -122,9 +99,8 @@ class DesktopContainer extends Component{
                 <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
                 <Menu.Item  position='right'>
                   <LoginButton fix={fixed}/>
-                  <Button  as={NavLink} to="/cart"  inverted icon><Icon name='shop'/></Button>
+                  <Menu.Item  as={NavLink} to="/cart"  inverted icon><Icon name='shop'/></Menu.Item>
                 </Menu.Item>
-              </Container>
             </Menu>
             <HomepageHeading />
           </Segment>
@@ -165,6 +141,9 @@ class MobileContainer extends Component {
             vertical
             visible={sidebarOpened}
           >
+            <Menu.Item>
+            <Image src={logo} alt='logo' size='small'/>
+            </Menu.Item>
             <Menu.Item as={NavLink} to="/home" active>
               Home
             </Menu.Item>
@@ -178,7 +157,7 @@ class MobileContainer extends Component {
             <Segment
               inverted
               textAlign='center'
-              style={{ minHeight: 350, padding: '1em 0em', backgroundImage: `url(${landingPage})`, backgroundSize: 'contain', backgroundRepeat  : 'no-repeat',backgroundPosition: 'top' }}
+              style={{ minHeight: 290, padding: '1em 0em', backgroundImage: `url(${process.env.REACT_APP_AWS_S3_BASE_URI + "landingpagemobile.jpg"})`, backgroundSize: 'contain', backgroundRepeat  : 'no-repeat',backgroundPosition: 'top' }}
               vertical
             >
               <Container>
@@ -224,55 +203,53 @@ ResponsiveContainer.propTypes = {
 
 const HomepageLayout = () => (
   <ResponsiveContainer>
-    <Segment vertical>
-      <Grid container stackable verticalAlign='middle'>
-        <Grid.Row style={{ padding: '8em 0em' }}>
-            <Grid.Column width={7}>
-              <Container textAlign='center'>
-              <Card style={{minWidth:500, minHeight:520}}
-                href="/exploretraditionalart"
-                link raised
-                image={buylocal}
-                header='BUY ARTS FROM LOCAL ARTISANS'
-                description='We can give you access to wide range of Indian Traditional art from across the country. You can even customise and contact the artist directly.'
-              />
-              </Container> 
-            </Grid.Column>
-            <Grid.Column textAlign='center' floated='right' width={7}>
-            <Card style={{minWidth:500, minHeight:500}}
-                href="/drop"
-                link raised
-                image={buynft}
-                header='MINT YOUR DIGITAL ART AND PUT FOR SALE'
-                description='Are you confused about how to get your digital art up for sale? Contact us, we provide platform to mint i.e. store your art on blockchain so you can sell it or store it for eternity.'
-              />
-              
-             </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-            <Grid.Column width={7}>
-                <Container textAlign='center'>
-                <Card style={{minWidth:500, minHeight:500}}
-                href="/artists"
-                link raised
-                image={uploadart}
-                header='PUT YOUR ARTWROK FOR SALE'
-                description='You can put your traditional or digital artwork on sale. You get exciting benefits on other artworks when you put your art on sale.'
-              />
-              </Container>
-            </Grid.Column>
-            <Grid.Column floated='right' width={7}>
-                <Container textAlign='center'>
-                <Card style={{minWidth:500, minHeight:500}}
-                link raised
-                image={buylocal}
-                header='CONNECTING ARTISTS AND ARCHITECTS'
-                description='Connecting local artists with architects to create new experiences for the customers/companies.'
-              />
-              </Container>
-            </Grid.Column>
-        </Grid.Row>
-      </Grid>
+    <Segment vertical style={{marginTop: 30, marginBottom:30, paddingTop:30, paddingBottom:30}} textAlign='center'>
+      <Card.Group centered style={{marginTop: 30, marginBottom:30, paddingTop:30, paddingBottom:30}} >
+          <Card link raised style={{minWidth: 400, Height:400,marginRight:50, marginLeft: 50, marginBottom:100, textDecoration: 'none', color: 'black'}} as={NavLink} to="/exploretraditionalart">
+            <Image src={(process.env.REACT_APP_AWS_S3_BASE_URI + 'buylocal.svg')} alt="Unavailable" width="400" height="350"/>
+            <Card.Content>
+            <Card.Header>
+            BUY ARTS FROM LOCAL ARTISANS
+            </Card.Header>
+            </Card.Content>
+            <Card.Content>
+            We can give you access to wide range of Indian Traditional art from across the country. You can even customise and contact the artist directly.
+            </Card.Content>
+          </Card>
+          <Card link raised style={{minWidth: 400, Height:400, marginRight:50, marginLeft: 50,marginBottom:100, textDecoration: 'none', color: 'black'}} as={NavLink} to="/drop">
+            <Image src={(process.env.REACT_APP_AWS_S3_BASE_URI + 'sellnft.svg')} alt="Unavailable" width="400" height="350"/>
+            <Card.Content>
+            <Card.Header>
+            MINT YOUR DIGITAL ART AND PUT FOR SALE
+            </Card.Header>
+            </Card.Content>
+            <Card.Content>
+            You can put your traditional or digital artwork on sale. You get exciting benefits on other artworks when you put your art on sale.
+            </Card.Content>
+          </Card>
+          <Card link raised style={{minWidth: 400, Height:400,marginRight:50, marginLeft: 50,marginBottom:100, textDecoration: 'none', color: 'black'}} as={NavLink} to="/exploretraditionalart">
+            <Image src={(process.env.REACT_APP_AWS_S3_BASE_URI + 'selllocal.svg')} alt="Unavailable" width="400" height="350"/>
+            <Card.Content>
+            <Card.Header>
+            PUT YOUR ARTWROK FOR SALE
+            </Card.Header>
+            </Card.Content>
+            <Card.Content>
+            You can put your traditional or digital artwork on sale. You get exciting benefits on other artworks when you put your art on sale.
+            </Card.Content>
+          </Card>
+          <Card link raised style={{minWidth: 400, Height:400,marginRight:50, marginLeft: 50,marginBottom:100, textDecoration: 'none', color: 'black'}} href="/contact">
+            <Image src={(process.env.REACT_APP_AWS_S3_BASE_URI + 'collaborate.svg')} alt="Unavailable" width="400" height="350"/>
+            <Card.Content>
+            <Card.Header>
+            CONNECTING ARTISTS AND ARCHITECTS
+            </Card.Header>
+            </Card.Content>
+            <Card.Content>
+            Connecting local artists with architects to create new experiences for the customers/companies.
+            </Card.Content>
+          </Card>
+              </Card.Group>
     </Segment>
     <Segment style={{ padding: '8em 0em' }} vertical>
       <Container textAlign='center' as='h1' style={{marginBottom: 100}}>STEPS TO PUT UP DIGITAL ART</Container>

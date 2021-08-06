@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -6,14 +5,13 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'semantic-ui-css/semantic.min.css';
 import { Auth0Provider } from "@auth0/auth0-react";
-import configData from './Config.json';
 
 ReactDOM.render(
   <Auth0Provider
-    domain={configData.domain}
-    clientId={configData.clientId}
-    redirectUri={configData.redirectUri}
-    audience={configData.audience}
+    domain={process.env.REACT_APP_AUTH_DOMAIN}
+    clientId={process.env.REACT_APP_CLIENT_ID}
+    redirectUri={process.env.REACT_APP_REDIRECT_URI}
+    audience={process.env.REACT_APP_AUTH_AUDIENCE}
   >
     <App />
   </Auth0Provider>,

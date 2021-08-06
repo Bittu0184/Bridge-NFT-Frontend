@@ -16,7 +16,7 @@ class AllArtists extends Component<any,any>{
       }
 
       async componentDidMount() {
-         fetch(configData.apiBaseUri + configData.apiGetAllArtist)
+         fetch(process.env.REACT_APP_API_BASE_URI + configData.apiGetAllArtist)
           .then(res => res.json())
           .then( (result) => {
               this.setState({
@@ -50,7 +50,7 @@ class AllArtists extends Component<any,any>{
             return   (  
               <ResponsiveContainer>
                 <Segment style={{minHeight: 800, marginTop: 50}}>
-                  <Dimmer active>
+                  <Dimmer inverted active>
                     <Loader size='massive'/>
                   </Dimmer>
                 </Segment>

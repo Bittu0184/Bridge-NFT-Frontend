@@ -9,7 +9,7 @@ class Profile extends Component<any,any>{
         const { loginWithRedirect, isAuthenticated, isLoading } = this.props.auth0;
         if (isLoading) {
             return (
-                <Dimmer active>
+                <Dimmer inverted active>
                     <Loader size='large'/>
                 </Dimmer>
             )

@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Card, Image } from 'semantic-ui-react';
-import configData from './Config.json';
 
 class ArtistCard extends React.Component<any,any>{ 
     render() {
@@ -10,7 +9,7 @@ class ArtistCard extends React.Component<any,any>{
             <Card.Group centered>
             {metadata.map((data:any,index:any) => (
             <Card raised link key={index} as={NavLink} to={{ pathname:'/artist/' + data.name + '/' + data.supplierid}}>
-                <Image size="large" src={configData.awsS3BaseUri + data.profilelocation} alt={data.name} circular />
+                <Image size="large" src={process.env.REACT_APP_AWS_S3_BASE_URI+ data.profilelocation} alt={data.name} circular />
                 <Card.Content>
                     <Card.Header>{data.name}</Card.Header>
                     <Card.Meta>Joined in 2021</Card.Meta>
