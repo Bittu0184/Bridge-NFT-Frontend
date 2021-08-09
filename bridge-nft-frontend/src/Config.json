@@ -5,6 +5,7 @@
     "apiAddToCart":"add/to/cart/",
     "apiDeleteCartItem":"delete/cart/item/",
     "apiGetAllArt":"get_all_art",
+    "apiGetArtPage":"getArtPage/",
     "apiUploadArt":"upload_IPFS_pinata",
     "apiMintNFT":"mint_nft",
     "apiGetTotalCartItem":"get/cart/total/item/",

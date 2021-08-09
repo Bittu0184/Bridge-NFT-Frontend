@@ -100,7 +100,7 @@ class Artists extends Component<any,any>{
               <ResponsiveContainer>
                   <Segment>
                       <Container textAlign='center' style={{minHeight: 500}}>
-                          <Image src={process.env.REACT_APP_AWS_S3_BASE_URI  + artistdetails.profilelocation} alt='image not available' size='medium' centered circular/>
+                          <Image width="350" height="350" src={process.env.REACT_APP_AWS_S3_BASE_URI  + artistdetails.profilelocation} alt='image not available' centered circular/>
                           <Divider/>
                           <Header as='h2'>{artistdetails.name}</Header>
                           <Container textAlign='justified'>

@@ -15,6 +15,7 @@ class Footer extends Component{
                         <List link >
                             <List.Item as={NavLink} to="/contact">Contact Us</List.Item>
                             <List.Item as={NavLink} to="/about">About us</List.Item>
+                            <List.Item as={NavLink} to="/tnc">Terms & Condition</List.Item>
                         </List>
                     </Grid.Column>
                     <Grid.Column width={3}>

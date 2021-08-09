@@ -3,38 +3,65 @@ import {  Container, Dimmer, Header, Loader, Segment } from 'semantic-ui-react'
 import CustomCardTraditionalArt from './CustomCardTraditionalArt'
 import Footer from './Footer'
 import ResponsiveContainer from './ResponsiveContainer'
-//import { withAuth0 } from '@auth0/auth0-react';
 import './ShowNFTs.css';
 import configData from './Config.json';
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 class ExploreTraditionalArt extends Component<any,any>{
     constructor(props:any) {
         super(props);
         this.state = {
             error: null,
-            isLoaded: false,
-            metadata: []
+            isLoaded: true,
+            metadata: [],
+            hasMore: true,
+            offset: 0
         };
+       this.fetchNextLot = this.fetchNextLot.bind(this);
+      }
+      fetchNextLot(){
+        console.log("call fetch " + process.env.REACT_APP_API_BASE_URI + configData.apiGetArtPage + encodeURIComponent(10) + '/' + encodeURIComponent(this.state.offset))
+        console.log("limit 10 offset " + this.state.offset);
+        fetch( `${process.env.REACT_APP_API_BASE_URI + configData.apiGetArtPage + encodeURIComponent(10) + '/' + encodeURIComponent(this.state.offset)}`)
+        .then(res => res.json())
+          .then( (result) => {
+              if(result == null){
+                this.setState({
+                  isLoaded: true,
+                  hasMore: false
+                });
+                return
+              }
+              this.setState(prevState => {
+              return {
+                isLoaded: true,
+                metadata: prevState.metadata.concat(result),
+                offset: prevState.offset + 10,
+                hasMore: true
+              }
+              });
+            },(err) => {
+              this.setState({
+                isLoaded: true,
+                error: err,
+                hasMore: false
+              });
+              console.log("Error " + err.message);
+            }
+          )
       }
 
       async componentDidMount() {
-       /* const { loginWithRedirect, getAccessTokenSilently, isAuthenticated } = this.props.auth0;
-        if(isAuthenticated){
-          let accessToken;
-        try{
-          accessToken = await getAccessTokenSilently({
-            audience: `${process.env.REACT_APP_AUTH_AUDIENCE}`,
-            });
-        }catch(err){
-          console.log("Error in fetching acess token " + err.message);
-        }*/
-        console.log("URL: " + process.env.REACT_APP_API_BASE_URI + configData.apiGetAllArt);
-         fetch(process.env.REACT_APP_API_BASE_URI + configData.apiGetAllArt)
+         fetch( `${process.env.REACT_APP_API_BASE_URI + configData.apiGetArtPage + encodeURIComponent(10) + '/' + encodeURIComponent(0)}`)
           .then(res => res.json())
           .then( (result) => {
-              this.setState({
+            this.setState(prevState => {
+              return {
                 isLoaded: true,
-                metadata: result
+                metadata: result,
+                offset: prevState.offset + 10,
+                hasMore: true
+              }
               });
             },(err) => {
               this.setState({
@@ -44,9 +71,7 @@ class ExploreTraditionalArt extends Component<any,any>{
               console.log("Error " + err.message);
             }
           )
-        }//else{
-         // await loginWithRedirect();
-        //}
+      }
 
     render() {
         const { error, isLoaded } = this.state;
@@ -77,7 +102,18 @@ class ExploreTraditionalArt extends Component<any,any>{
             return (
               <ResponsiveContainer >
                   <Container style={{minHeight: 500}} className="customContainer">
+                  <InfiniteScroll
+                    dataLength={this.state.metadata.length}
+                    next={this.fetchNextLot}
+                    hasMore={this.state.hasMore}
+                    loader={<h4>Loading...</h4>}
+                    endMessage={
+                        <p style={{ textAlign: 'center' }}>
+                            <b>Yay! You have seen it all</b>
+                        </p>
+                    }>
                     <CustomCardTraditionalArt metadata={this.state.metadata}/>
+                  </InfiniteScroll>
                   </Container>
                 <Footer />
               </ResponsiveContainer>

@@ -16,6 +16,8 @@ import Artists from "./Artists";
 import AllArtists from "./AllArtists";
 import HealthCheck from "./HealthCheck";
 import About from "./About";
+import RouteChangeTracker from "./RouteChangeTracker";
+import TnC from "./TnC";
 
 class CustomNavbar extends React.Component<any,any>{
     render() {
@@ -35,6 +37,8 @@ class CustomNavbar extends React.Component<any,any>{
               <Route path="/artist/:name/:id" exact component={Artists}/>
               <Route path="/about" exact component={About}/>
               <Route path="/healthCheck" exact component={HealthCheck}/>
+              <Route path="/tnc" exact component={TnC}/>
+              <RouteChangeTracker/>
             </Router>
         );
     }
