@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Image, Header, Icon, Button, Card } from "semantic-ui-react";
+import { Image, Header, Button, Card } from "semantic-ui-react";
 import Footer from "./Footer";
 import ResponsiveContainer from "./ResponsiveContainer";
 import { NavLink, Redirect } from "react-router-dom";
@@ -87,10 +87,6 @@ class CartPage extends Component<any,any>{
                                     <Button as={NavLink} to="/exploretraditionalart">Continue Shopping</Button>
                                     </Button.Group>
                                 </Card.Content>
-                                <Card.Content extra>
-                                    <Header as={NavLink} to="/home"><Icon name='mail' />Request more Information </Header>
-                                    <Header as='h3'>Other Details: <br/> Size: {productDetail.size} <br/> Year: 2021 <br/> Color: {productDetail.color}</Header>
-                                </Card.Content>
                             </Card>
                     </Card.Group>
                 <Footer />
@@ -100,3 +96,8 @@ class CartPage extends Component<any,any>{
 }
 
 export default withAuth0(CartPage);
+
+/*<Card.Content extra>
+                                    <Header as={NavLink} to="/home"><Icon name='mail' />Request more Information </Header>
+                                    <Header as='h3'>Other Details: <br/> Size: {productDetail.size} <br/> Year: 2021 <br/> Color: {productDetail.color}</Header>
+                                </Card.Content>*/

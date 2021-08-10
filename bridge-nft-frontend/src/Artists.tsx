@@ -107,7 +107,9 @@ class Artists extends Component<any,any>{
                           {artistdetails.about}
                           </Container>
                           <Divider/>
-                          <CustomCardTraditionalArt metadata={this.state.metadata}/>
+                      </Container>
+                      <Container>
+                      <CustomCardTraditionalArt metadata={this.state.metadata}/>
                       </Container>
                   </Segment>
                   <Footer/>
