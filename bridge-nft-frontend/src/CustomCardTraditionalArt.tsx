@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, Image, Container, Icon, Header, Dimmer, Loader } from 'semantic-ui-react';
+import { Card, Image, Icon, Header, Dimmer, Loader } from 'semantic-ui-react';
 import { withAuth0 } from '@auth0/auth0-react';
 import { NavLink } from "react-router-dom";
 import configData from './Config.json';
@@ -67,12 +67,11 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
             
             <Card.Group>
             {metadata.map((data:any,index:any) => (
-            <Card style={{minWidth: 320,color:'black',marginRight:10, paddingTop:10, paddingBottom:10, marginTop:10, backgroundColor:'#F4F4F4',borderRadius: 20}} raised key={data.productid} as={NavLink} to={{
+            <Card style={{minWidth: 350,color:'black',marginRight:10, paddingTop:10, paddingBottom:10, marginTop:10, backgroundColor:'#F4F4F4',borderRadius: 20}} raised key={data.productid} as={NavLink} to={{
               pathname:"/buynow",
               productDetail:{...data,FromAllProducts: true},
               }} activeStyle={{color:'black', textDecoration: 'none'}}>
-                
-                <Image width="300" height="300" style={{borderRadius: 20}} src={process.env.REACT_APP_AWS_S3_BASE_URI + data.imagelocation.split(',')[0]} alt={data.productname} bordered centered/>
+                <Image width="300" height="300" style={{borderRadius: 20}} src={process.env.REACT_APP_AWS_S3_BASE_URI + data.imagelocation.split(',')[0]} alt={data.productname} centered></Image>
                 <Card.Content>
                     <Image
                     floated='left'
@@ -83,18 +82,10 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
                     <Card.Header>{data.productname}</Card.Header>
                     <Card.Meta>{supplier[data.supplierid - 1].name}</Card.Meta>
                     <Card.Description>
-                        <Icon name='rupee'/>{data.price}
+                    <Icon name='rupee'/>{data.price}
                     </Card.Description>
-                    <Card.Description>{data.productdesc.substring(0,30)}</Card.Description>
                 </Card.Content>
-                <Card.Content extra>
-                    <Container textAlign='center'>
-                        <Button.Group>
-                            <Button content='Coming Soon!!'  size='medium' >
-                            </Button>
-                        </Button.Group>
-                    </Container> 
-                </Card.Content>
+                
             </Card>
             ))}
             </Card.Group>
@@ -102,4 +93,3 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
     }
 }
 export default withAuth0(CustomCardTraditionalArt);
-//<div>{this.updateSupplierDetail.call(this,data.supplierid)}</div>

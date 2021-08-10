@@ -7,7 +7,6 @@ import {
   Card,
   Container,
   Divider,
-  Dropdown,
   Header,
   Icon,
   Image,
@@ -89,14 +88,9 @@ class DesktopContainer extends Component{
                 <Menu.Item as={NavLink} to="/home">
                   Home
                 </Menu.Item>
-                <Dropdown item text='Explore'>
-                  <Dropdown.Menu>
-                    <Dropdown.Item as={NavLink} to="/exploretraditionalart">Digital Art - NFT</Dropdown.Item>
-                    <Dropdown.Item as={NavLink} to="/exploretraditionalart">Traditional Art</Dropdown.Item>
-                    <Dropdown.Item as={NavLink} to="/artists">Artists</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
+                <Menu.Item as={NavLink} to="/home">Digital Art - NFT</Menu.Item>
+                <Menu.Item as={NavLink} to="/exploretraditionalart">Traditional Art</Menu.Item>
+                <Menu.Item as={NavLink} to="/artists">Artists</Menu.Item>
                 <Menu.Item  position='right'>
                   <LoginButton fix={fixed}/>
                   <Menu.Item  as={NavLink} to="/cart"  inverted icon><Icon name='shop'/></Menu.Item>
@@ -136,7 +130,6 @@ class MobileContainer extends Component {
           <Sidebar
             as={Menu}
             animation='overlay'
-            inverted
             onHide={this.handleSidebarHide}
             vertical
             visible={sidebarOpened}
@@ -147,7 +140,7 @@ class MobileContainer extends Component {
             <Menu.Item as={NavLink} to="/home" active>
               Home
             </Menu.Item>
-            <Menu.Item as={NavLink} to="/exploretraditionalart">Digital Art - NFT</Menu.Item>
+            <Menu.Item as={NavLink} to="/home">Digital Art - NFT</Menu.Item>
             <Menu.Item as={NavLink} to="/exploretraditionalart">Traditional Art</Menu.Item>
             <Menu.Item as={NavLink} to="/artists">Artists</Menu.Item>
             <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
