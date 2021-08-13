@@ -10,14 +10,16 @@ class CustomSteps extends React.Component<any,any> {
             completed: this.props.completed
         };
     }
-    handleClick = (e, { title }) => this.setState({ active: title })
+    handleClick = (e, { title }) => {
+        this.setState({ active: title })
+    }
     render() {
         const { active,completed } = this.state
         return (
-            <Step.Group widths={3}>
+            <Step.Group widths={3} attached='bottom'>
                 <Step
                     active={active === 'Upload Art'}
-                    completed={completed === 1}
+                    completed={completed === "1" || completed === "2" || completed === "3"}
                     icon='upload'
                     link
                     onClick={this.handleClick}
@@ -26,7 +28,7 @@ class CustomSteps extends React.Component<any,any> {
                 />
                 <Step
                     active={active === 'Mint NFT'}
-                    completed={completed === 2}
+                    completed={completed === "2" || completed === "3"}
                     icon='credit card'
                     link
                     onClick={this.handleClick}
@@ -35,7 +37,7 @@ class CustomSteps extends React.Component<any,any> {
                 />
                 <Step
                     active={active === 'Put For Sale'}
-                    completed={completed === 3}
+                    completed={completed === "3"}
                     icon='money bill alternate outline'
                     link
                     onClick={this.handleClick}

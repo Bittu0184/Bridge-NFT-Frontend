@@ -18,13 +18,15 @@ class ExploreTraditionalArt extends Component<any,any>{
             hasMore: true,
             offset: 0,
             activeItem: 'All',
+            hasCategoryChanged: false
         };
        this.fetchNextLot = this.fetchNextLot.bind(this);
        this.handleItemClick = this.handleItemClick.bind(this);
       }
       fetchNextLot(){
        // console.log("call fetch " + process.env.REACT_APP_API_BASE_URI + configData.apiGetArtPage + encodeURIComponent(10) + '/' + encodeURIComponent(this.state.offset))
-        console.log("limit 10 offset " + this.state.offset);
+       console.log("Inside fetchnext") 
+       console.log("limit 10 offset " + this.state.offset);
         fetch( `${process.env.REACT_APP_API_BASE_URI + configData.apiGetArtPage + encodeURIComponent(this.state.activeItem) + '/' + encodeURIComponent(10) + '/' + encodeURIComponent(this.state.offset)}`)
         .then(res => res.json())
           .then( (result) => {
@@ -33,6 +35,15 @@ class ExploreTraditionalArt extends Component<any,any>{
                   isLoaded: true,
                   hasMore: false
                 });
+                return
+              }else if(this.state.hasCategoryChanged === true){
+                this.setState({
+                    isLoaded: true,
+                    metadata: result,
+                    offset: 10,
+                    hasMore: true,
+                    hasCategoryChanged: false
+                  });
                 return
               }
               this.setState(prevState => {
@@ -58,13 +69,11 @@ class ExploreTraditionalArt extends Component<any,any>{
          fetch( `${process.env.REACT_APP_API_BASE_URI + configData.apiGetArtPage + encodeURIComponent(this.state.activeItem) +'/'  + encodeURIComponent(10) + '/' + encodeURIComponent(0)}`)
           .then(res => res.json())
           .then( (result) => {
-            this.setState(prevState => {
-              return {
+            this.setState({
                 isLoaded: true,
                 metadata: result,
-                offset: prevState.offset + 10,
+                offset: 10,
                 hasMore: true
-              }
               });
             },(err) => {
               this.setState({
@@ -74,10 +83,13 @@ class ExploreTraditionalArt extends Component<any,any>{
               console.log("Error " + err.message);
             }
           )
+          
       }
 
-    handleItemClick(name){  
-      this.setState({ activeItem: name });
+    async handleItemClick(name){  
+      console.log("Inside handle item");
+      this.setState({ activeItem: name, hasMore: true, offset: 0, hasCategoryChanged:true }, ()=>this.fetchNextLot());
+      //this.fetchNextLot();
     } 
     render() {
         const { error, isLoaded, activeItem } = this.state;

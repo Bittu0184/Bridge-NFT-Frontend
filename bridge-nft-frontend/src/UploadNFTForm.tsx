@@ -1,27 +1,36 @@
 import React from "react";
-import { Button, Checkbox, Container, Form, Grid, Segment } from "semantic-ui-react";
+import { Button, Checkbox, Container, Dimmer, Form, Grid, Loader, Segment } from "semantic-ui-react";
 import axios from 'axios';
 import CustomSteps from "./CustomSteps";
 import configData from './Config.json';
 class UploadNFTForm extends React.Component<any,any> {
     constructor(props: any) {
         super(props);
+        this.state = {
+            isSubmitted: false,
+            isWaiting: false
+        }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     async handleSubmit(event:any) {
         event.preventDefault();
+        this.setState({isWaiting: true});
         console.log('A name was submitted: ' + this.props.values.n);
         const data = new FormData(document.forms.namedItem("formToMintNFT"));
         const config = {     
           headers: { 'content-type': 'multipart/form-data' }
         }
-      
+        if(data == null){
+            alert("Please upload some art.");
+            return 
+        }
         await axios.post(process.env.REACT_APP_API_BASE_URI + configData.apiUploadArt, data, config)
             .then(response => {
                 console.log("Success: " + response + "Address: " + this.props.values.address);
                 console.log("Hash Generated: " + response.data['IpfsHash']);
                 this.props.updateIPFSHash(response.data['IpfsHash']);
+                this.setState({isWaiting: false});
             })
             .catch(error => {
                 console.log("Errorr: " + error + " Address: " + this.props.values.address);
@@ -31,6 +40,16 @@ class UploadNFTForm extends React.Component<any,any> {
     
     render(){
         const { values } = this.props;
+        const { isWaiting } = this.state;
+        if(isWaiting){
+            return(
+                <Segment style={{minHeight: 500}}>
+                    <Dimmer active>
+                        <Loader size='massive'/>
+                    </Dimmer>
+                </Segment>
+            )
+        }else{
         return(
             <Segment style={{minHeight: 500}}>
                 <Container centered textAlign='center'>
@@ -57,11 +76,12 @@ class UploadNFTForm extends React.Component<any,any> {
                     active="Upload Art"
                     completed={values.completed}
                     ipfsHash={values.ipfsHash}
+                    handleChange = {this.props.handleChange}
                 />
             </Container>
             
             </Segment>   
-        )
+        )}
     }
 }
 

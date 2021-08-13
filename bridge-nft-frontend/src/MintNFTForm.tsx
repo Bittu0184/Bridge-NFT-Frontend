@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Container, Header, Segment } from "semantic-ui-react";
+import { Button, Container, Dimmer, Header, Loader, Segment } from "semantic-ui-react";
 import { fetchAPI } from "./CallAPI";
 import CustomSteps from "./CustomSteps";
 
@@ -34,21 +34,27 @@ class MintNFTForm extends React.Component<any,any> {
         const {values} = this.props;
         const { error, isLoaded } = this.state;
         if (error) {
-            return <div>Error: {error.message}</div>;
+            return <Container textAlign='center'>Error: {error.message}</Container>;
         } else if (!isLoaded) {
-            return <div>Loading...</div>;
+            return (
+            <Segment>
+                <Dimmer active inverted>
+                    <Loader size='massive'/>
+                </Dimmer>
+            </Segment>
+            );
         } else {
             return( 
-                <Segment style={{minHeight: 700}}>
-                    <Container  textAlign='center'>
-                        <Container text>
+                <Segment>
+                    <Container>
+                        <Container textAlign='center' style={{minHeight: 400}}>
                             <Header as='h3'>IPFS HASH: {values.ipfsHash}</Header>
                             <Header as='h3'>Address: {values.address}</Header>
                             <Button type='submit' size='huge' onClick={this.handleMint}>Mint Above Art</Button>
                         </Container>
                         <CustomSteps 
                             active="Mint NFT"
-                            completed="false"
+                            completed="1"
                         />
                     </Container>
                 </Segment>

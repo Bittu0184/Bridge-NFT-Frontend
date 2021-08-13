@@ -5,9 +5,9 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'semantic-ui-css/semantic.min.css';
 import { Auth0Provider } from "@auth0/auth0-react";
-import ReactGA from 'react-ga';
+//import ReactGA from 'react-ga';
 
-ReactGA.initialize("UA-204304793-1");
+//ReactGA.initialize("UA-204304793-1");
 ReactDOM.render(
   <Auth0Provider
     domain={process.env.REACT_APP_AUTH_DOMAIN}

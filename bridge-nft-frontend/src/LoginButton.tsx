@@ -8,6 +8,13 @@ class LoginButton extends Component<any,any>{
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
         this.navCustom = this.navCustom.bind(this);
+        this.navConnect = this.navConnect.bind(this);
+    }
+
+    navConnect(){
+      return (
+        <DropdownItem as={NavLink} to="/drop">Connect - Digital Art</DropdownItem>
+        )
     }
 
     navCustom() {
@@ -50,6 +57,7 @@ class LoginButton extends Component<any,any>{
                   disabled: true,
                 },
                 { key: 'profile', as:this.navCustom },
+                { key: 'Connect - Digital Art', as:this.navConnect },
                 { key: 'sign-out', text: 'Log Out' , onClick: this.handleLogout  },
               ]
               
@@ -62,7 +70,7 @@ class LoginButton extends Component<any,any>{
         }else {
             const {fix} = this.props;
             return (
-                <Menu.Item onClick={() => loginWithRedirect()} inverted={fix} style={{ marginLeft: '0.5em' }} >Log In</Menu.Item>
+                <Menu.Item onClick={() => loginWithRedirect()} inverted style={{ marginLeft: '0.5em' }} >Log In</Menu.Item>
             )
         }
         

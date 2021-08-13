@@ -80,10 +80,9 @@ class DesktopContainer extends Component<any,any> {
                 <Menu.Item as={NavLink} to="/home">
                   Home
                 </Menu.Item>
-                <Menu.Item as={NavLink} to="/home">Digital Art - NFT</Menu.Item>
+                <Menu.Item as={NavLink} to="/explore">Digital Art - NFT</Menu.Item>
                 <Menu.Item as={NavLink} to="/exploretraditionalart">Traditional Art</Menu.Item>
                 <Menu.Item as={NavLink} to="/artists">Artists</Menu.Item>
-                <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
                 <Menu.Item position='right'>
                   <LoginButton fix={fixed}/>
                   <Button  as={NavLink} to="/cart" icon><Icon name='shop'/></Button>
@@ -132,10 +131,9 @@ class MobileContainer extends Component {
             <Menu.Item as={NavLink} to="/home" active>
               Home
             </Menu.Item>
-            <Menu.Item as={NavLink} to="/home">Digital Art - NFT</Menu.Item>
+            <Menu.Item as={NavLink} to="/explore">Digital Art - NFT</Menu.Item>
             <Menu.Item as={NavLink} to="/exploretraditionalart">Traditional Art</Menu.Item>
             <Menu.Item as={NavLink} to="/artists">Artists</Menu.Item>
-            <Menu.Item as={NavLink} to="/drop">Connect</Menu.Item>
             <Menu.Item><LoginButton fix='false'/></Menu.Item>
           </Sidebar>
 
