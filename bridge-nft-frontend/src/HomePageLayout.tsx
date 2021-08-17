@@ -19,7 +19,7 @@ import mintnft from './Assets/mintAsset.png';
 import uploadAsset from './Assets/uploadAsset.png';
 import forsale from './Assets/forsaleAsset.png';
 import Footer from './Footer';
-import LoginButton from './LoginButton';
+import LoginButton from './LoginPages/LoginButton';
 import logo from './logo.svg';
 
 const { MediaContextProvider, Media } = createMedia({
@@ -92,7 +92,7 @@ class DesktopContainer extends Component{
                 <Menu.Item as={NavLink} to="/exploretraditionalart">Traditional Art</Menu.Item>
                 <Menu.Item as={NavLink} to="/artists">Artists</Menu.Item>
                 <Menu.Item  position='right'>
-                  <LoginButton fix={fixed}/>
+                  <LoginButton />
                   <Menu.Item  as={NavLink} to="/cart"  inverted icon><Icon name='shop'/></Menu.Item>
                 </Menu.Item>
             </Menu>

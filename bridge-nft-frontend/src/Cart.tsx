@@ -119,9 +119,9 @@ class Cart extends Component<any,any>{
           console.log("Loaded ")
             return (
               <ResponsiveContainer >
-                  <Container style={{minHeight: 450}} className="customContainer">
+                  <Container style={{minHeight: 450}}>
                   <CustomFeedCart metadata={this.state.metadata} totalAmt={this.state.totalAmt}/>
-                  <Button size='medium' floated='right' primary><Icon name='cart'/>Proceed To Checkout</Button>
+                  <Button attached='bottom' size='medium' floated='right' primary><Icon name='cart'/>Proceed To Checkout</Button>
                   </Container>
                 <Footer />
               </ResponsiveContainer>

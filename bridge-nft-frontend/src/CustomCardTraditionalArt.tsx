@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Image, Icon, Header, Dimmer, Loader } from 'semantic-ui-react';
+import { Card, Image, Icon, Header, Dimmer, Loader, Message } from 'semantic-ui-react';
 import { withAuth0 } from '@auth0/auth0-react';
 import { NavLink } from "react-router-dom";
 import configData from './Config.json';
@@ -49,7 +49,14 @@ class CustomCardTraditionalArt extends React.Component<any,any>{
     render() {
         const { metadata }  = this.props;
         const { error, isLoaded } = this.state;
-        if (error) {
+        if(metadata == null){
+            return (
+                <Message>
+                    <Message.Header>No Products Added</Message.Header>
+                </Message>
+            )
+        }
+        else if (error) {
             console.log("Error " + error.message);
             return (
                 <Header as='h1'>Fail To Connect To server: {error.message}</Header>

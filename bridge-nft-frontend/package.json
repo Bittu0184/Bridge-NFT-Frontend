@@ -1,6 +1,7 @@
 {
   "name": "bridge-nft-frontend",
   "version": "0.1.0",
+  "homepage": "https://ayspire.co.uk",
   "private": true,
   "dependencies": {
     "@artsy/fresnel": "^1.7.0",

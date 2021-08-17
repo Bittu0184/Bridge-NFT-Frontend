@@ -12,7 +12,7 @@ import {
   Sidebar,
   Visibility,
 } from 'semantic-ui-react'
-import LoginButton from './LoginButton';
+import LoginButton from './LoginPages/LoginButton';
 import logo from './logo.svg';
 
 

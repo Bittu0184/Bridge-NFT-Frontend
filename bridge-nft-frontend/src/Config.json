@@ -3,6 +3,7 @@
     "apiGetAllMetadata":"get_all_metadata",
     "apiGetCartItems":"get/cart/items/",
     "apiAddToCart":"add/to/cart/",
+    "apiAddProduct":"add/product",
     "apiDeleteCartItem":"delete/cart/item/",
     "apiGetAllArt":"get_all_art",
     "apiGetArtPage":"getArtPage/",
@@ -11,5 +12,9 @@
     "apiGetTotalCartItem":"get/cart/total/item/",
     "apiGetAllArtist":"get/artists",
     "apiGetAllArtByArtist":"/get/artists/art/",
-    "apiGetArtistDetails":"/get/artists/art/details/"
+    "apiGetArtistDetails":"/get/artists/art/details/",
+    "apiGetArtist": "/get/artistwithauth",
+    "apiCheckAccess":"checkaccess",
+    "apiGetArtByAuth":"/get/art/auth",
+    "apiGetCategory":"/get/category"
 }

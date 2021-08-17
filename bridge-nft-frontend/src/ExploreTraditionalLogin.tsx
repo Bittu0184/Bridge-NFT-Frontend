@@ -1,11 +1,11 @@
 import {Component } from 'react'
-import {  Container, Dimmer, Header, Input, Loader, Menu, Placeholder, Segment } from 'semantic-ui-react'
+import {  Container, Dimmer, Header, Loader, Menu, Placeholder, Segment } from 'semantic-ui-react'
 import CustomCardTraditionalArt from './CustomCardTraditionalArt'
 import Footer from './Footer'
 import ResponsiveContainer from './ResponsiveContainer'
 import './ShowNFTs.css';
-import configData from './Config.json';
 import InfiniteScroll from 'react-infinite-scroll-component'
+import configData from './Config.json';
 //import { event } from 'react-ga'
 
 class ExploreTraditionalArt extends Component<any,any>{
@@ -18,7 +18,8 @@ class ExploreTraditionalArt extends Component<any,any>{
             hasMore: true,
             offset: 0,
             activeItem: 'All',
-            hasCategoryChanged: false
+            hasCategoryChanged: false,
+            isLoadedCategory: false
         };
        this.fetchNextLot = this.fetchNextLot.bind(this);
        this.handleItemClick = this.handleItemClick.bind(this);
@@ -83,16 +84,32 @@ class ExploreTraditionalArt extends Component<any,any>{
               console.log("Error " + err.message);
             }
           )
+
+          await fetch(process.env.REACT_APP_API_BASE_URI + configData.apiGetCategory)
+          .then(res => res.json())
+          .then( (result) => {
+            console.log("CAtegories " + JSON.stringify(result))
+              this.setState({
+                isLoadedCategory: true,
+                categoryMetadata: result
+              });
+            },(err) => {
+              this.setState({
+                isLoadedCategory: true,
+                error: err
+              });
+              console.log("Error " + err.message);
+            }
+          )
           
       }
 
     async handleItemClick(name){  
       console.log("Inside handle item");
       this.setState({ activeItem: name, hasMore: true, offset: 0, hasCategoryChanged:true }, ()=>this.fetchNextLot());
-      //this.fetchNextLot();
     } 
     render() {
-        const { error, isLoaded, activeItem } = this.state;
+        const { error, isLoaded, activeItem, isLoadedCategory, categoryMetadata } = this.state;
         if (error) {
             console.log("Error " + error.message);
             return (
@@ -103,7 +120,7 @@ class ExploreTraditionalArt extends Component<any,any>{
               <Footer/>
             </ResponsiveContainer>
             )
-        } else if (!isLoaded) {
+        } else if (!isLoaded || !isLoadedCategory) {
           console.log("waiting")
             return   (  
               <ResponsiveContainer>
@@ -121,46 +138,13 @@ class ExploreTraditionalArt extends Component<any,any>{
               <ResponsiveContainer >
                   <Container>
                   <Menu pointing stackable>
-                    <Menu.Item
-                      name='All'
-                      active={activeItem === 'All'}
-                      onClick={() => this.handleItemClick('All')}
-                    />
-                    <Menu.Item
-                      name='Rakhi Special'
-                      active={activeItem === 'Rakhi Special'}
-                      onClick={() => this.handleItemClick('Rakhi Special')}
-                    />
-                    <Menu.Item
-                      name='Paintings'
-                      active={activeItem === 'Paintings'}
-                      onClick={() => this.handleItemClick('Paintings')}
-                    />
-                    <Menu.Item
-                      name='Vases'
-                      active={activeItem === 'Vases'}
-                      onClick={() => this.handleItemClick('Vases')}
-                    />
-                    <Menu.Item
-                      name='Puppets'
-                      active={activeItem === 'Puppets'}
-                      onClick={() => this.handleItemClick('Puppets')}
-                    />
-                    <Menu.Item
-                      name='Lord Krishna Clothes'
-                      active={activeItem === 'Lord Krishna Clothes'}
-                      onClick={() => this.handleItemClick('Lord Krishna Clothes')}
-                    />
-                    <Menu.Item
-                      name='Paper Basket'
-                      active={activeItem === 'Paper Basket'}
-                      onClick={() => this.handleItemClick('Paper Basket')}
-                    />
-                    <Menu.Menu position='right'>
-                      <Menu.Item>
-                        <Input disabled icon='search' placeholder='Search...' />
-                      </Menu.Item>
-                    </Menu.Menu>
+                    {categoryMetadata.map((data,index) => (
+                       <Menu.Item
+                       name={data.categoryname}
+                       active={activeItem === data.categoryname}
+                       onClick={() => this.handleItemClick(data.categoryname)}
+                      />
+                    ))}
                   </Menu>
                   </Container>
                   <Container style={{minHeight: 600}} className="customContainer">
