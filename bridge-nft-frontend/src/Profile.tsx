@@ -27,7 +27,6 @@ class Profile extends Component<any,any>{
                             <span>{user.nickname}</span>
                         </Card.Meta>
                         <Card.Description>
-                            Looking Cute!
                         </Card.Description>
                         </Card.Content>
                         <Card.Content extra>

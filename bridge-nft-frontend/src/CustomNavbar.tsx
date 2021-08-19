@@ -19,6 +19,7 @@ import About from "./About";
 import RouteChangeTracker from "./RouteChangeTracker";
 import TnC from "./TnC";
 import AdminPanel from "./ArtistsAdminPages/AdminPanel";
+import CaptureOrderDetails from "./PaymentGateway/CaptureOrderDetails";
 
 class CustomNavbar extends React.Component<any,any>{
     render() {
@@ -40,6 +41,7 @@ class CustomNavbar extends React.Component<any,any>{
               <Route path="/healthCheck" exact component={HealthCheck}/>
               <Route path="/tnc" exact component={TnC}/>
               <Route path="/artistpanel" exact component={AdminPanel}/>
+              <Route path="/orderDetails" exact component={CaptureOrderDetails}/>
               <RouteChangeTracker/>
             </Router>
         );

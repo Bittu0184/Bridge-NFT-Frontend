@@ -34,7 +34,3 @@ class MenuTab extends Component<any,any>{
 }
 
 export default withAuth0(MenuTab);
-/*
- <Container>
-                      <CustomCardTraditionalArt metadata={this.state.metadata}/>
-                      </Container>*/

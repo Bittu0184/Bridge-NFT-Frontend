@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Button, Container, Dimmer, Header, Icon, Item, Loader, Segment } from "semantic-ui-react";
 import { withAuth0 } from '@auth0/auth0-react';
 import configData from './Config.json';
+import { NavLink } from "react-router-dom";
 
 class CustomFeedCart extends Component<any,any>{
     constructor(props){
@@ -96,6 +97,7 @@ class CustomFeedCart extends Component<any,any>{
                     <Header floated='right' as='h3'>₹{totalAmt}</Header>
                 </Container>
             </Segment>
+            <Button as={NavLink} to={{ pathname:"/orderDetails", productDetail:{dataInCart,totalAmt}}}attached='bottom' size='medium' floated='right' primary><Icon name='cart'/>Proceed To Checkout</Button>
             </Segment>
         )
     }

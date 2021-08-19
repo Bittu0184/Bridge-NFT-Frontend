@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Button, Container, Dimmer, Divider, Header, Image, Loader, Segment } from "semantic-ui-react";
+import { Button, Container, Dimmer, Divider, Header, Image, Loader, Message, Segment } from "semantic-ui-react";
 import configData from '../Config.json';
 import { withAuth0 } from '@auth0/auth0-react';
 
@@ -56,7 +56,7 @@ class ArtistProfile extends Component<any,any>{
             console.log("Error " + error.message);
             return (
               <Segment style={{minHeight: 800, marginTop: 50}}>
-                <Header as='h1'>Fail To Connect To server: {error.message}</Header>
+                <Message>We are facing some issue. Please try again later.</Message>
               </Segment>
             )
         } else if (!isLoadedDetails) {

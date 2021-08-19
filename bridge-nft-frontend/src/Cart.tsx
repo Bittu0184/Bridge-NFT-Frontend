@@ -22,7 +22,6 @@ class Cart extends Component<any,any>{
         const { loginWithRedirect, getAccessTokenSilently, isAuthenticated } = this.props.auth0;
         if(isAuthenticated){
             let accessToken;
-            const{ user } = this.props.auth0;
             try{
               accessToken = await getAccessTokenSilently({
                 audience: `${process.env.REACT_APP_AUTH_AUDIENCE}`,
@@ -31,7 +30,7 @@ class Cart extends Component<any,any>{
               console.log("Error in fetching acess token " + err.message);
               this.setState({isLoaded: false,error: err});
             }
-            await fetch(`${process.env.REACT_APP_API_BASE_URI}${configData.apiGetCartItems}${encodeURIComponent(user.sub)}`, {
+            await fetch(`${process.env.REACT_APP_API_BASE_URI + configData.apiGetCartItems}`, {
               headers: {
                 Authorization: `Bearer ${accessToken}`,
               },
@@ -47,17 +46,10 @@ class Cart extends Component<any,any>{
                       });
                       return
                   }
-                console.log("Cart Items " + result);
-                let total = 0;
-                result.map((data) => {
-                    total = total + data.price;
-                    return null;
-                })
-                console.log("Total " + total);
                   this.setState({
                     isLoaded: true,
-                    metadata: result,
-                    totalAmt: total
+                    metadata: result.products,
+                    totalAmt: result.amount
                   });
                 },(error) => {
                   this.setState({
@@ -75,7 +67,7 @@ class Cart extends Component<any,any>{
       }
 
     render() {
-        const { error, isLoaded } = this.state;
+        const { error, isLoaded, metadata, totalAmt } = this.state;
         if (error) {
             console.log("Error " + error);
             if(error === "Empty Cart"){
@@ -120,8 +112,7 @@ class Cart extends Component<any,any>{
             return (
               <ResponsiveContainer >
                   <Container style={{minHeight: 450}}>
-                  <CustomFeedCart metadata={this.state.metadata} totalAmt={this.state.totalAmt}/>
-                  <Button attached='bottom' size='medium' floated='right' primary><Icon name='cart'/>Proceed To Checkout</Button>
+                  <CustomFeedCart metadata={metadata} totalAmt={totalAmt}/>
                   </Container>
                 <Footer />
               </ResponsiveContainer>

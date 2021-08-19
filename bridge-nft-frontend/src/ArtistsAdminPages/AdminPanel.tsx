@@ -113,46 +113,50 @@ class AdminPanel extends Component<any,any>{
         else if(activeItem === 'Products'){
         return(
             <ResponsiveContainer>
-            <Segment style={{minHeight: 500}}>
-            <Grid>
+                <Container>
+            <Grid doubling stackable>
+                <Grid.Row >
                 <Grid.Column width={3}>
                     <MenuTab activeItem={this.state.activeItem} handleItemClick={this.handleItemClick}/>
                  </Grid.Column>
-            <Grid.Column  stretched width={10}>
-                <AddProduct/>
-            </Grid.Column>
+                <Grid.Column width={10}>
+                    <AddProduct/>
+                </Grid.Column>
+                </Grid.Row>
             </Grid>
-            </Segment>   
+            </Container>
             <Footer/>
             </ResponsiveContainer>
         )}else if(activeItem === 'General'){
             return(
                 <ResponsiveContainer>
-                <Segment style={{minHeight: 500}}>
-                <Grid>
+                    <Container>
+                <Grid doubling stackable>
+                    <Grid.Row>
                     <Grid.Column width={3}>
                         <MenuTab activeItem={this.state.activeItem} handleItemClick={this.handleItemClick}/>
                      </Grid.Column>
-                <Grid.Column  stretched width={10}>
-                    <ArtistProfile/>
-                </Grid.Column>
+                    <Grid.Column width={10}>
+                        <ArtistProfile/>
+                    </Grid.Column>
+                </Grid.Row>
                 </Grid>
-                </Segment>   
+                </Container>
                 <Footer/>
                 </ResponsiveContainer>
             )} else{
             return (
             <ResponsiveContainer>
-            <Segment style={{minHeight: 500}}>
-            <Grid>
+                <Container>
+            <Grid doubling stackable>
                 <Grid.Column width={3}>
                     <MenuTab activeItem={activeItem} handleItemClick={this.handleItemClick}/>
                  </Grid.Column>
-            <Grid.Column stretched width={10}>
-                <h1>Coming Soon!!</h1>
-            </Grid.Column>
+                <Grid.Column width={10}>
+                    <h1>Coming Soon!!</h1>
+                </Grid.Column>
             </Grid>
-            </Segment>   
+            </Container>
             <Footer/>
             </ResponsiveContainer>
             )
