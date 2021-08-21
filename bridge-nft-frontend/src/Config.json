@@ -17,5 +17,5 @@
     "apiCheckAccess":"checkaccess",
     "apiGetArtByAuth":"/get/art/auth",
     "apiGetCategory":"/get/category",
-    "apiCreateOrder":"/createorder"
+    "apiCreateOrder":"createorder"
 }

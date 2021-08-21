@@ -122,7 +122,7 @@ class AddProduct extends Component<any,any>{
                     />
                     <Form size="small" id="formToMintNFT" loading={isSubmitWaiting}>
                         <Form.Input name="name" onChange={this.handleChange('name')} placeholder='Title'/>
-                        <Form.Input name="description"  onChange={this.handleChange('description')} placeholder='Description' control='textarea' rows='4' />
+                        <Form.Input name="description" onChange={this.handleChange('description')} placeholder='Description' control='textarea' rows='4' />
                         <Form.Input name="price" onChange={this.handleChange('price')} placeholder='Price' type="number"/>
                         <Form.Group inline>
                             <label>Category</label>

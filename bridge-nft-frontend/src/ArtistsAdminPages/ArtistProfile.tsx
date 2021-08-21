@@ -62,7 +62,6 @@ class ArtistProfile extends Component<any,any>{
         } else if (!isLoadedDetails) {
           console.log("waiting")
             return   (  
-              
                 <Segment style={{minHeight: 800, marginTop: 50}}>
                   <Dimmer inverted active>
                     <Loader size='massive'/>

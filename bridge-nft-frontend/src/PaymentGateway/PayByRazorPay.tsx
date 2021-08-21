@@ -1,26 +1,22 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Button } from 'semantic-ui-react';
 
 const PayByRazorPay = (props) => {
     const options = {
         key: 'rzp_test_OPMIPhpWImR4cZ',
-        amount: props.amount, //  = INR 1
-        name: props.name,
-        description: props.desc,
-        image: 'https://cdn.razorpay.com/logos/7K3b6d18wHwKzL_medium.png',
+        amount: props.amount * 100, //  = INR 1
+        name: 'Unfold Innovates',
+        description: 'Grow Together',
+        image: 'https://unfold-public.s3.ap-south-1.amazonaws.com/logo.svg',
+        order_id: props.orderid,
         handler: function(response) {
             alert(response.razorpay_payment_id);
         },
-        prefill: {
-            name: 'Gaurav',
-            contact: '9999999999',
-            email: 'demo@demo.com'
-        },
         notes: {
-            address: 'some address'
+            address: props.address
         },
         theme: {
-            color: 'blue',
+            color: '#E0FFFF',
             hide_topbar: false
         }
     };
@@ -39,7 +35,7 @@ const PayByRazorPay = (props) => {
 
     return (
         <>
-            <Button onClick={openPayModal}>Pay with Razorpay</Button>
+            <Button onClick={openPayModal}>Complete Payment</Button>
         </>
     );
 };

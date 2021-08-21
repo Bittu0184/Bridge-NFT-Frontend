@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Button, Container, Dimmer, Form, Grid, Header, Loader, Message, Segment } from "semantic-ui-react";
+import { Button, Container, Dimmer, Form, Grid, Header, Icon, Item, Loader, Message, Segment } from "semantic-ui-react";
 import { withAuth0 } from '@auth0/auth0-react';
 import { Redirect } from "react-router-dom";
 import ResponsiveContainer from "../ResponsiveContainer";
@@ -17,21 +17,24 @@ class CaptureOrderDetails extends Component<any,any>{
             error: null,
             value: '',
             isSubmitWaiting: false,
-            ResponseMessage: ''
+            ResponseMessage: '',
+            isSucceess: false,
+            orderId:''
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    async handleSubmit(event:any) {
+    async handleSubmit(event) {
+        console.log("Inside submit")
         this.setState({isSubmitWaiting: true})
         event.preventDefault();
-        const data = new FormData(document.forms.namedItem("formToMintNFT"));
-        if(data == null){
+        const dataToPass = new FormData(document.forms.namedItem("addressForm"));
+        if(dataToPass == null){
             alert("Please Fill all details");
             return 
         }
-        data.append("amount", "100")
         const {productDetail } = this.props.location;
+        dataToPass.append("amount", productDetail.totalAmt)
         let supid = '',prodid =''
         productDetail.dataInCart.map((detail,index) =>{ 
             if(supid === ''){
@@ -43,7 +46,8 @@ class CaptureOrderDetails extends Component<any,any>{
             }
             return null
         })
-        data.append("supid",supid)
+        dataToPass.append("supid",supid)
+        dataToPass.append("prodid",prodid)
         const { getAccessTokenSilently, isAuthenticated, loginWithRedirect } = this.props.auth0;
         if(!isAuthenticated){
           await loginWithRedirect();
@@ -57,15 +61,17 @@ class CaptureOrderDetails extends Component<any,any>{
               console.log("Error in fetching acess token " + err.message);
             }
             const config = {     
-                headers: { 'content-type': 'multipart/form-data', Authorization: `Bearer ${accessToken}` }
+                headers: {  'content-type': 'multipart/form-data', Authorization: `Bearer ${accessToken}` }
             }
-            
-            await axios.post(process.env.REACT_APP_API_BASE_URI + configData.apiCreateOrder, data, config)
+            console.log("Calling api " + dataToPass.get("phone"))
+            await axios.post(process.env.REACT_APP_API_BASE_URI + configData.apiCreateOrder, dataToPass, config)
             .then(response => {
+                console.log(JSON.stringify(response.data))
                 this.setState({
                     isSucceess: true,
                     isSubmitWaiting: false,
-                    ResponseMessage: JSON.stringify(response)
+                    ResponseMessage: "Address Recorded!",
+                    orderId: response.data
                 });
             })
             .catch(error => {
@@ -85,11 +91,9 @@ class CaptureOrderDetails extends Component<any,any>{
         this.setState({ [input] : event.target.value })
     }
 
-    handleCategory = (e, { value }) => this.setState({ value })
-
 
     render() {
-        const { isLoaded, error, ResponseMessage, isSubmitWaiting } = this.state;
+        const { isLoaded, error, ResponseMessage, isSubmitWaiting, isSucceess, orderId } = this.state;
         if(!isLoaded){
             return(
                 <ResponsiveContainer>
@@ -104,10 +108,12 @@ class CaptureOrderDetails extends Component<any,any>{
         }else if(error){
             return(
                 <ResponsiveContainer>
-                <Message>
-                    We are facing some issues. Please try again later.
-                </Message>
-                <Footer/>
+                    <Container>
+                    <Message>
+                        We are facing some issues. Please try again later.
+                    </Message>
+                    </Container>
+                    <Footer/>
                 </ResponsiveContainer>
             )
         }
@@ -125,9 +131,24 @@ class CaptureOrderDetails extends Component<any,any>{
                 <Grid.Column>
                     <Container>
                         <Header>Items Selected:</Header>
+                        <Item.Group divided>
                         {productDetail.dataInCart.map((data,index) => (
-                            <p>{data.productname}</p>
+                            <Item key={index}>
+                            <Item.Image size='tiny' src={process.env.REACT_APP_AWS_S3_BASE_URI + data.imagelocation.split(',')[0]} />
+                            <Item.Content>
+                              <Item.Header>{data.productname}</Item.Header>
+                              <Item.Meta>
+                                <span className='price'>₹{data.price}</span>
+                              </Item.Meta>
+                              <Item.Description>{data.productdesc}</Item.Description>
+                              <Button size='tiny' floated='right' icon>
+                                    Delete
+                                    <Icon name='delete' />
+                                </Button>
+                            </Item.Content>
+                            </Item>
                         ))}
+                        </Item.Group>
                     </Container>
                 </Grid.Column>
                 <Grid.Column>
@@ -136,17 +157,15 @@ class CaptureOrderDetails extends Component<any,any>{
                     header='Happy Shopping!!'
                     content='Fill out the form below to complete you order!'
                     />
-                    <Form size="small" id="formToMintNFT" loading={isSubmitWaiting}>
+                     <Form size="small" id="addressForm" loading={isSubmitWaiting}>
                         <Form.Input name="address" onChange={this.handleChange('address')} placeholder='Delivery Address' control='textarea' rows='3'/>
                         <Form.Input name="state" onChange={this.handleChange('state')} placeholder='state' />
                         <Form.Group inline>
-                        <Form.Input name="pincode" onChange={this.handleChange('pincode')} placeholder='PIN' type="tel"/>
-                        <Form.Input name="phone" onChange={this.handleChange('phone')} placeholder='Phone' type="tel"/>
+                        <Form.Input name="pincode" onChange={this.handleChange('pincode')} placeholder='PIN' />
+                        <Form.Input name="phone" onChange={this.handleChange('phone')} placeholder='Phone' />
                         </Form.Group>
-                        <Button onClick={this.handleSubmit}>Proceed to Payment</Button>
-                        <PayByRazorPay name='testname' desc='testdesc' amount={productDetail.totalAmt} orderid='' />
-                        <Message>{ResponseMessage}</Message>
-                    </Form>     
+                        {isSucceess ? <PayByRazorPay amount={productDetail.totalAmt} phone='123' name='testname' desc='description' orderid={orderId}/> : <Button type='submit' size='huge' onClick={this.handleSubmit}>Submit</Button>}
+                    </Form>       
                 </Grid.Column>
             </Grid>  
         </Container>
