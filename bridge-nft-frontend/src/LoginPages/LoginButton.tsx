@@ -76,7 +76,7 @@ class LoginButton extends Component<any,any>{
                     <DropdownTriggerExample/>
             )
         }else {
-           // const {fix} = this.props;
+            //const {fix} = this.props;
             return (
                 <Menu.Item onClick={() => loginWithRedirect()} inverted style={{ marginLeft: '0.5em' }} >Log In</Menu.Item>
             )

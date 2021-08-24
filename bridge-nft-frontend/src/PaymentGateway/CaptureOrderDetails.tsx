@@ -4,9 +4,9 @@ import { withAuth0 } from '@auth0/auth0-react';
 import { Redirect } from "react-router-dom";
 import ResponsiveContainer from "../ResponsiveContainer";
 import Footer from "../Footer";
-import PayByRazorPay from "./PayByRazorPay";
 import configData from '../Config.json';
 import axios from "axios";
+import PayByRazorPay from "./PayByRazorPay";
 
 class CaptureOrderDetails extends Component<any,any>{
     constructor(props:any) {
@@ -164,7 +164,7 @@ class CaptureOrderDetails extends Component<any,any>{
                         <Form.Input name="pincode" onChange={this.handleChange('pincode')} placeholder='PIN' />
                         <Form.Input name="phone" onChange={this.handleChange('phone')} placeholder='Phone' />
                         </Form.Group>
-                        {isSucceess ? <PayByRazorPay amount={productDetail.totalAmt} phone='123' name='testname' desc='description' orderid={orderId}/> : <Button type='submit' size='huge' onClick={this.handleSubmit}>Submit</Button>}
+                        {isSucceess ?<PayByRazorPay amount={productDetail.totalAmt} orderid={orderId}/> : <Button type='submit' size='huge' onClick={this.handleSubmit}>Submit</Button>}
                     </Form>       
                 </Grid.Column>
             </Grid>  
@@ -176,3 +176,7 @@ class CaptureOrderDetails extends Component<any,any>{
 }
 
 export default withAuth0(CaptureOrderDetails);
+
+/*
+ <Message>We are working very hard to start accepting orders as soon as possible. Your order is recorded and we will inform you when we start delivering  products and then if you are still intersted, we will deliver these products to you. Thank you!</Message>
+*/

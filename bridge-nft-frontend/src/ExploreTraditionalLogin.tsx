@@ -25,9 +25,6 @@ class ExploreTraditionalArt extends Component<any,any>{
        this.handleItemClick = this.handleItemClick.bind(this);
       }
       fetchNextLot(){
-       // console.log("call fetch " + process.env.REACT_APP_API_BASE_URI + configData.apiGetArtPage + encodeURIComponent(10) + '/' + encodeURIComponent(this.state.offset))
-       console.log("Inside fetchnext") 
-       console.log("limit 10 offset " + this.state.offset);
         fetch( `${process.env.REACT_APP_API_BASE_URI + configData.apiGetArtPage + encodeURIComponent(this.state.activeItem) + '/' + encodeURIComponent(10) + '/' + encodeURIComponent(this.state.offset)}`)
         .then(res => res.json())
           .then( (result) => {
@@ -88,7 +85,6 @@ class ExploreTraditionalArt extends Component<any,any>{
           await fetch(process.env.REACT_APP_API_BASE_URI + configData.apiGetCategory)
           .then(res => res.json())
           .then( (result) => {
-            console.log("CAtegories " + JSON.stringify(result))
               this.setState({
                 isLoadedCategory: true,
                 categoryMetadata: result

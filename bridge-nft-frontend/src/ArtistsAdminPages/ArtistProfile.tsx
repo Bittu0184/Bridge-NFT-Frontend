@@ -2,6 +2,8 @@ import { Component } from "react";
 import { Button, Container, Dimmer, Divider, Header, Image, Loader, Message, Segment } from "semantic-ui-react";
 import configData from '../Config.json';
 import { withAuth0 } from '@auth0/auth0-react';
+import CustomCardTraditionalArt from "../CustomCardTraditionalArt";
+import ShowProducts from "./ShowProducts";
 
 
 class ArtistProfile extends Component<any,any>{
@@ -27,7 +29,6 @@ class ArtistProfile extends Component<any,any>{
                 }catch(err){
                   console.log("Error in fetching acess token " + err.message);
                 }
-                console.log("Access token : " + accessToken)
             await fetch(`${process.env.REACT_APP_API_BASE_URI + configData.apiGetArtist}`, {
               headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -47,11 +48,31 @@ class ArtistProfile extends Component<any,any>{
                   console.log("Error: " + err.message);
                 }
               )
+
+              await fetch(`${process.env.REACT_APP_API_BASE_URI + configData.apiGetAllArtByArtist + this.state.artistdetails.supplierid }`, {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                }
+                })
+                .then(res => res.json())
+                .then((result) => {
+                  this.setState({
+                    isLoadedMetadata: true,
+                    metadata: result
+                  });
+                  }, (err) => {
+                    this.setState({
+                      isLoadedMetadata: true,
+                      error: err
+                    });
+                    console.log("Error: " + err.message);
+                  }
+                )
+            
           }
     }
     render() {
-        console.log("Inside s artist");
-        const { error, isLoadedDetails } = this.state;
+        const { error, isLoadedDetails, isLoadedMetadata } = this.state;
         if (error) {
             console.log("Error " + error.message);
             return (
@@ -59,7 +80,7 @@ class ArtistProfile extends Component<any,any>{
                 <Message>We are facing some issue. Please try again later.</Message>
               </Segment>
             )
-        } else if (!isLoadedDetails) {
+        } else if (!isLoadedDetails || !isLoadedMetadata) {
           console.log("waiting")
             return   (  
                 <Segment style={{minHeight: 800, marginTop: 50}}>
@@ -70,7 +91,7 @@ class ArtistProfile extends Component<any,any>{
             )
         } else {
           console.log("Loaded ")
-          const { artistdetails } = this.state;
+          const { artistdetails, metadata } = this.state;
           if(this.state.metadata == null){
             return(
                 <Container textAlign='center' style={{minHeight: 500}}>
@@ -86,7 +107,7 @@ class ArtistProfile extends Component<any,any>{
             )
           }
           return (
-                      <Container textAlign='center' style={{minHeight: 500}}>
+                      <Container style={{minHeight: 500}}>
                           <Image width="350" height="350" src={process.env.REACT_APP_AWS_S3_BASE_URI  + artistdetails.profilelocation} alt='image not available' centered circular/>
                           <Divider/>
                           <Header as='h2'>{artistdetails.name}</Header>
@@ -94,6 +115,7 @@ class ArtistProfile extends Component<any,any>{
                           {artistdetails.about}
                           </Container>
                           <Divider/>
+                          <ShowProducts metadata={metadata}/>
                       </Container>
               
           )

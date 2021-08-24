@@ -31,7 +31,6 @@ class AdminPanel extends Component<any,any>{
                 }catch(err){
                   console.log("Error in fetching acess token " + err.message);
                 }
-                console.log("Access token : " + accessToken)
             await fetch(`${process.env.REACT_APP_API_BASE_URI + configData.apiCheckAccess}`, {
               headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -39,21 +38,11 @@ class AdminPanel extends Component<any,any>{
               })
               .then(res => res.json())
               .then((result) => {
-                console.log("result " + JSON.stringify(result));
-                if(result.message === 'NO Access'){
-                    this.setState({
-                        isWaiting: false,
-                        message: result.message,
-                        isAccessApproved: false
-                      });
-                    return
-                }else{
                     this.setState({
                         isWaiting: false,
                         message: result.message,
                         isAccessApproved: true
                       });
-                }
                 }, (err) => {
                   this.setState({
                     isWaiting: false,
@@ -136,7 +125,7 @@ class AdminPanel extends Component<any,any>{
                     <Grid.Column width={3}>
                         <MenuTab activeItem={this.state.activeItem} handleItemClick={this.handleItemClick}/>
                      </Grid.Column>
-                    <Grid.Column width={10}>
+                    <Grid.Column width={12}>
                         <ArtistProfile/>
                     </Grid.Column>
                 </Grid.Row>

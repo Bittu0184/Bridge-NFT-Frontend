@@ -15,9 +15,6 @@ import {
   Sidebar,
   Visibility,
 } from 'semantic-ui-react'
-import mintnft from './Assets/mintAsset.png';
-import uploadAsset from './Assets/uploadAsset.png';
-import forsale from './Assets/forsaleAsset.png';
 import Footer from './Footer';
 import LoginButton from './LoginPages/LoginButton';
 import logo from './logo.svg';
@@ -153,13 +150,13 @@ class MobileContainer extends Component {
               vertical
             >
               <Container>
-                <Menu inverted pointing secondary size='large'>
+                <Menu pointing secondary size='large'>
                   <Menu.Item onClick={this.handleToggle}>
                     <Icon name='sidebar' />
                   </Menu.Item>
                   <Menu.Item position='right'>
-                    <LoginButton inverted style={{ marginLeft: '0.5em' }} fix='false'/>
-                    <Button as={NavLink} to="/cart" inverted icon><Icon name='shop'/></Button>
+                    <LoginButton style={{ marginLeft: '0.5em' }} fix='false'/>
+                    <Button as={NavLink} to="/cart" icon><Icon name='shop'/></Button>
                   </Menu.Item>
                 </Menu>
               </Container>
@@ -249,19 +246,19 @@ const HomepageLayout = () => (
         <Card.Group centered>
         <Card style={{minWidth: 350}}
                 link raised
-                image={uploadAsset}
+                image={process.env.REACT_APP_AWS_S3_BASE_URI + 'uploadAsset.png'}
                 header='UPLOAD YOUR ART'
                 description='Upload you digital art file in image, gif, 3d format. This will upload your file to IPFS network.'
           />
           <Card style={{minWidth: 350}}
                 link raised
-                image={mintnft}
+                image={process.env.REACT_APP_AWS_S3_BASE_URI + 'mintAsset.png'}
                 header='MINT UPLOADED ART'
                 description='Mint your uploaded art. This will put information about your art on ethereum blockchain with your  address as owner of it.'
           />
           <Card style={{minWidth: 350}}
                 link raised
-                image={forsale}
+                image={process.env.REACT_APP_AWS_S3_BASE_URI + 'forsaleAsset.png'}
                 header='STORE IT OR PUT FOR SALE'
                 description='Your art can be put on sale or you can just showcase it to gain followers.'
           />

@@ -134,7 +134,7 @@ class MobileContainer extends Component {
             <Menu.Item as={NavLink} to="/explore">Digital Art - NFT</Menu.Item>
             <Menu.Item as={NavLink} to="/exploretraditionalart">Traditional Art</Menu.Item>
             <Menu.Item as={NavLink} to="/artists">Artists</Menu.Item>
-            <Menu.Item><LoginButton fix='false'/></Menu.Item>
+            <Menu.Item><LoginButton/></Menu.Item>
           </Sidebar>
 
           <Sidebar.Pusher dimmed={sidebarOpened}>

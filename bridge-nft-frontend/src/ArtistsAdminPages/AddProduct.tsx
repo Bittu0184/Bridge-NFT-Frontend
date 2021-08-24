@@ -61,13 +61,6 @@ class AddProduct extends Component<any,any>{
             }
             await axios.post(process.env.REACT_APP_API_BASE_URI + configData.apiAddProduct, data, config)
             .then(response => {
-                console.log("response " + JSON.stringify(response))
-                if (response.status === 400){
-                    this.setState({
-                        isSucceess: false,
-                        ResponseMessage: "Some inputs were incorrect, please check and try again."
-                    })
-                }
                 this.setState({
                     isSucceess: true,
                     isSubmitWaiting: false,
