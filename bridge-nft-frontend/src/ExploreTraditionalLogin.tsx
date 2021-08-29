@@ -6,6 +6,7 @@ import ResponsiveContainer from './ResponsiveContainer'
 import './ShowNFTs.css';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import configData from './Config.json';
+import {Helmet} from 'react-helmet';
 //import { event } from 'react-ga'
 
 class ExploreTraditionalArt extends Component<any,any>{
@@ -110,6 +111,10 @@ class ExploreTraditionalArt extends Component<any,any>{
             console.log("Error " + error.message);
             return (
               <ResponsiveContainer>
+                <Helmet>
+                <title>Buy local Traditional Indian Art</title>
+                <meta name="description" content="Buy Wooden handicraft, madhubani painting, Pots and much more directly from local artist." />
+                </Helmet>
               <Segment style={{minHeight: 800, marginTop: 50}}>
                 <Header as='h1'>Fail To Connect To server: {error.message}</Header>
               </Segment>
@@ -120,6 +125,10 @@ class ExploreTraditionalArt extends Component<any,any>{
           console.log("waiting")
             return   (  
               <ResponsiveContainer>
+                <Helmet>
+                <title>Buy local Traditional Indian Art</title>
+                <meta name="description" content="Buy Wooden handicraft, madhubani painting, Pots and much more directly from local artist." />
+                </Helmet>
                 <Segment style={{minHeight: 800, marginTop: 50}}>
                   <Dimmer inverted active>
                     <Loader size='massive'/>
@@ -131,7 +140,11 @@ class ExploreTraditionalArt extends Component<any,any>{
         } else {
           console.log("Loaded ")
             return (
-              <ResponsiveContainer >
+              <ResponsiveContainer>
+                <Helmet>
+                <title>Buy local Traditional Indian Art</title>
+                <meta name="description" content="Buy Wooden handicraft, madhubani painting, Pots and much more directly from local artist." />
+                </Helmet>
                   <Container>
                   <Menu pointing stackable>
                     {categoryMetadata.map((data,index) => (

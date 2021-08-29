@@ -18,6 +18,7 @@ import {
 import Footer from './Footer';
 import LoginButton from './LoginPages/LoginButton';
 import logo from './logo.svg';
+import {Helmet} from 'react-helmet';
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
@@ -192,6 +193,10 @@ ResponsiveContainer.propTypes = {
 
 const HomepageLayout = () => (
   <ResponsiveContainer>
+    <Helmet>
+    <title>Traditional Art and NFT - Digital Art on Ethereum blockchain</title>
+    <meta name="description" content="Unfold the digital - NFT and traditional art of India. Unfolding the trasure of traditaionl art along with digital art - NFT. Connect with artist and architects from all around India." />
+    </Helmet>
     <Segment vertical style={{marginTop: 30, marginBottom:30, paddingTop:30, paddingBottom:30}} textAlign='center'>
       <Card.Group centered style={{marginTop: 30, marginBottom:30, paddingTop:30, paddingBottom:30}} >
           <Card link raised style={{minWidth: 400, Height:400,marginRight:50, marginLeft: 50, marginBottom:100, textDecoration: 'none', color: 'black'}} as={NavLink} to="/exploretraditionalart">

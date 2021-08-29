@@ -2,11 +2,16 @@ import { Component } from "react";
 import { Button, Container, Grid, Header, Icon, Segment } from "semantic-ui-react";
 import Footer from "./Footer";
 import ResponsiveContainer from "./ResponsiveContainer";
+import {Helmet} from 'react-helmet';
 
 class About extends Component{
     render(){
         return(
             <ResponsiveContainer>
+                <Helmet>
+                <title>Traditional Art and NFT - Digital Art on Ethereum blockchain</title>
+                <meta name="description" content="Unfold the digital - NFT and traditional art of India. Unfolding the trasure of traditaionl art along with digital art - NFT. Connect with artist and architects from all around India." />
+                </Helmet>
                 <Segment style={{paddingTop: 70}}>
                     <Container text style={{minHeight: 450}}>
                         <Grid>

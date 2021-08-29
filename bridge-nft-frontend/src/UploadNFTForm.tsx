@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Checkbox, Container, Dimmer, Form, Grid, Loader, Segment } from "semantic-ui-react";
+import { Button, Checkbox, Container, Dimmer, Form, Grid, Header, Loader, Segment } from "semantic-ui-react";
 import axios from 'axios';
 import CustomSteps from "./CustomSteps";
 import configData from './Config.json';
@@ -16,7 +16,6 @@ class UploadNFTForm extends React.Component<any,any> {
     async handleSubmit(event:any) {
         event.preventDefault();
         this.setState({isWaiting: true});
-        console.log('A name was submitted: ' + this.props.values.n);
         const data = new FormData(document.forms.namedItem("formToMintNFT"));
         const config = {     
           headers: { 'content-type': 'multipart/form-data' }
@@ -30,6 +29,7 @@ class UploadNFTForm extends React.Component<any,any> {
                 console.log("Success: " + response + "Address: " + this.props.values.address);
                 console.log("Hash Generated: " + response.data['IpfsHash']);
                 this.props.updateIPFSHash(response.data['IpfsHash']);
+                //this.props.updateImage(data.get("fileToUpload"))
                 this.setState({isWaiting: false});
             })
             .catch(error => {
@@ -57,6 +57,7 @@ class UploadNFTForm extends React.Component<any,any> {
                 <Grid.Column style={{ maxWidth: 450 }}>
                 <Container textAlign='center' style={{padding: '3em 0em'}}>
                     <Form size="large" id="formToMintNFT">
+                        <Header>Enter Art Details to Mint NFT.</Header>
                         <Form.Field>
                             <input name="n" onChange={this.props.handleChange('n')} placeholder='NFT Title' />
                         </Form.Field>

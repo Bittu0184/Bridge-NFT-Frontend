@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
 import { useHistory } from "react-router-dom";

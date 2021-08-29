@@ -2,7 +2,6 @@ import { Component } from "react";
 import { Button, Container, Dimmer, Divider, Header, Image, Loader, Message, Segment } from "semantic-ui-react";
 import configData from '../Config.json';
 import { withAuth0 } from '@auth0/auth0-react';
-import CustomCardTraditionalArt from "../CustomCardTraditionalArt";
 import ShowProducts from "./ShowProducts";
 
 

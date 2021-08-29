@@ -8,7 +8,7 @@ class CustomCard extends React.Component<any,any>{
         
         return (
             <Card.Group centered>
-            <Card style={{minWidth: 350,color:'black',marginRight:10, paddingTop:10, paddingBottom:10, marginTop:10, backgroundColor:'#F4F4F4',borderRadius: 20}} raised as={NavLink} to="/mintnfft" activeStyle={{color:'black', textDecoration: 'none'}}>
+            <Card style={{minWidth: 350,color:'black',marginRight:10, paddingTop:10, paddingBottom:10, marginTop:10, backgroundColor:'#F4F4F4',borderRadius: 20}} raised as={NavLink} to="/mintnft" activeStyle={{color:'black', textDecoration: 'none'}}>
             <Image width="300" height="300" style={{borderRadius: 20}} src={process.env.REACT_APP_AWS_S3_BASE_URI + 'sellnft.svg' } alt="NFT" bordered centered circular></Image>
                 <Card.Content>
                     <Card.Header>Mint your own NFT!!</Card.Header>

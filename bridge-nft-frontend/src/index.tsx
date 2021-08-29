@@ -5,10 +5,12 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'semantic-ui-css/semantic.min.css';
 import { Auth0Provider } from "@auth0/auth0-react";
-//import ReactGA from 'react-ga';
+import ReactGA from 'react-ga';
+import { BrowserRouter } from 'react-router-dom';
 
-//ReactGA.initialize("UA-204304793-1");
+ReactGA.initialize("UA-204304793-1");
 ReactDOM.render(
+  <BrowserRouter>
   <Auth0Provider
     domain={process.env.REACT_APP_AUTH_DOMAIN}
     clientId={process.env.REACT_APP_CLIENT_ID}
@@ -16,7 +18,8 @@ ReactDOM.render(
     audience={process.env.REACT_APP_AUTH_AUDIENCE}
   >
     <App />
-  </Auth0Provider>,
+  </Auth0Provider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

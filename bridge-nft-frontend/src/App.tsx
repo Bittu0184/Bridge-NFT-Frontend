@@ -1,9 +1,10 @@
-import CustomNavbar from './CustomNavbar';
+import loadable from '@loadable/component';
+const OtherComponent = loadable(() => import('./CustomNavbar'));
 
 function App() {
   return (
     <div>
-        <CustomNavbar />
+        <OtherComponent />
     </div>
   );
 }

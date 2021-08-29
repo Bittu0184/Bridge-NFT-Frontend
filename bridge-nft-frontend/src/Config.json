@@ -18,5 +18,7 @@
     "apiGetArtByAuth":"/get/art/auth",
     "apiGetCategory":"/get/category",
     "apiCreateOrder":"createorder",
-    "apiVerifySignature":"verify/signature"
+    "apiVerifySignature":"verify/signature",
+    "apiBlog":"blog/details",
+    "apiBlogPostDetails":"blog/data/"
 }

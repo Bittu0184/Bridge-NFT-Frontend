@@ -2,11 +2,16 @@ import { Component } from "react";
 import { Button, Container, Grid, Header, Icon, Segment } from "semantic-ui-react";
 import Footer from "./Footer";
 import ResponsiveContainer from "./ResponsiveContainer";
+import {Helmet} from 'react-helmet';
 
 class Contact extends Component{
     render(){
         return(
             <ResponsiveContainer>
+                <Helmet>
+                <title>Contact Unfold Innovates</title>
+                <meta name="description" content="Connect with local artists, architects and know story behind their art." />
+                </Helmet>
                 <Segment style={{paddingTop: 70}}>
                     <Container text style={{minHeight: 450}}>
                         <Grid>

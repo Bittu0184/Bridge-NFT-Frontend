@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import './ShowNFTs.css';
 import { withAuth0 } from '@auth0/auth0-react';
 import configData from './Config.json';
+import {Helmet} from 'react-helmet';
 
 class ShowNFTs extends React.Component<any,any>{
     constructor(props:any) {
@@ -33,7 +34,6 @@ class ShowNFTs extends React.Component<any,any>{
                   isLoaded: true,
                   metadata: result.metadata
                 });
-                console.log(this.state.metadata);
               },(error) => {
                 this.setState({
                   isLoaded: true,
@@ -51,9 +51,12 @@ class ShowNFTs extends React.Component<any,any>{
       render() {
         const { error, isLoaded } = this.state;
        if (!isLoaded) {
-        console.log("Loading...");
             return  (  
               <ResponsiveContainer>
+                <Helmet>
+                <title>Mint NFT - Digital Art on Ethereum blockchain</title>
+                <meta name="description" content="Mint NFT platform on Ethereum Blockchain for local Indian Artist. Helping Indian Artist to make their mark in Blockchain world." />
+                </Helmet>
                 <Segment style={{minHeight: 800, marginTop: 50}}>
                   <Dimmer inverted active>
                     <Loader size='massive'/>
@@ -63,7 +66,6 @@ class ShowNFTs extends React.Component<any,any>{
               </ResponsiveContainer>
             )
         } else if(error){
-          console.log("In error "+ error.message);
           return (
             <ResponsiveContainer>
               <Segment style={{minHeight: 800, marginTop: 50}}>
@@ -75,7 +77,6 @@ class ShowNFTs extends React.Component<any,any>{
             </ResponsiveContainer>
           )
         }else {
-          console.log("Loaded");
           return (
             <ResponsiveContainer>
               <Container className="customContainer">

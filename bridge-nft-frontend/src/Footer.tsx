@@ -25,6 +25,7 @@ class Footer extends Component{
                         <List.Item as={NavLink} to="/artists">Upload Art</List.Item>
                         <List.Item as={NavLink} to="/drop">Mint NFT</List.Item>
                         <List.Item as={NavLink} to="/drop">Sell NFT</List.Item>
+                        <List.Item as={NavLink} to="/blog">Blogs</List.Item>
                         </List>
                     </Grid.Column>
                     <Grid.Column width={7}>

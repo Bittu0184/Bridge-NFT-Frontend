@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import ResponsiveContainer from "./ResponsiveContainer";
 import configData from './Config.json';
 import ArtistCard from "./ArtistCard";
+import {Helmet} from 'react-helmet';
 
 class AllArtists extends Component<any,any>{
     constructor(props:any) {
@@ -36,9 +37,12 @@ class AllArtists extends Component<any,any>{
     render() {
         const { error, isLoaded } = this.state;
         if (error) {
-            console.log("Error " + error.message);
             return (
               <ResponsiveContainer>
+                <Helmet>
+                <title>Indian Artists</title>
+                <meta name="description" content="Buy products from artist you connect most with, artist with their products and story behind their art." />
+                </Helmet>
               <Segment style={{minHeight: 800, marginTop: 50}}>
                 <Header as='h1'>Fail To Connect To server: {error.message}</Header>
               </Segment>
@@ -46,9 +50,12 @@ class AllArtists extends Component<any,any>{
             </ResponsiveContainer>
             )
         } else if (!isLoaded) {
-          console.log("waiting")
             return   (  
               <ResponsiveContainer>
+                <Helmet>
+                <title>Indian Artists</title>
+                <meta name="description" content="Buy products from artist you connect most with, artist with their products and story behind their art." />
+                </Helmet>
                 <Segment style={{minHeight: 800, marginTop: 50}}>
                   <Dimmer inverted active>
                     <Loader size='massive'/>
@@ -58,9 +65,12 @@ class AllArtists extends Component<any,any>{
               </ResponsiveContainer>
             )
         } else {
-          console.log("Loaded ")
             return (
                 <ResponsiveContainer>
+                  <Helmet>
+                <title>Indian Artists</title>
+                <meta name="description" content="Buy products from artist you connect most with, artist with their products and story behind their art." />
+                </Helmet>
                 <Segment>
                     <Container textAlign='center' >
                         <Header cenetered as='h1'>!!Our Beloved Artist!!</Header>

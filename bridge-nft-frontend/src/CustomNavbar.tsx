@@ -1,7 +1,8 @@
 import React from "react";
 import {
     BrowserRouter as Router,
-    Route
+    Route,
+    Switch
   } from "react-router-dom";
 import ShowNFTs from "./ShowNFTs";
 import AccountPage from "./AccountPage";
@@ -20,11 +21,14 @@ import RouteChangeTracker from "./RouteChangeTracker";
 import TnC from "./TnC";
 import AdminPanel from "./ArtistsAdminPages/AdminPanel";
 import CaptureOrderDetails from "./PaymentGateway/CaptureOrderDetails";
+import EditProduct from "./ArtistsAdminPages/EditProduct";
+import Blog from "./StaticPages/Blog";
+import BlogDetail from "./StaticPages/BlogDetail";
 
 class CustomNavbar extends React.Component<any,any>{
     render() {
         return(
-            <Router>
+            <Switch>
               <Route path="/" exact component={HomepageLayout}/>
               <Route path="/home" exact component={HomepageLayout}/>
               <Route path="/explore" exact component={ShowNFTs}/>
@@ -42,8 +46,11 @@ class CustomNavbar extends React.Component<any,any>{
               <Route path="/tnc" exact component={TnC}/>
               <Route path="/artistpanel" exact component={AdminPanel}/>
               <Route path="/orderDetails" exact component={CaptureOrderDetails}/>
+              <Route path="/editproduct" exact component={EditProduct}/>
+              <Route path="/blog" exact component={Blog}/>
+              <Route path="/full/blog" exact component={BlogDetail}/>
               <RouteChangeTracker/>
-            </Router>
+            </Switch>
         );
     }
 }

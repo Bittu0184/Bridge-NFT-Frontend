@@ -19,15 +19,19 @@ class MintNFTForm extends React.Component<any,any> {
 
 
     async handleMint(e){
-        alert("Uploading this: " + this.props.values.ipfsHash + "To  Address: " + this.props.values.address);
         e.preventDefault();
         const postBody = {
           address: this.props.values.address,
           datatomint: this.props.values.ipfsHash
         };
         const strPost = JSON.stringify(postBody);
-        alert(strPost)
-        alert(await fetchAPI(process.env.REACT_APP_API_BASE_URI + "mint_nft",strPost))
+        await fetchAPI(process.env.REACT_APP_API_BASE_URI + "mint_nft",strPost)
+        .then((res) => {
+            this.setState({isLoaded: true});
+        },(err) => {
+            this.setState({error: err, isLoaded:true});
+            }
+        )
         this.props.nextStep()
     }
     render(){

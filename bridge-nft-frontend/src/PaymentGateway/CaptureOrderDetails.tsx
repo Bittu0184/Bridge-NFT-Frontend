@@ -93,7 +93,7 @@ class CaptureOrderDetails extends Component<any,any>{
 
 
     render() {
-        const { isLoaded, error, ResponseMessage, isSubmitWaiting, isSucceess, orderId } = this.state;
+        const { isLoaded, error, isSubmitWaiting, isSucceess, orderId } = this.state;
         if(!isLoaded){
             return(
                 <ResponsiveContainer>
